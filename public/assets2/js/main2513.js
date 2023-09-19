@@ -1239,12 +1239,7 @@
         _parent.find(".extra-info").addClass("active");
     });
 
-    $(".btn-remove-cart").on("click", function(e){
-        e.preventDefault();
-        $(this).parents(".item-cart").fadeOut(500, function(){
-            $(this).remove();
-        });
-    });
+
 })(jQuery);
 
 function initSlidePreview() {
@@ -1571,18 +1566,22 @@ if ($(".scrollFilter").length > 0) {
 
 //Qty Up-Down
 $('.detail-qty').each(function () {
-    var qtyval = parseInt($(this).find(".qty-val").val(), 10);
     var $qtyInput = $(this).find(".qty-val");
+    var qtyval = parseInt($qtyInput.val(), 10);
+    var maxQty = parseInt($qtyInput.attr("max"), 10); // Get the maximum quantity from the input's "max" attribute
 
     $(this).find('.plus').on('click', function (event) {
         event.preventDefault();
-        qtyval = qtyval + 1;
-        $qtyInput.val(qtyval);
+        if (qtyval < maxQty) {
+            qtyval = qtyval + 1;
+            $qtyInput.val(qtyval);
+        }
     });
 
     $(this).find(".minus").on("click", function (event) {
-        event.preventDefault();/*  */
+        event.preventDefault();
         qtyval = Math.max(1, qtyval - 1);
         $qtyInput.val(qtyval);
     });
 });
+

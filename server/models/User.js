@@ -27,17 +27,23 @@ const userSchema = mongoose.Schema({
         type:Boolean,
         default:false
     },
-    address:[
-                {
-                    name: {type:String},
-                    mobile: {type:Number},
-                    state:{type:String},
-                    district: {type:String},
-                    city: {type:String},
-                    pin: {type:Number},
-                    address:{type:String}
-                }
-            ]
+    address:[{
+                name: {type:String},
+                mobile: {type:Number},
+                state:{type:String},
+                district: {type:String},
+                city: {type:String},
+                pin: {type:Number},
+                address:{type:String}
+    }],
+
+    cart : [{
+        productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Product', 
+        },     
+        quantity: Number,  
+    }],
 },
 
 {

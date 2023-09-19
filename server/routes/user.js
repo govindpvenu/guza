@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { homePage, signupPage ,loginPage, registerUser ,loginUser,logout,verifyOtp,validateOtp,productDetails,shopPage,accountDetails,updateUser,userDashboard,addAddress,editAddress,manageAddress,orders,postAddress,updateAddress, deleteAddress} = require('../controllers/user/userController')
-const {getCart,getCheckout} = require('../controllers/user/cartController')
+const {getCart,getCheckout,addToCart,changeQuantity,deleteCartItem} = require('../controllers/user/cartController')
 const {protectedRoute,notProtectedRoute,isUserAuth} = require("../middleware/userAuth");
 
 const { check, validationResult } = require('express-validator')
@@ -23,6 +23,9 @@ router.route('/account/manage-address').get(protectedRoute,manageAddress)
 router.route('/account/orders').get(protectedRoute,orders)
 
 router.route('/cart').get(protectedRoute,getCart)
+router.route('/add-to-cart').post(protectedRoute,addToCart)
+router.route('/change-quantity').post(protectedRoute,changeQuantity)
+router.route('/remove-cart/:id').get(protectedRoute,deleteCartItem)
 router.route('/checkout').get(protectedRoute,getCheckout)
 
 

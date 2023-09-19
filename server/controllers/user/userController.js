@@ -65,7 +65,9 @@ const updateUser = asyncHandler(async(req, res) => {
     }else{
         const { name, email, phone, password,npassword } = req.body
         const userUpdate = await User.findOneAndUpdate({ _id: user._id },{ name, email, phone,});
+        console.log(changePassword);
         if (changePassword) {
+            console.log('change pass');
             const hashedPassword = await bcrypt.hash(npassword, 10);
             const userUpdate = await User.findOneAndUpdate({ _id: user._id },{ password:hashedPassword});
         }
@@ -287,7 +289,7 @@ const validateOtp = asyncHandler(async (req, res) => {
               _id: user._id,
             },
           };
-        let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '1d' })
+        let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '5d' })
         res.cookie('user_access', adminToken, { httpOnly: true })
         res.redirect('/')
     } else {

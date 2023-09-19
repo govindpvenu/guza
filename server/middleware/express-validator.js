@@ -36,12 +36,14 @@ const userValidation = [
         }
         }),
         check('cpassword').custom(async value => {
+            changePassword =false
             if (value) {
                 if (value.length<8 || value!==npassword) {
                     throw new Error('Confirm password should match the new password');
                 }
+                changePassword = true
             }
-            changePassword = true
+            
         })
 ]
 const addressValidator=[

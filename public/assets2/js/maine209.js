@@ -1582,7 +1582,26 @@ $('.detail-qty').each(function () {
 
     $(this).find(".minus").on("click", function (event) {
         event.preventDefault();/*  */
-        qtyval = Math.max(1, qtyval - 1);
+        qtyval = Math.max(4, qtyval - 1);
         $qtyInput.val(qtyval);
     });
 });
+
+        // $('.detail-qty').each(function () {
+        //     var qtyval = parseInt($(this).find('.qty-val').text(), 10);
+        //     $('.qty-up').on('click', function (event) {
+        //         event.preventDefault();
+        //         qtyval = qtyval + 1;
+        //         $(this).prev().text(qtyval);
+        //     });
+        //     $('.qty-down').on('click', function (event) {
+        //         event.preventDefault();
+        //         qtyval = qtyval - 1;
+        //         if (qtyval > 1) {
+        //             $(this).next().text(qtyval);
+        //         } else {
+        //             qtyval = 1;
+        //             $(this).next().text(qtyval);
+        //         }
+        //     });
+        // });

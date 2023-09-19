@@ -30,7 +30,7 @@ const adminVerify = async (req, res) => {
                   _id: admin._id,
                 },
               };
-            let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '1d' })
+            let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '5d' })
             res.cookie('admin_access', adminToken, { httpOnly: true })
             res.redirect('/admin')
         } else {
