@@ -13,7 +13,7 @@
                       <div class="col-lg-5">
                         <p class="text-17-medium mb-10">Sneaker Collection</p>
                         <h1 class="mb-30 font-jost font-bold">Good shoes take you good places</h1><a
-                          class="btn btn-border" href="#">Shop Now</a>
+                          class="btn btn-border" href="/shop">Shop Now</a>
                       </div>
                     </div>
                   </div>
@@ -28,7 +28,7 @@
                       <div class="col-lg-5">
                         <p class="text-17-medium mb-10">Sneaker Collection</p>
                         <h1 class="mb-30 font-jost font-bold">Good shoes take you good places</h1><a
-                          class="btn btn-border" href="#">Shop Now</a>
+                          class="btn btn-border" href="/shop">Shop Now</a>
                       </div>
                     </div>
                   </div>
@@ -43,7 +43,7 @@
                       <div class="col-lg-5">
                         <p class="text-17-medium mb-10">Sneaker Collection</p>
                         <h1 class="mb-30 font-jost font-bold">Good shoes take you good places</h1><a
-                          class="btn btn-border" href="#">Shop Now</a>
+                          class="btn btn-border" href="/shop">Shop Now</a>
                       </div>
                     </div>
                   </div>
@@ -65,7 +65,7 @@
       <div class="container"> 
         <div class="row"> 
           <div class="col-7 mb-40">
-            <h3>The Varieties</h3>
+            <h3>Varieties</h3>
           </div>
           <div class="col-5 mb-40">
             <div class="position-relative box-button-top-0">
@@ -77,19 +77,22 @@
           </div>
         </div>
       </div>
+
       <div class="container-slider-padding" style="padding-left: 381.5px;">   
         <div class="box-swiper">
           <div class="swiper-container swiper-scrollbar-4-items swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
             <div class="swiper-wrapper" style="transform: translate3d(-388px, 0px, 0px); transition-duration: 0ms;" id="swiper-wrapper-223ddb2a8dd45926" aria-live="polite">
-              <div class="swiper-slide swiper-slide-prev" style="width: 358px; margin-right: 30px;" role="group" aria-label="1 / 5">
-                <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                  <div class="cardImage"><a href="#"><img class="imageMain" src="assets2/imgs/page/homepage26/cat.png" alt="guza"></a></div>
-                  <div class="cardInfo">
-                    <h5 class="text-24-medium">Nyke Air Force</h5>
-                    <p class="text-17-medium cardDesc">11 items</p>
+              <% product_type.forEach(type => { %>
+                <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group" aria-label="1 / 5">
+                  <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                    <div class="cardImage"><a href="#"><img class="imageMain" style="height:410px; width: 420px;" src="/images/<%= type.firstImage %>" alt="guza"></a></div>
+                    <div class="cardInfo">
+                      <h5 class="text-24-medium"><%= type.product_type %></h5>
+                      <p class="text-17-medium cardDesc"><%= type.productCount %> items</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+                <% }) %>
 
             </div>
           <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
@@ -378,7 +381,7 @@
       <div class="container"> 
         <div class="row"> 
           <div class="col-7 mb-40">
-            <h3>Branded</h3>
+            <h3>Brands</h3>
           </div>
           <div class="col-5 mb-40">
             <div class="position-relative box-button-top-0">
@@ -390,24 +393,29 @@
           </div>
         </div>
       </div>
+      <!-- brand -->
       <div class="container-slider-padding" style="padding-left: 381.5px;">   
         <div class="box-swiper">
           <div class="swiper-container swiper-scrollbar-4-items swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
             <div class="swiper-wrapper" style="transform: translate3d(-388px, 0px, 0px); transition-duration: 0ms;" id="swiper-wrapper-223ddb2a8dd45926" aria-live="polite">
-              <div class="swiper-slide swiper-slide-prev" style="width: 358px; margin-right: 30px;" role="group" aria-label="1 / 5">
+              <% brands.forEach(brand => { %>
+              <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group" aria-label="1 / 5">
                 <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                  <div class="cardImage"><a href="#"><img class="imageMain" src="assets2/imgs/page/homepage26/cat.png" alt="guza"></a></div>
+                  <div class="cardImage"><a href="#"><img class="imageMain" style="height:400px; width: 420px;" src="/images/<%= brand.firstImage %>" alt="guza"></a></div>
                   <div class="cardInfo">
-                    <h5 class="text-24-medium">Nyke Air Force</h5>
-                    <p class="text-17-medium cardDesc">11 items</p>
+                    <h5 class="text-24-medium"><%= brand.brand %></h5>
+                    <p class="text-17-medium cardDesc"><%= brand.productCount %> items</p>
                   </div>
                 </div>
               </div>
+              <% }) %>
 
             </div>
           <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
         </div>
       </div>
+
+      <!-- brand end-->
       <div class="container swiper-full-scroll">
         <div class="swiper-pagination swiper-pagination-popular-product"><div class="swiper-scrollbar-drag" style="transform: translate3d(232.082px, 0px, 0px); transition-duration: 0ms; width: 913.2px;"></div></div>
       </div>
@@ -426,25 +434,7 @@
     </section>
     <!--Video End-->
 
-    <!-- Event -->
-    <section class="section block-sale-event"> 
-      <div class="container"> 
-        <div class="box-sale-event">
-          <div class="row align-items-center"> 
-            <div class="col-lg-6">
-              <div class="image-sale-event wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;"> <img src="https://i.shgcdn.com/cdbaa606-f120-4c6e-a452-8729387f07aa/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Guza"></div>
-            </div>
-            <div class="col-lg-6">
-              <div class="box-padding wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;"><span class="text-17-medium neutral-dark text-uppercase">Sale Event</span>
-                <h3 class="neutral-dark mb-5 mt-10">Summer Shoe <br class="d-none d-lg-block">Limited Offer – ₹200</h3>
-                <p class="body-p2 neutral-dark mb-30">Until 12/27/23. Use code SUMMER43 at checkout</p><a class="btn btn-black" href="#">Shop Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Event  End-->
+
 
     <!-- Features -->
     <section class="section block-icon-box-type3 pb-80" >
@@ -490,9 +480,29 @@
       </div>
     </section>
     <!-- Features End -->
+    
+    <!-- Event -->
+    <section class="section block-sale-event"> 
+      <div class="container"> 
+        <div class="box-sale-event">
+          <div class="row align-items-center"> 
+            <div class="col-lg-6">
+              <div class="image-sale-event wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;"> <img src="https://i.shgcdn.com/cdbaa606-f120-4c6e-a452-8729387f07aa/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Guza"></div>
+            </div>
+            <div class="col-lg-6">
+              <div class="box-padding wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;"><span class="text-17-medium neutral-dark text-uppercase">Sale Event</span>
+                <h3 class="neutral-dark mb-5 mt-10">Summer Shoe <br class="d-none d-lg-block">Limited Offer – ₹200</h3>
+                <p class="body-p2 neutral-dark mb-30">Until 12/27/23. Use code SUMMER43 at checkout</p><a class="btn btn-black" href="#">Shop Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Event  End-->
 
     <!-- News Letter -->
-    <section class="section">
+    <section class="section" style="padding: 120px 0px;">
       <div class="container">
         <div class="box-subsciber">
           <div class="text-17-medium wow fadeInLeft">NEWSLETTER</div>
@@ -564,3 +574,4 @@
     </div>
   </footer>
 </body>
+

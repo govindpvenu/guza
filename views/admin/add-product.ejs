@@ -44,7 +44,7 @@
                                                             <div class="col-sm-9">
                                                                 <select required name="category"
                                                                     class="js-example-basic-single w-100" name="state">
-                                                                    <option ><-Select one-></option>
+                                                                    <option disabled selected>Select category</option>
                                                                     <% allCategories.forEach(category=> { %>
                                                                         <option >
                                                                             <%= category.name%>
@@ -54,14 +54,22 @@
                                                             </div>
                                                         </div>
 
-
-
+                                                        
                                                         <div class="mb-4 row align-items-center">
                                                             <label
                                                                 class="col-sm-3 col-form-label form-label-title">Brand</label>
                                                             <div class="col-sm-9">
                                                                 <input required name="brand" class="form-control"
                                                                     type="text" placeholder="Brand name">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label
+                                                                class="col-sm-3 col-form-label form-label-title">Product Type</label>
+                                                            <div class="col-sm-9">
+                                                                <input required name="product_type" class="form-control"
+                                                                    type="text" placeholder="Eg:Casual,Formal..">
                                                             </div>
                                                         </div>
 
@@ -91,6 +99,32 @@
                                                             </div>
                                                         </div>
 
+                                                        
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label
+                                                                class="col-sm-3 col-form-label form-label-title">Size</label>
+                                                            <div class="col-sm-9">
+                                                                <select required name="size"
+                                                                    class="js-example-basic-single w-100" name="state">
+                                                                    <option disabled>Select size</option>
+                                                                        <option >XS</option>
+                                                                        <option >S</option>
+                                                                        <option >L</option>
+                                                                        <option >XL</option>
+                                                                        <option >XXL</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label class="form-label-title col-sm-3 mb-0">Stock status</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="radio" id="html" name="stock_status" value="Available" checked="checked"4>
+                                                                <label for="html" >Yes</label>
+                                                                <input type="radio" id="css" name="stock_status" value="Not Available">
+                                                                <label for="css">No</label>
+                                                            </div>
+                                                        </div>
 
                                                         <div class="mb-4 row align-items-center">
                                                             <label
@@ -102,15 +136,18 @@
                                                             </div>
                                                         </div>
 
-
                                                         <div class="mb-4 row align-items-center">
-                                                            <label
-                                                                class="col-sm-3 col-form-label form-label-title">Images</label>
+                                                            <label class="col-sm-3 col-form-label form-label-title">Images</label>
                                                             <div class="col-sm-9">
-                                                                <input required name="image"
+                                                                <div class="field" >
+                                                                <h3>Upload your images</h3>
+                                                                <input type="file" id="files" name="image" multiple />
+                                                                </div>
+                                                                <!-- <input required name="image"
                                                                     class="form-control form-choose" type="file"
-                                                                    id="formFile" multiple>
+                                                                    id="formFile" accept="image/*" multiple> -->
                                                             </div>
+
                                                         </div>
 
                                                         <div class="col-xxl-4">
@@ -118,6 +155,7 @@
                                                                 class="btn text-white theme-bg-color">Add
                                                                 Product</button>
                                                         </div>
+
                                                     </form>
                                                 </div>
                                             </div>
@@ -128,17 +166,6 @@
                         </div>
                         <!-- New Product Add End -->
 
-                        <!-- footer Start -->
-                        <div class="container-fluid">
-                            <footer class="footer">
-                                <div class="row">
-                                    <div class="col-md-12 footer-copyright text-center">
-                                        <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
-                                    </div>
-                                </div>
-                            </footer>
-                        </div>
-                        <!-- footer En -->
                     </div>
                     <!-- Container-fluid End -->
             </div>
@@ -168,3 +195,58 @@
 
 
 </body>
+<style>
+    input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
+  display: block;
+  background: #444;
+  border: 1px solid black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: black;
+}
+</style>
+<script>
+    $(document).ready(function() {
+  if (window.File && window.FileList && window.FileReader) {
+    $("#files").on("change", function(e) {
+      var files = e.target.files,
+        filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) {
+        var f = files[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+          $("<span class=\"pip\">" +
+            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
+            "<br/><span class=\"remove\">Remove image</span>" +
+            "</span>").insertAfter("#files");
+          $(".remove").click(function(){
+            $(this).parent(".pip").remove();
+          });
+        });
+        fileReader.readAsDataURL(f);
+      }
+      console.log(files);
+    });
+  } else {
+    alert("Your browser doesn't support to File API")
+  }
+});
+</script>

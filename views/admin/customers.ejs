@@ -43,10 +43,11 @@
                                                         <tr>
                                                             <th>No.</th>
                                                             <th>Name</th>
+                                                            <th>Date joined</th>
+
                                                             <th>Phone</th>
                                                             <th>Email</th>
                                                             <th>Status</th>
-                                                            <th>Option</th>
                                                         </tr>
                                                     </thead>
 
@@ -65,6 +66,9 @@
                                                                         </div>
                                                                     </td>
 
+                                                                    <td>
+                                                                        <%= customer.createdAt.toDateString() %>
+                                                                    </td>
 
                                                                     <td>
                                                                         <%= customer.phone %>
@@ -77,14 +81,14 @@
 
                                                                     <td>
                                                                         <% if (customer.isBlocked) { %>
-                                                                            <form class="d-inline-flex">
+                                                                            <form class="d-inline-flex" style="padding-left: 100px;">
                                                                                 <a href="/admin/customers/unblock/<%= customer._id %>"
                                                                                     class="align-items-center btn btn-theme d-flex">
                                                                                     Unblock
                                                                                 </a>
                                                                             </form>
                                                                             <% } else { %>
-                                                                                <form class="d-inline-flex">
+                                                                                <form class="d-inline-flex" style="padding-left: 100px;">
                                                                                     <a href="javascript:void(0)"
                                                                                         class="align-items-center btn btn-secondary d-flex"
                                                                                         data-bs-toggle="modal"
@@ -97,28 +101,6 @@
                                                                     </td>
 
 
-                                                                    <td>
-                                                                        <ul>
-                                                                            <li>
-                                                                                <a href="order-detail.html">
-                                                                                    <i class="ri-eye-line"></i>
-                                                                                </a>
-                                                                            </li>
-
-                                                                            <li>
-                                                                                <a href="javascript:void(0)">
-                                                                                    <i class="ri-pencil-line"></i>
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#exampleModalToggle">
-                                                                                    <i class="ri-delete-bin-line"></i>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </td>
                                                                 </tr>
 
                                                                 <!-- Delete Modal Box Start -->
@@ -213,18 +195,6 @@
                             </div>
                         </div>
                         <!-- All User Table Ends-->
-
-                        <div class="container-fluid">
-                            <!-- footer start-->
-                            <footer class="footer">
-                                <div class="row">
-                                    <div class="col-md-12 footer-copyright text-center">
-                                        <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
-                                    </div>
-                                </div>
-                            </footer>
-                            <!-- footer end-->
-                        </div>
                     </div>
                     <!-- Container-fluid end -->
             </div>

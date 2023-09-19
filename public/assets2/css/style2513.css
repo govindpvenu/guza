@@ -309,7 +309,7 @@ h1 {
 
 h2 {
   font-size: 46px;
-  line-height: 54px;
+  line-height: 200px;
 }
 
 h3 {
@@ -10154,10 +10154,11 @@ footer a {
 
 .block-banner-shop {
   padding: 177px 0px;
-  background-image: url(../imgs/page/shop1/banner.png);
-  background-position: left top;
+  background-image: url(https://img.freepik.com/free-photo/friends-standing-with-space-themselves-due-social-distancing_53876-94751.jpg?w=1380&t=st=1694620433~exp=1694621033~hmac=6e251a0aa433c137d2c24c3a0392cd35e7954714df81befb051a515a291ba470);
+  background-position: left ;
   background-repeat: no-repeat;
   background-size: cover;
+  
 }
 
 .breadcrumbs {
@@ -10177,6 +10178,7 @@ footer a {
   height: 20px;
   width: 10px;
   background-image: url(../imgs/template/icons/arrow-breadcrumb.svg);
+  background-color: whitesmoke;
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -10187,13 +10189,13 @@ footer a {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  color: #111111;
+  color: black;
 }
 .breadcrumbs ul li:last-child::before {
   display: none;
 }
 .breadcrumbs ul li:last-child a {
-  color: #999999;
+  color: black;
 }
 
 .box-filter-top {

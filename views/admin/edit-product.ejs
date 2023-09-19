@@ -23,7 +23,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="card-header-2">
-                                                        <h5>Product Information</h5>
+                                                        <h5>Edit Product</h5>
                                                     </div>
                                                     <form class="theme-form theme-form-2 mega-form"
                                                         action="/admin/products/edit/<%= product._id%>"
@@ -64,6 +64,16 @@
                                                             </div>
                                                         </div>
 
+                                                        
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label
+                                                                class="col-sm-3 col-form-label form-label-title">Product Type</label>
+                                                            <div class="col-sm-9">
+                                                                <input required name="product_type" class="form-control"
+                                                                    type="text" value="<%= product.product_type %>">
+                                                            </div>
+                                                        </div>
+
 
                                                         <div class="mb-4 row align-items-center">
                                                             <label class="form-label-title col-sm-3 mb-0">Regular Price</label>
@@ -90,6 +100,40 @@
                                                             </div>
                                                         </div>
 
+                                                                                                                
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label
+                                                                class="col-sm-3 col-form-label form-label-title">Size</label>
+                                                            <div class="col-sm-9">
+                                                                <select required name="size"
+                                                                    class="js-example-basic-single w-100" name="state">
+                                                                    <option selected disabled> <%= product.size %></option>
+                                                                        <option >XS</option>
+                                                                        <option >S</option>
+                                                                        <option >L</option>
+                                                                        <option >XL</option>
+                                                                        <option >XXL</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label class="form-label-title col-sm-3 mb-0">Stock status</label>
+                                                            <div class="col-sm-9">
+                                                                <% if (product.size==="Not Available") { %>
+                                                                    <input type="radio" id="html" name="stock_status" value="Available" >
+                                                                    <label for="html" >Yes</label>
+                                                                    <input type="radio" id="css" name="stock_status" value="Not Available" checked="checked">
+                                                                    <label for="css">No</label>
+                                                                <% } else { %>
+                                                                    <input type="radio" id="html" name="stock_status" value="Available" checked="checked">
+                                                                    <label for="html" >Yes</label>
+                                                                    <input type="radio" id="css" name="stock_status" value="Not Available">
+                                                                    <label for="css">No</label>
+                                                                <% } %>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="mb-4 row align-items-center">
                                                             <label
                                                                 class="form-label-title col-sm-3 mb-0">Description</label>
@@ -99,18 +143,27 @@
                                                                     ><%= product.description %></textarea>
                                                             </div>
                                                         </div>
-
-                                                        <div class="mb-4 row align-items-center">
-                                                            <label
-                                                                class="col-sm-3 col-form-label form-label-title">Images</label>
-                                                            <div class="col-sm-9">
-                                                                <% for( let i = 0; i < product.images.length; i++ ) { %>
-                                                                    <img src="/images/<%= product.images[i] %>" alt="" style="width:100px; height:auto" class="p-2"  id="imageItem">
-                                                                <% } %>
-                                                                <input  name="image"
-                                                                    class="form-control form-choose" type="file"
-                                                                    id="formFile" multiple>
+                                                        <!-- <div class="mb-4">
+                                                            <label for="product_name" class="form-label">Images</label>
+                                                            <input type="hidden" class="form-control" value="<%=product.image%>" name="imageImport">
+                                                        </div> -->
+                                                        <div class="card-header">
+                                                            <h4>Images</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="input-upload">
+                                                                <div class="d-flex"> 
+                                                                    <% for(var i=0;i<product.images.length;i++){ %>
+                                                                        <img src="/images/<%= product.images[i] %>" alt="<%= product.images[1] %>" width="m-auto" height="150px">
+                                                                        <div><a class="btn-sm text  btn-danger" href="/admin/delete-image/<%=product._id%>/<%= product.images[i]%>" onclick="return confirm('This action is going to delete the selected image.')">X</a></div>
+                                                                    <% } %>
+                                                                </div>
+                                                                <input multiple name="image" id="image" class="form-control" type="file">
                                                             </div>
+                                                        </div>
+                                                        <div class="mb-4">
+                                                            <label for="product_name" class="form-label"></label>
+                                                            <input type="hidden" class="form-control" value="<%=product.images%>" name="imageImport">
                                                         </div>
 
                                                         <div class="col-xxl-4">
@@ -128,17 +181,6 @@
                         </div>
                         <!-- New Product Add End -->
 
-                        <!-- footer Start -->
-                        <div class="container-fluid">
-                            <footer class="footer">
-                                <div class="row">
-                                    <div class="col-md-12 footer-copyright text-center">
-                                        <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
-                                    </div>
-                                </div>
-                            </footer>
-                        </div>
-                        <!-- footer En -->
                     </div>
                     <!-- Container-fluid End -->
             </div>
@@ -168,3 +210,50 @@
 
 
 </body>
+<style>
+
+/* CSS for image preview size */
+.image-preview {
+    max-width: 200px; /* Set the maximum width */
+    max-height: 200px; /* Set the maximum height */
+    margin: 5px; /* Add margin for spacing */
+}
+
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const removeButtons = document.querySelectorAll(".remove-image");
+        removeButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+                const index = this.getAttribute("data-index");
+                // Remove the image from the DOM
+                this.parentNode.remove();
+                // Add logic to remove the corresponding image from your data
+            });
+        });
+
+        // Handle newly selected images
+// Inside the JavaScript code for handling newly selected images
+const newImagesInput = document.querySelector('input[name="new_images"]');
+newImagesInput.addEventListener("change", function () {
+    const files = this.files;
+    const imageContainer = this.nextElementSibling; // Assuming it's the div after the input
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            // Create an image element, apply the CSS class, and append it to the container
+            const img = document.createElement("img");
+            img.src = event.target.result;
+            img.classList.add("image-preview"); // Apply the CSS class
+            imageContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+    });
+</script>
+
+  
+  

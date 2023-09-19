@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="/assets3/css/maind134.css?v=3.4">
+
+<main class="main">
+    <div class="section block-breadcrumb">
+      <div class="container"> 
+        <div class="breadcrumbs"> 
+          <ul> 
+            <li> <a href="/">Home </a></li>
+            <li> <a href="/account">Account</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="dashboard-menu">
+                                <ul class="nav flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="dashboard-tab"  href="/account" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="account-detail-tab" href="/account/account-details" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="track-orders-tab" href="/account/add-address" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Add Address</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link active" id="address-tab"  href="/account/manage-address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>Manage Address</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="orders-tab" href="/account/orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="page-login-register.html"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="tab-content dashboard-content">
+                                   
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5 class="mb-0">Edit Address</h5>
+                                            </div>
+                                            <div class="card-body contact-from-area">
+                                                           
+                                            <!-- express validator message -->
+                                            <% if(typeof alert != 'undefined') { %>
+                                                <% alert.forEach(function(error) { %>
+                                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                        <%= error.msg %>
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                          <span aria-hidden="true">x</span>
+                                                        </button>
+                                                      </div>
+                                                <% }) %>
+                                            <% } %>
+                                                <p>Here you can edit your addresses that you have added.</p>
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <form class="contact-form-style mt-30 mb-50" action="/account/edit-address/<%= address._id %>" method="post">
+                                                            <div class="input-style mb-20">
+                                                                <label>Name</label>
+                                                                <input  required name="name" value="<%= address.name %>" type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>Mobile number</label>
+                                                                <input  required name="mobile" value="<%= address.mobile %>" type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>State</label>
+                                                                <input required  name="state" value="<%= address.state %>" type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>District</label>
+                                                                <input required  name="district" value="<%= address.district %>" type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>City</label>
+                                                                <input required  name="city" value="<%= address.city %>" type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>Postal code</label>
+                                                                <input  required name="pin" value="<%= address.pin %>" type="text" class="square">
+                                                            </div>
+                                                            <div class="input-style mb-20">
+                                                                <label>Address</label>
+                                                                <input required name="address" value="<%= address.address %>" type="text" class="square">
+                                                            </div>
+                                                            
+                                                            <button class="submit submit-auto-width" type="submit">Save changes</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<main>

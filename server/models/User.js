@@ -27,6 +27,17 @@ const userSchema = mongoose.Schema({
         type:Boolean,
         default:false
     },
+    address:[
+                {
+                    name: {type:String},
+                    mobile: {type:Number},
+                    state:{type:String},
+                    district: {type:String},
+                    city: {type:String},
+                    pin: {type:Number},
+                    address:{type:String}
+                }
+            ]
 },
 
 {

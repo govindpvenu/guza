@@ -20,16 +20,12 @@ const addProduct = asyncHandler(async (req, res) => {
 //POST
 //@route /admin/product/post-product
 const postProduct = asyncHandler(async (req, res) => {
-    const { title, description, brand, price, category,regular_price,sales_price,quantity } = req.body;
+  console.log(req.body);
+
+    const { title, description, brand, price, category,regular_price,sales_price,quantity,size,product_type,stock_status} = req.body;
     const category_id= await Category.findOne({name:category},{})
+    const fileNames = req.files.map(file => file.filename); 
 
-    const images = req.files;
-    const imageFilenames = [];
-
-    for (const image of images) {
-      const filename = image.filename
-      imageFilenames.push(filename);
-    }
     const product = await Product.create({
       title,
       description,
@@ -38,8 +34,12 @@ const postProduct = asyncHandler(async (req, res) => {
       regular_price,
       sales_price,
       quantity,
+      size,
+      product_type,
+      stock_status,
       category:category_id,
-      images:imageFilenames
+      images:fileNames,
+  
     });
   await req.flash('info', 'Product added successfully');
   res.redirect('/admin/products')
@@ -51,28 +51,29 @@ const editProduct = asyncHandler(async(req,res)=>{
     let product_id = req.params.id;
     let product = await Product.findOne({ _id: product_id });
     const allCategories= await Category.find({})
-    console.log(product);
     res.render('admin/edit-product',{layout: "layouts/adminLayout",product, allCategories})
 })
 
 //post
 //@route /admin/product/edit/:id
 const updateProduct = asyncHandler(async(req,res)=>{
-    console.log(req.body);
 
     let product_id = req.params.id;
     const { title, description, brand, category,regular_price,sales_price,quantity } = req.body;
     const category_id= await Category.findOne({name:category},{})
-    const images = req.files;
-    if (images.length) {
-        const imageFilenames = [];
-        for (const image of images) {
-          const filename = image.filename
-          imageFilenames.push(filename);
-        }
-        const product = await Product.findOneAndUpdate({ _id: product_id },{images:imageFilenames});
+    const fileNames = req.files.map(file => file.filename); 
+    const imgImp = req.body.imageImport.split(',')
+    console.log('fileNamesU:'+fileNames);
+    console.log('imgImp:'+imgImp);
+
+    const imgArr = [...fileNames,...imgImp];
+ 
+    console.log('imgArr:'+imgArr);
+    if(req.files.length){
+      const product = await Product.findByIdAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id,images: imgArr});
+    }else{
+      const product = await Product.findByIdAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id});
     }
-    const product = await Product.findOneAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id,});
     await req.flash('info', 'Product edited successfully');
     res.redirect('/admin/products')
 })
@@ -86,6 +87,28 @@ const deleteProduct = asyncHandler(async(req,res)=>{
     res.redirect('/admin/products')
 })
 
+//delete product image
+
+const deleteImage = async (req, res) => {
+  const id = req.params.id;
+  const img = req.params.img;
+
+  try {
+      const updatedDocument = await Product.findOneAndUpdate(
+          { _id: id },
+          { $pull: { images: img } },
+      );
+
+      if (!updatedDocument) {
+          console.log('Document not found');
+          return res.status(404).json({ message: 'Document not found' });
+      }
+      res.redirect('/admin/products/edit/'+id)
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'An error occurred while deleting the element' });
+  }
+};
 module.exports = {
     products,
     addProduct,
@@ -93,4 +116,5 @@ module.exports = {
     editProduct,
     updateProduct,
     deleteProduct,
+    deleteImage
 }

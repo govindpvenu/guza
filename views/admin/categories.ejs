@@ -48,6 +48,7 @@
                                                     <table class="table all-package theme-table" id="table_id">
                                                         <thead>
                                                             <tr>
+                                                                <th>No.</th>
                                                                 <th>Icon</th>
                                                                 <th>Category Name</th>
                                                                 <th>Date</th>
@@ -56,8 +57,12 @@
                                                         </thead>
 
                                                         <tbody>
+                                                            <% a=1 %>
                                                             <% allCategories.forEach(category=> { %>
                                                                 <tr>
+                                                                    <td>
+                                                                        <%= a++%>
+                                                                    </td>
                                                                     <td>
                                                                         <div class="category-icon">
                                                                             <img src="/images/<%= category.image %>"
@@ -69,17 +74,11 @@
                                                                         <%= category.name %>
                                                                     </td>
                                                                     <td>
-                                                                        <%= category.date.toDateString() %>
+                                                                        <%= category.createdAt.toDateString() %>
                                                                     </td>
 
                                                                     <td>
                                                                         <ul>
-                                                                            <li>
-                                                                                <a href="order-detail.html">
-                                                                                    <i class="ri-eye-line"></i>
-                                                                                </a>
-                                                                            </li>
-
                                                                             <li>
                                                                                 <a
                                                                                     href="/admin/categories/edit/<%= category._id %>">
@@ -197,18 +196,6 @@
                             </div>
                         </div>
                         <!-- All User Table Ends-->
-
-                        <div class="container-fluid">
-                            <!-- footer start-->
-                            <footer class="footer">
-                                <div class="row">
-                                    <div class="col-md-12 footer-copyright text-center">
-                                        <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
-                                    </div>
-                                </div>
-                            </footer>
-                            <!-- footer end-->
-                        </div>
                     </div>
                     <!-- Container-fluid end -->
             </div>

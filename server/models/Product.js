@@ -6,11 +6,15 @@ const productSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    description:{
-        type:String,
+    category:{
+        type:Object,
         required:true
     },
     brand:{
+        type:String,
+        required:true
+    },
+    product_type:{
         type:String,
         required:true
     },
@@ -26,23 +30,30 @@ const productSchema = mongoose.Schema({
         type:Number,
         required:true
     },
-    category:{
-        type:Object,
+    size:{
+        type:String,
+        required:true
+    },
+    stock_status:{
+        type:String,
+        required:true
+    },
+    description:{
+        type:String,
         required:true
     },
     images:{
         type:Array,
         required:true
     },
-    date: {
-        type: Date,
-        default: Date.now,
-      },
       is_Listed:{
         type:Boolean,
         default:true
     }
 },
+{
+    timestamps:true
+}
 )
 
 module.exports = mongoose.model("Product",productSchema)

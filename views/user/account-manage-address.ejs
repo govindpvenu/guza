@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="/assets3/css/maind134.css?v=3.4">
+
+<main class="main">
+    <div class="section block-breadcrumb">
+      <div class="container"> 
+        <div class="breadcrumbs"> 
+          <ul> 
+            <li> <a href="/">Home </a></li>
+            <li> <a href="/account">Account</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="dashboard-menu">
+                                <ul class="nav flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="dashboard-tab"  href="/account" role="tab" aria-controls="dashboard" aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="account-detail-tab" href="/account/account-details" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="track-orders-tab" href="/account/add-address" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Add Address</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link active" id="address-tab"  href="/account/manage-address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>Manage Address</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="orders-tab" href="/account/orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="page-login-register.html"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content dashboard-content">
+
+
+                                <!-- flash message -->
+                                <% messages.forEach(element=> { %>
+                                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                    <%= element %>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <% }) %>
+                                    <div class="row">
+                                        <% i=0 %>
+                                        <% locals.user.address.forEach(ad => { %>
+                                            <% i++ %>
+                                            <div class="col-lg-6" style="padding-top: 20px;">
+                                                <div class="card mb-3 mb-lg-0">
+                                                    <div class="card-header">
+                                                        <div style="padding-left: 260px; ">
+                                                            <a href="/account/edit-address/<%= ad._id %>" class="btn-small"><i class="fi-rs-pencil"></i></a>
+                                                            <a href="/account/delete-address/<%= ad._id %>" style="padding-left: 10px; " href="#"><i class="fi-rs-trash"></i></a>
+                                                        </div>
+                                                        <h5 class="mb-0">Address <%= i %></h5>
+                                                        
+                                                      </div>
+                                                    <div class="card-body">
+                                                        <p>Name:<%= ad.name %></p>
+                                                        <p>Mobile number:<%= ad.mobile %></p>
+                                                        <p>State:<%= ad.state %></p>
+                                                        <p>District:<%= ad.district %></p>
+                                                        <p>City:<%= ad.city %></p>
+                                                        <p>Postal code:<%= ad.pin %></p>
+                                                        <p>Address:<%= ad.address %></p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <% }) %>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<main>

@@ -39,8 +39,8 @@ module.exports = {
                     //     id: payload.id
                     // }
                     let user = await User.findById(payload.user._id);
-                    console.log(user);
                     res.locals.user = user;
+                    module.exports.userData = user
                     next()//this give access to the route
                 }
               })
@@ -63,11 +63,11 @@ module.exports = {
                     //     id: payload.id
                     // }
                     let user = await User.findById(payload.user._id);
-                    console.log(user);
                     res.locals.user = user;
                     next()//this give access to the route
                 }
               })
         }
     }
+
 }

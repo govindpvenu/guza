@@ -28,23 +28,16 @@ app.use(
 );
 
 // setup flash
-app.use(
-  flash({
-    sessionKeyName: 'express-flash-message',
-  })
-);
+app.use(flash({sessionKeyName: 'express-flash-message',}));
 
-//bodyparser
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
 
 //Template engine
 app.use(expressLayouts);
 app.set('layout','./layouts/authLayout','./layouts/adminLayout', './layouts/userLayout');
 app.set('view engine', 'ejs');
+
+//bodyparser
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //Database connection
 const connectDB = require('./server/config/mongodb');
