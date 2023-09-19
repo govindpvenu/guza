@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { homePage, signupPage ,loginPage, registerUser ,loginUser,logout,verifyOtp,validateOtp,productDetails,shopPage,accountDetails,updateUser,userDashboard,addAddress,editAddress,manageAddress,orders,postAddress,getCart,getCheckout,updateAddress, deleteAddress} = require('../controllers/userController')
+const { homePage, signupPage ,loginPage, registerUser ,loginUser,logout,verifyOtp,validateOtp,productDetails,shopPage,accountDetails,updateUser,userDashboard,addAddress,editAddress,manageAddress,orders,postAddress,updateAddress, deleteAddress} = require('../controllers/user/userController')
+const {getCart,getCheckout} = require('../controllers/user/cartController')
 const {protectedRoute,notProtectedRoute,isUserAuth} = require("../middleware/userAuth");
 
 const { check, validationResult } = require('express-validator')

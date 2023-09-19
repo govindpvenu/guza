@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../config/multerConfig')
 //Controllers
-const { dashboard,adminLogin,adminVerify,adminLogout,} = require('../controllers/adminController')
-const {products,addProduct,postProduct,deleteProduct,editProduct,updateProduct,deleteImage} = require('../controllers/productController')
-const {editCategory,updateCategory,deleteCategory,categories,addCategory,postCategory,}= require('../controllers/categoryController')
-const {customers,blockUser,unblockUser}= require('../controllers/customerController')
-const {orders}= require('../controllers/orderController')
+const { dashboard,adminLogin,adminVerify,adminLogout,} = require('../controllers/admin/adminController')
+const {products,addProduct,postProduct,deleteProduct,editProduct,updateProduct,deleteImage} = require('../controllers/admin/productController')
+const {editCategory,updateCategory,deleteCategory,categories,addCategory,postCategory,}= require('../controllers/admin/categoryController')
+const {customers,blockUser,unblockUser}= require('../controllers/admin/customerController')
+const {orders}= require('../controllers/admin/orderController')
 
 //Middlewares
 const {isAdmin,isAdminAuth} = require("../middleware/adminAuth");

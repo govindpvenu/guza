@@ -2,10 +2,10 @@ const asyncHandler = require('express-async-handler')
 const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator')
-const User = require('../models/User');
-const Product = require('../models/Product');
-const Category = require("../models/Category");
-const { sendEmail, generateOTP } = require("../utils/nodemailer");
+const User = require('../../models/User');
+const Product = require('../../models/Product');
+const Category = require("../../models/Category");
+const { sendEmail, generateOTP } = require("../../utils/nodemailer");
 const { default: mongoose } = require('mongoose');
 
 
@@ -188,19 +188,6 @@ const orders = asyncHandler(async (req, res) => {
 
 
 
-//GET
-//@route /cart
-const getCart = asyncHandler(async (req, res) => {
-    const user = res.locals.user
-    res.render('user/cart', { layout: "layouts/userLayout" ,user})
-})
-
-//GET
-//@route /checkout
-const getCheckout = asyncHandler(async (req, res) => {
-    const user = res.locals.user
-    res.render('user/checkout', { layout: "layouts/userLayout" ,user})
-})
 
 
 
@@ -368,8 +355,6 @@ module.exports = {
     editAddress,
     manageAddress,
     orders,
-    getCart,
-    getCheckout,
     updateAddress,
     deleteAddress,
 

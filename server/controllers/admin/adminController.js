@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/Admin');
+const Admin = require('../../models/Admin');
 
 
 //GET

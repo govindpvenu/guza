@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-const Category = require("../models/Category");
+const Category = require("../../models/Category");
 
 //GET
 //@route /admin/categories
