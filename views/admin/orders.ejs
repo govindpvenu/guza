@@ -52,17 +52,26 @@
 
                                                         <% if (orders[i].orderStatus==='SUCCESS') { %>
                                                             <td style="padding-left: 150px;">
-                                                                <button  type="button" class="btn btn-outline-primary">Success</button>
+                                                                <a href="/admin/change-status/<%= orders[i]._id %>">
+                                                                    <button  type="button" class="btn btn-outline-primary">Success</button>
+                        
+                                                                </a>
                                                             </td>
                                                         <% } %>
                                                         <% if (orders[i].orderStatus==='PENDING') { %>
                                                             <td style="padding-left: 150px;">
-                                                                <button  type="button" class="btn btn-outline-danger btn">Pending</button>
+                                                                <a href="/admin/change-status/<%= orders[i]._id %>">
+                                                                    <button  type="button" class="btn btn-outline-danger btn">Pending</button>
+                        
+                                                                </a>
                                                             </td>
                                                         <% } %>
                                                         <% if (orders[i].orderStatus==='CANCELLED') { %>
                                                             <td style="padding-left: 150px;">
-                                                                <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
+                                                                <a href="/admin/change-status/<%= orders[i]._id %>">
+                                                                    <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
+                        
+                                                                </a>
                                                             </td>
                                                         <% } %>
                                                         

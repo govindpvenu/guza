@@ -8,7 +8,6 @@ const Order = require('../../models/Order')
 const orders = asyncHandler(async (req, res) => {
     const orders = await Order.find();
     const allOrders = await Order.find({}).populate('products.productId')
-    console.log(orders[0].products[0].productId);
     res.render('admin/orders',{layout: "layouts/adminLayout",orders,allOrders})
 })
 
@@ -28,8 +27,42 @@ const adminCancelOrder = async (req,res)=>{
     }
 }
 
+
+const changeStatus = async (req,res)=>{
+    try {
+        const id = req.params.id;
+        console.log(id);
+        const order = await Order.findOne({_id:id});
+        console.log('current status:'+order.orderStatus);
+        switch (order.orderStatus) {
+            case 'SUCCESS':
+                console.log('success');
+                 update = {orderStatus : 'CANCELLED'}
+                break;
+
+            case 'PENDING':
+                console.log('pending');
+                 update = {orderStatus : 'SUCCESS'}
+            break;
+
+            case 'CANCELLED':
+                console.log('cancelled');
+                 update = {orderStatus : 'PENDING'}
+            break;
+            default:
+                console.log('default');
+            break;
+        }
+        const orderUpdate = await Order.findByIdAndUpdate(id,update);
+        res.redirect('/admin/orders')
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 module.exports = {
     orders,
-    adminCancelOrder
+    adminCancelOrder,
+    changeStatus
 
 }
