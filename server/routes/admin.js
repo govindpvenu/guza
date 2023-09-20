@@ -6,7 +6,7 @@ const { dashboard,adminLogin,adminVerify,adminLogout,} = require('../controllers
 const {products,addProduct,postProduct,deleteProduct,editProduct,updateProduct,deleteImage} = require('../controllers/admin/productController')
 const {editCategory,updateCategory,deleteCategory,categories,addCategory,postCategory,}= require('../controllers/admin/categoryController')
 const {customers,blockUser,unblockUser}= require('../controllers/admin/customerController')
-const {orders}= require('../controllers/admin/orderController')
+const {orders,adminCancelOrder}= require('../controllers/admin/orderController')
 
 //Middlewares
 const {isAdmin,isAdminAuth} = require("../middleware/adminAuth");
@@ -36,7 +36,7 @@ router.route('/customers/block/:id').get(blockUser)
 router.route('/customers/unblock/:id').get(unblockUser)
 
 router.route('/orders').get(isAdmin,orders)
-
+router.route('/admin-order-cancel/:id').get(isAdmin,adminCancelOrder)
 
 
 

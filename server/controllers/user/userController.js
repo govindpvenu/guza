@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator')
 const User = require('../../models/User');
 const Product = require('../../models/Product');
 const Category = require("../../models/Category");
+const Order = require("../../models/Order");
 const { sendEmail, generateOTP } = require("../../utils/nodemailer");
 const { default: mongoose } = require('mongoose');
 
@@ -185,8 +186,10 @@ const deleteAddress = asyncHandler(async(req,res)=>{
 //@route /account/orders
 const orders = asyncHandler(async (req, res) => {
     const user = res.locals.user
-    res.render('user/account-orders', { layout: "layouts/userLayout" ,user})
+    const orders = await Order.find({ customerId: user._id });
+    res.render('user/account-orders', { layout: "layouts/userLayout" ,user,orders})
 })
+
 
 
 

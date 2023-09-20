@@ -1,8 +1,9 @@
-const User = require('../../model/userModel');
-const Product = require('../../model/productModel');
-const Category = require('../../model/categoryModel');
-const Order = require('../../model/orderModel');
-const mongoose = require('mongoose')
+const User = require('../../models/User');
+const Product = require('../../models/Product');
+const Category = require('../../models/Category');
+const Order = require('../../models/Order');
+const mongoose = require('mongoose');
+const { route } = require('../../routes/user');
 
 
 
@@ -15,25 +16,22 @@ const loadOrderDetails = async (req,res)=>{
         const orderId = req.params.id;
         // const order= await Order.findById(orderId);
         const order = await Order.findOne({_id: orderId}).populate('products.productId')
+        console.log(order);
         console.log('details of 0th product');
-        console.log(order.products[0].productId);
-
-
-        res.render('orderDetails',{order: order})
+        res.render('user/order-details',{ layout: "layouts/userLayout",order: order})
 
     } catch (error) {
         console.log(error.message);
     }
 }
-
- //checkout
-
+//POST
+ //@route/checkout
  const checkout = async (req, res) => {
   try {
     console.log(req.body);
-    const userId = req.session.user_id;
+    const userId = res.locals.user._id;
     const user = await User.findById(userId);
-    const cart = await User.findById(req.session.user_id, { cart: 1, _id: 0 });
+    const cart = await User.findById(res.locals.user._id, { cart: 1, _id: 0 });
     console.log(cart.cart);
     console.log(req.body);
     const order = new Order({
@@ -64,10 +62,10 @@ const loadOrderDetails = async (req,res)=>{
       }
 
       // Make the cart empty
-      // await User.updateOne({ _id: userId }, { $unset: { cart: 1 } });
+      await User.updateOne({ _id: userId }, { $unset: { cart: 1 } });
 
       if (order.paymentDetails === 'COD') {
-        res.render('successPage');
+        res.render('user/success-page');
       }
     }
   } catch (error) {
@@ -90,7 +88,7 @@ const cancelOrder = async (req,res)=>{
         }
         const order = await Order.findByIdAndUpdate(id,update);
 
-        res.redirect('/account')
+        res.redirect('/account/orders')
     } catch (error) {
         console.log(error.message);
     }

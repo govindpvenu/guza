@@ -83,14 +83,14 @@
                                                                         <% if (customer.isBlocked) { %>
                                                                             <form class="d-inline-flex" style="padding-left: 100px;">
                                                                                 <a href="/admin/customers/unblock/<%= customer._id %>"
-                                                                                    class="align-items-center btn btn-theme d-flex">
+                                                                                    class="align-items-center btn-sm btn-theme d-flex">
                                                                                     Unblock
                                                                                 </a>
                                                                             </form>
                                                                             <% } else { %>
                                                                                 <form class="d-inline-flex" style="padding-left: 100px;">
                                                                                     <a href="javascript:void(0)"
-                                                                                        class="align-items-center btn btn-secondary d-flex"
+                                                                                        class="align-items-center btn-sm btn-secondary d-flex"
                                                                                         data-bs-toggle="modal"
                                                                                         data-bs-target="#exampleModalToggle<%= customer._id %>">
                                                                                         Block

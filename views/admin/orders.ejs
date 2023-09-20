@@ -15,7 +15,6 @@
                                 <div class="card-body">
                                     <div class="title-header option-title">
                                         <h5>Order List</h5>
-                                        <a href="#" class="btn btn-solid">Download all orders</a>
                                     </div>
                                     <div>
                                         <div class="table-responsive">
@@ -23,7 +22,6 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Order Image</th>
-                                                        <th>Order Code</th>
                                                         <th>Date</th>
                                                         <th>Payment Method</th>
                                                         <th>Delivery Status</th>
@@ -33,57 +31,56 @@
                                                 </thead>
 
                                                 <tbody>
+                                                <%for(let i=0;i<orders.length;i++) {%>
                                                     <tr data-bs-toggle="offcanvas" href="#order-details">
                                                         <td>
                                                             <a class="d-block">
                                                                 <span class="order-image">
-                                                                    <img src="assets/images/product/1.png"
+                                                                    <img src="/images/<%= allOrders[i].products[0].productId.images[0]%>"
                                                                         class="img-fluid" alt="users">
                                                                 </span>
-                                                            </a>
+                                                                </a>
                                                         </td>
 
-                                                        <td> 406-4883635</td>
 
-                                                        <td>Jul 20, 2022</td>
-
-                                                        <td>Paypal</td>
-
-                                                        <td class="order-success">
-                                                            <span>Success</span>
+                                                        <td>
+                                                            <%= String(orders[i].createdAt).slice(4, 16) %>
+                                                        </td>
+                                                        <td>
+                                                            <%= orders[i].paymentDetails %>
                                                         </td>
 
-                                                        <td>$15</td>
+                                                        <% if (orders[i].orderStatus==='SUCCESS') { %>
+                                                            <td style="padding-left: 150px;">
+                                                                <button  type="button" class="btn btn-outline-primary">Success</button>
+                                                            </td>
+                                                        <% } %>
+                                                        <% if (orders[i].orderStatus==='PENDING') { %>
+                                                            <td style="padding-left: 150px;">
+                                                                <button  type="button" class="btn btn-outline-danger btn">Pending</button>
+                                                            </td>
+                                                        <% } %>
+                                                        <% if (orders[i].orderStatus==='CANCELLED') { %>
+                                                            <td style="padding-left: 150px;">
+                                                                <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
+                                                            </td>
+                                                        <% } %>
+                                                        
+
+                                                        <td>₹<%= orders[i].totalAmount %></td>
 
                                                         <td>
                                                             <ul>
                                                                 <li>
-                                                                    <a href="order-detail.html">
-                                                                        <i class="ri-eye-line"></i>
+                                                                    <a class="align-items-center btn-sm btn-secondary d-flex" href="/admin/admin-order-cancel/<%=orders[i]._id%>">
+                                                                        Cancel
                                                                     </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <i class="ri-pencil-line"></i>
-                                                                    </a>
-                                                                </li>
-
-                                                                <li>
-                                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                                        data-bs-target="#exampleModalToggle">
-                                                                        <i class="ri-delete-bin-line"></i>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="btn btn-sm btn-solid text-white"
-                                                                        href="order-tracking.html">
-                                                                        Tracking
-                                                                    </a>
+                                                                    
                                                                 </li>
                                                             </ul>
                                                         </td>
                                                     </tr>
+                                                <% } %>
 
                                                 </tbody>
                                             </table>

@@ -127,12 +127,12 @@ const deleteCartItem = async (req, res) => {
    try {
     const user = await User.findById( res.locals.user._id)
     const userCart = await User.findOne({_id:  res.locals.user._id}).populate('cart.productId')
+    if(!userCart.cart.length){
+      res.redirect('/cart')
+    }else{
+      res.render('user/checkout', { layout: "layouts/userLayout" ,user: user,userCart: userCart})
+    }
 
-    // console.log(user);
-    // console.log(userCart);
-    console.log(userCart.address[0]);
-
-    res.render('user/checkout', { layout: "layouts/userLayout" ,user: user,userCart: userCart})
   } catch (error) {
     console.log(error.message);  
    }

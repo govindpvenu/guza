@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser=require('body-parser');
 const methodOverride = require('method-override');
 const {flash} = require('express-flash-message');
+const Swal = require('sweetalert2')
+
 const jwt  = require('jsonwebtoken');
 //routers
 const userRouter = require('./server/routes/user');

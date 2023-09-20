@@ -1,11 +1,48 @@
+<style>
+    .swal2-popup {
+    display: none;
+    position: relative;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    width: 32em;
+    max-width: 100%;
+    padding: 1.25em;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    font-family: inherit;
+    font-size: 1rem;
+}
+  .swal2-title {
+    position: relative;
+    max-width: 100%;
+    margin: 0 0 0.4em;
+    padding: 0;
+    color: black;
+    font-size: 1.875em;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
 
+}
+.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background: initial;
+    background-color: black;
+    color: #fff;
+    font-size: 1em;
+}
+</style>
 <main class="main">
     <div class="section block-breadcrumb">
       <div class="container"> 
         <div class="breadcrumbs"> 
           <ul> 
-            <li> <a href="#">Home </a></li>
-            <li> <a href="#">Cart</a></li>
+            <li> <a href="/">Home </a></li>
+            <li> <a href="/cart">Cart</a></li>
           </ul>
         </div>
       </div>
@@ -16,9 +53,14 @@
           <div class="col-lg-7">
             <div class="box-title-cart">
               <h4>Your Cart</h4>
-              <h6>2 items</h6>
+              <h6><%= userCart.cart.length %> items</h6>
             </div>
             <!-- Cart item -->
+            <% if (!userCart.cart.length) { %>
+              <div  style="text-align: center;">
+                <img  src="https://www.99fashionbrands.com/wp-content/uploads/2020/12/empty_cart.png" alt="">
+              </div>
+            <% } %>
             <% var sum = 0%>
             <% for(var i=0;i<userCart.cart.length;i++) { %>
             <div class="list-items-cart">
@@ -55,14 +97,15 @@
             <% } %>
 
             <!-- Cart item -->
-
-            <div class="box-coupon">
-              <div class="coupon-left">
-                <input class="form-control input-coupon" type="text" placeholder="Coupon code">
-                <button class="btn btn-border">Apply</button>
+            <% if (userCart.cart.length) { %>
+              <div class="box-coupon">
+                <div class="coupon-left">
+                  <input class="form-control input-coupon" type="text" placeholder="Coupon code">
+                  <button class="btn btn-border">Apply</button>
+                </div>
               </div>
-              <div class="coupon-right"><a class="btn btn-border" href="#">Update Cart</a></div>
-            </div>
+             <% } %>
+
           </div>
           <div class="col-lg-5">
             <div class="box-detail-cart">
@@ -70,8 +113,9 @@
               <div class="box-info-cart">
                 <div class="d-flex align-items-center justify-content-between box-border-bottom">
                   <h5 class="neutral-medium-dark">Subtotal</h5>
-                  <h5>₹</h5>
-                  <h5 class="neutral-dark" id="grandTotal"><%=grandTotal%></h5>
+                    <h5>₹</h5>
+                    <h5 class="neutral-dark" id="grandTotal"><%=grandTotal%></h5>
+
                 </div>
                 <div class="box-info-cart-inner">
                   <p class="text-17-medium text-uppercase mb-15">Shipping</p>
@@ -93,8 +137,11 @@
                   <h5 class="neutral-medium-dark">Total</h5>
                   <h5 class="neutral-dark" id="total">₹ <%= grandTotal %></h5>
                 </div>
-                <div class="box-button-cart"><a class="btn btn-black" href="/checkout">Proceed To Checkout</a></div>
-                <div class="box-other-link"><a class="text-17 link-green" href="#">Free shipping on orders over $200.00</a><a class="text-17" href="#">Continue Shopping</a></div>
+                <% if(userCart.cart.length) { %>
+                  <div class="box-button-cart"><a href="/checkout" class="btn btn-black">Proceed To Checkout</a></div>
+                  <%} else{ %> 
+                    <div class="box-button-cart"><a onclick="cartEmpty()" class="btn btn-black">Proceed To Checkout</a></div>
+                  <% } %>
               </div>
             </div>
           </div>
@@ -102,93 +149,16 @@
       </div>
     </section>
   </main>
-  <footer class="footer">
-    <div class="footer-1">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 mb-30">
-            <h5 class="color-white mb-20">Receive an exclusive<span class="tone-red">20%</span><br class="d-none d-md-block">discount code when you<br class="d-none d-md-block">signup.</h5>
-            <div class="box-form-subscribe box-form-subscribe-white">
-              <form class="form-sub" action="#" method="POST">
-                <input class="form-control" type="text" placeholder="Enter your email">
-                <input class="btn btn-subscribe" type="submit" value="Subscribe">
-              </form>
-            </div>
-          </div>
-          <div class="col-lg-8 mb-30">
-            <div class="row">
-              <div class="col-lg-3 mb-30 footerBorder">
-                <h6 class="color-white mb-20">Company</h6>
-                <ul class="menu-footer">
-                  <li><a href="about-us-1.html">About us</a></li>
-                  <li><a href="carrers.html">Careers</a></li>
-                  <li><a href="store-location.html">Store Locator</a></li>
-                  <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3 mb-30 footerBorder">
-                <h6 class="color-white mb-20">Customer Care</h6>
-                <ul class="menu-footer">
-                  <li><a href="about-us-1.html">Size Guide</a></li>
-                  <li><a href="team.html">Help & FAQs</a></li>
-                  <li><a href="career.html">Return My Order</a></li>
-                  <li><a href="#">Refer a Friend</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3 mb-30 footerBorder">
-                <h6 class="color-white mb-20">Terms & Policies</h6>
-                <ul class="menu-footer">
-                  <li><a href="#">Duties & Taxes</a></li>
-                  <li><a href="#">Shipping Info</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Terms Conditions</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3 mb-30 footerBorder">
-                <h6 class="color-white mb-20">Follow Us</h6>
-                <ul class="menu-footer">
-                  <li><a href="#">Instagram</a></li>
-                  <li><a href="#">Facebook</a></li>
-                  <li><a href="#">Pinterest</a></li>
-                  <li><a href="#">Tiktok</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-2">
-      <div class="container">
-        <div class="footer-bottom">
-          <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img class="mr-25 d-inline-block align-middle logo-footer-img" src="assets/imgs/template/logo-light.svg" alt="Guza"><span class="body-p1 color-white d-inline-block align-middle">© 2023 Guza.Co. All rights reserved</span></div>
-            <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
-              <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
-                <div class="d-inline-block box-payments mr-20"><img src="assets/imgs/template/icons/visa.svg" alt="Guza"><img src="assets/imgs/template/icons/master.svg" alt="Guza"><img src="assets/imgs/template/icons/stripe.svg" alt="Guza"><img src="assets/imgs/template/icons/paypal.svg" alt="Guza"></div>
-                <div class="dropdown mr-20">
-                  <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button" data-bs-toggle="dropdown" aria-expanded="false">EN</button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownLang">
-                    <li><a class="dropdown-item" href="#">EN</a></li>
-                    <li><a class="dropdown-item" href="#">JP</a></li>
-                    <li><a class="dropdown-item" href="#">KR</a></li>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                  <button class="btn btn-line-bottom dropdown-toggle" id="dropdownCurrency" type="button" data-bs-toggle="dropdown" aria-expanded="false">USD</button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownCurrency">
-                    <li><a class="dropdown-item" href="#">USD</a></li>
-                    <li><a class="dropdown-item" href="#">EURO</a></li>
-                    <li><a class="dropdown-item" href="#">AUD</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  
+  <script>
+    function cartEmpty() {
+
+        Swal.fire(
+        'Oops!, Cart is Empty',
+        'Add items to your cart before checking out!'
+        )
+    }
+</script>
   <script>
     function changeQuantity(productId,count,price,subTotal,cartSubTotal,total,quantity){
       console.log(productId);
