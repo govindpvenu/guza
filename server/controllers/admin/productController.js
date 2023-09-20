@@ -59,7 +59,7 @@ const editProduct = asyncHandler(async(req,res)=>{
 const updateProduct = asyncHandler(async(req,res)=>{
 
     let product_id = req.params.id;
-    const { title, description, brand, category,regular_price,sales_price,quantity } = req.body;
+    const { title, description, brand, category,regular_price,sales_price,quantity,product_type,size,stock_status } = req.body;
     const category_id= await Category.findOne({name:category},{})
     const fileNames = req.files.map(file => file.filename); 
     const imgImp = req.body.imageImport.split(',')
@@ -70,9 +70,9 @@ const updateProduct = asyncHandler(async(req,res)=>{
  
     console.log('imgArr:'+imgArr);
     if(req.files.length){
-      const product = await Product.findByIdAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id,images: imgArr});
+      const product = await Product.findByIdAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id,product_type,size,stock_status,images: imgArr});
     }else{
-      const product = await Product.findByIdAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id});
+      const product = await Product.findByIdAndUpdate({ _id: product_id },{title,description,brand,regular_price,sales_price,quantity,category:category_id,product_type,size,stock_status});
     }
     await req.flash('info', 'Product edited successfully');
     res.redirect('/admin/products')

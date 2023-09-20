@@ -28,6 +28,7 @@ const loadOrderDetails = async (req,res)=>{
  //@route/checkout
  const checkout = async (req, res) => {
   try {
+    
     console.log(req.body);
     const userId = res.locals.user._id;
     const user = await User.findById(userId);
@@ -53,14 +54,19 @@ const loadOrderDetails = async (req,res)=>{
 
     
     if (orderSuccess) {
+      //Decrease product quantity
       for (const cartItem of user.cart) {
-        const product = await Product.findById(cartItem.productId);
+        var product = await Product.findById(cartItem.productId);
         if (product) {
           product.quantity -= cartItem.quantity;
           await product.save();
         }
       }
-
+      // set stock status
+      if (product.quantity<1) {
+        product.stock_status ='Not Available'
+        await product.save();
+      }
       // Make the cart empty
       await User.updateOne({ _id: userId }, { $unset: { cart: 1 } });
 
