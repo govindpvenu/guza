@@ -9,6 +9,7 @@ const Order = require("../../models/Order");
 const { sendEmail, generateOTP } = require("../../utils/nodemailer");
 const { default: mongoose } = require('mongoose');
 
+let maxAge = 3 * 24 * 60 * 60;
 
 //GET
 //@route/
@@ -267,7 +268,6 @@ const registerUser = asyncHandler(async (req, res) => {
 //GET
 //@route /verify
 const verifyOtp = asyncHandler(async (req, res) => {
-    // res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
         res.render('user/otp', { layout: "layouts/authLayout" });
 })
 
@@ -292,7 +292,7 @@ const validateOtp = asyncHandler(async (req, res) => {
               _id: user._id,
             },
           };
-        let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '5d' })
+        let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: maxAge })
         res.cookie('user_access', adminToken, { httpOnly: true })
         res.redirect('/')
     } else {
@@ -303,6 +303,8 @@ const validateOtp = asyncHandler(async (req, res) => {
 //GET
 //@route /login
 const loginPage = asyncHandler(async (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
         emailErr = false, passErr = false, blockErr = false
         res.render('user/login', { layout: "layouts/authLayout", passErr, emailErr, blockErr })
 })
@@ -323,7 +325,7 @@ const loginUser = asyncHandler(async (req, res) => {
                       _id: user._id,
                     },
                   };
-                let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '1d' })
+                let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: maxAge })
                 res.cookie('user_access', adminToken, { httpOnly: true })
                 res.redirect('/')
             } else {

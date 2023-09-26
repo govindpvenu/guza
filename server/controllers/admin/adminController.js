@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken');
 const Admin = require('../../models/Admin');
 
+let maxAge = 3 * 24 * 60 * 60;
 
 //GET
 //@route /admin/
@@ -30,7 +31,7 @@ const adminVerify = async (req, res) => {
                   _id: admin._id,
                 },
               };
-            let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: '5d' })
+            let adminToken = jwt.sign( payload , process.env.jwtSecretKey, { expiresIn: maxAge })
             res.cookie('admin_access', adminToken, { httpOnly: true })
             res.redirect('/admin')
         } else {

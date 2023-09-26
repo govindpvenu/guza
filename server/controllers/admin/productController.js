@@ -20,12 +20,12 @@ const addProduct = asyncHandler(async (req, res) => {
 //POST
 //@route /admin/product/post-product
 const postProduct = asyncHandler(async (req, res) => {
-  console.log(req.body);
 
     const { title, description, brand, price, category,regular_price,sales_price,quantity,size,product_type,stock_status} = req.body;
     const category_id= await Category.findOne({name:category},{})
-    const fileNames = req.files.map(file => file.filename); 
-
+    // const fileNames = req.files.map(file => file.filename); 
+    const fileNames = req.body.images
+    
     const product = await Product.create({
       title,
       description,
@@ -57,11 +57,11 @@ const editProduct = asyncHandler(async(req,res)=>{
 //post
 //@route /admin/product/edit/:id
 const updateProduct = asyncHandler(async(req,res)=>{
-
     let product_id = req.params.id;
     const { title, description, brand, category,regular_price,sales_price,quantity,product_type,size,stock_status } = req.body;
     const category_id= await Category.findOne({name:category},{})
-    const fileNames = req.files.map(file => file.filename); 
+    // const fileNames = req.files.map(file => file.filename); 
+    const fileNames = req.body.images
     const imgImp = req.body.imageImport.split(',')
     console.log('fileNamesU:'+fileNames);
     console.log('imgImp:'+imgImp);

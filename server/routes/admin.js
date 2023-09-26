@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/multerConfig')
+const upload = require('../middleware/multer')
 //Controllers
 const { dashboard,adminLogin,adminVerify,adminLogout,} = require('../controllers/admin/adminController')
 const {products,addProduct,postProduct,deleteProduct,editProduct,updateProduct,deleteImage} = require('../controllers/admin/productController')
@@ -10,6 +10,7 @@ const {orders,adminCancelOrder,changeStatus}= require('../controllers/admin/orde
 
 //Middlewares
 const {isAdmin,isAdminAuth} = require("../middleware/adminAuth");
+const {resizeImages} = require("../middleware/sharp")
 
 
 router.route('/').get(isAdmin,dashboard)
@@ -18,9 +19,9 @@ router.route('/logout').get(adminLogout)
 
 router.route('/products').get(isAdmin,products)
 router.route('/products/add-product').get(isAdmin,addProduct)
-router.route('/products/post-product').post(isAdmin,upload.array('image'),postProduct)
+router.route('/products/post-product').post(isAdmin,upload.array('image'),resizeImages,postProduct)
 router.route('/products/delete/:id').get(isAdmin,deleteProduct)
-router.route('/products/edit/:id').get(isAdmin,editProduct).post(isAdmin,upload.array('image'),updateProduct)
+router.route('/products/edit/:id').get(isAdmin,editProduct).post(isAdmin,upload.array('image'),resizeImages,updateProduct)
 router.route('/delete-image/:id/:img').get(isAdmin,deleteImage)
 
 
