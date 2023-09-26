@@ -5,8 +5,11 @@ const Category = require("../../models/Category");
 //GET
 //@route /admin/products
 const products = asyncHandler(async (req, res) => {
-    const messages = await req.consumeFlash('info')
+    
+
+
     const allProducts= await Product.find({$and:[{is_Listed:true},{"category.is_Listed":true}]})
+    const messages = await req.consumeFlash('info')
     res.render('admin/products',{layout: "layouts/adminLayout",messages, allProducts})
 })
 

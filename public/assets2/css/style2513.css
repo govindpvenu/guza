@@ -10154,7 +10154,7 @@ footer a {
 
 .block-banner-shop {
   padding: 177px 0px;
-  background-image: url(https://img.freepik.com/free-photo/friends-standing-with-space-themselves-due-social-distancing_53876-94751.jpg?w=1380&t=st=1694620433~exp=1694621033~hmac=6e251a0aa433c137d2c24c3a0392cd35e7954714df81befb051a515a291ba470);
+  background-image: url(https://img.freepik.com/free-photo/friends-standing-with-space-themselves-due-social-distancing_53876-94751.jpg?w=1380&t=st=1695702648~exp=1695703248~hmac=3946fe0adabc98955e6ab72dc180858bbff8d784ab49dfac1bfe8749fad93949);
   background-position: left ;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10162,6 +10162,7 @@ footer a {
 }
 
 .breadcrumbs {
+  padding-left: 15px;
   margin-top: 8px;
 }
 .breadcrumbs ul {
@@ -10178,7 +10179,6 @@ footer a {
   height: 20px;
   width: 10px;
   background-image: url(../imgs/template/icons/arrow-breadcrumb.svg);
-  background-color: whitesmoke;
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -10186,10 +10186,10 @@ footer a {
   right: 11px;
 }
 .breadcrumbs ul li a {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 24px;
-  color: black;
+  color: #000000;
 }
 .breadcrumbs ul li:last-child::before {
   display: none;
