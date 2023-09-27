@@ -6,9 +6,14 @@ const Order = require('../../models/Order')
 //GET
 //@route /orders/
 const orders = asyncHandler(async (req, res) => {
-    const orders = await Order.find();
-    const allOrders = await Order.find({}).populate('products.productId')
-    res.render('admin/orders',{layout: "layouts/adminLayout",orders,allOrders})
+    //PAGINATION
+    const page= req.query.page*1 || 1;
+    const limit = req.query.limit*1 || 7;
+    const skip = (page -1) * limit;
+    const count = await Order.find({}).populate('products.productId').count()
+    
+    const allOrders = await Order.find({}).populate('products.productId').skip(skip).limit(limit);
+    res.render('admin/orders',{layout: "layouts/adminLayout",orders,allOrders,count,page})
 })
 
 // cancel order

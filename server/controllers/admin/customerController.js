@@ -5,9 +5,16 @@ const User = require('../../models/User');
 //GET
 //@route /admin/customers
 const customers = asyncHandler(async (req, res) => {
-    const allCustomers = await User.find({})
+
+    //PAGINATION
+    const page= req.query.page*1 || 1;
+    const limit = req.query.limit*1 || 7;
+    const skip = (page -1) * limit;
+    const count = await User.find({}).count()
+
+    const allCustomers = await User.find({}).skip(skip).limit(limit)
     const messages = await req.consumeFlash('info')
-    res.render('admin/customers', {layout: "layouts/adminLayout",messages,  allCustomers })
+    res.render('admin/customers', {layout: "layouts/adminLayout",messages, allCustomers,page,count})
 })
 
 //GET

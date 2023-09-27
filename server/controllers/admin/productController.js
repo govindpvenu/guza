@@ -5,12 +5,15 @@ const Category = require("../../models/Category");
 //GET
 //@route /admin/products
 const products = asyncHandler(async (req, res) => {
-    
+    //PAGINATION
+    const page= req.query.page*1 || 1;
+    const limit = req.query.limit*1 || 7;
+    const skip = (page -1) * limit;
+    const count = await Product.find({$and:[{is_Listed:true},{"category.is_Listed":true}]}).count()
+    const allProducts= await Product.find({$and:[{is_Listed:true},{"category.is_Listed":true}]}).skip(skip).limit(limit)
 
-
-    const allProducts= await Product.find({$and:[{is_Listed:true},{"category.is_Listed":true}]})
     const messages = await req.consumeFlash('info')
-    res.render('admin/products',{layout: "layouts/adminLayout",messages, allProducts})
+    res.render('admin/products',{layout: "layouts/adminLayout",messages,allProducts,count,page})
 })
 
 //GET

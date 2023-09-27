@@ -189,6 +189,19 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <nav aria-label="Page navigation example">
+                                                <% totalPage = Math.ceil(count/7) %>
+                                                <ul class="pagination" style="align-items: center; justify-content: center;">
+                                                    <li class="page-item"><a class="page-link"  data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Previous</a></li>
+                                                    <% for( let i = 1; i <=totalPage ; i++ ) { %>
+                                                        <li class="page-item">
+                                                            <!-- Use data-page attribute to store the page number -->
+                                                            <a class="page-link" href="#" data-page="<%= i %>"><%= i%></a>
+                                                        </li>
+                                                    <% } %>
+                                                    <li class="page-item"><a class="page-link" data-totalPage="<% totalPage %>" data-cpage="<%= page %>" href="#">Next</a></li>
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>
@@ -221,3 +234,83 @@
     </div>
 
 </body>
+<style>
+    .page-link{
+       color: #0da487; 
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #0da487;
+        border-color:#0da487;
+        color: white;
+    }
+
+    .pagination .page-item .page-link:hover {
+        background-color: #0da487;
+        border-color: #0da487;
+        color: white;
+    }
+</style>
+<script>
+    // Get all the page links
+    var pageLinks = document.querySelectorAll('.pagination .page-item .page-link');
+
+    // Get the Previous and Next buttons
+    var prevButton = document.querySelector('.pagination li:first-child .page-link');
+    var nextButton = document.querySelector('.pagination li:last-child .page-link');
+
+    // Attach a click event listener to each page link
+    pageLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Prevent the default behavior of the link
+            event.preventDefault();
+
+            // Remove 'active' class from all page items
+            pageLinks.forEach(function(link) {
+                link.parentElement.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked page item
+            link.parentElement.classList.add('active');
+
+            // Get the page number from the data-page attribute
+            var pageNumber = link.getAttribute('data-page');
+
+            // Redirect to the new URL with the activated page number
+            window.location.href = '/admin/customers?page=' + pageNumber;
+        });
+    });
+
+    // Attach a click event listener to the Previous button
+    prevButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // Calculate the previous page number based on the current active page
+        var currentPage = document.querySelector('.pagination .page-item .page-link');
+        var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+        console.log(cpageNumber);
+        if (cpageNumber > 1) {
+            // Redirect to the previous page
+            window.location.href = '/admin/customers?page=' + (cpageNumber - 1);
+        }else{
+            window.location.href = '/admin/customers?page=' + cpageNumber;
+        }
+    });
+
+    // Attach a click event listener to the Next button
+    nextButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // Calculate the next page number based on the current active page
+        var currentPage = document.querySelector('.pagination .page-item .page-link');
+        var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+        var totalPages = parseInt(currentPage.getAttribute('data-totalPage'));
+        console.log(totalPages);
+        if (cpageNumber < totalPages) {
+            // Redirect to the next page
+            window.location.href = '/admin/customers?page=' + (cpageNumber + 1);
+        }else{
+            console.log('haai');
+            window.location.href = '/admin/customers?page=' + cpageNumber;
+        }
+    });
+</script>
