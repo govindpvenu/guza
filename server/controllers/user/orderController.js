@@ -1,56 +1,28 @@
+const asyncHandler = require('express-async-handler')
+
 const User = require('../../models/User');
 const Product = require('../../models/Product');
-const Category = require('../../models/Category');
 const Order = require('../../models/Order');
-const mongoose = require('mongoose');
-const { route } = require('../../routes/user');
 
-
-
-
-
-//load order details page
-
-const loadOrderDetails = async (req,res)=>{
-    try {
-        const orderId = req.params.id;
-        // const order= await Order.findById(orderId);
-        const order = await Order.findOne({_id: orderId}).populate('products.productId')
-        console.log(order);
-        res.render('user/order-details',{ layout: "layouts/userLayout",order: order})
-
-    } catch (error) {
-        console.log(error.message);
-    }
-}
 //POST
- //@route/checkout
- const checkout = async (req, res) => {
+//@route/checkout
+ const placeOrder = async (req, res) => {
   try {
-    
-    console.log(req.body);
     const userId = res.locals.user._id;
     const user = await User.findById(userId);
-    const cart = await User.findById(res.locals.user._id, { cart: 1, _id: 0 });
-    console.log(cart.cart);
-    console.log(req.body);
+    const address = user.address.find(address => address._id.toString() === req.body.address);
+
     const order = new Order({
       customerId: userId,
       quantity: req.body.quantity,
       price: req.body.salePrice,
-      products: cart.cart,
+      products: user.cart,
       totalAmount: req.body.total,
-      shippingAddress: req.body.address,
+      shippingAddress: address,
       paymentDetails: req.body.payment_option,
     });
-    const orderSuccess = await order.save();
-    console.log('order==',order);
-    console.log('ordeRRRRRR');
-    console.log(order._id);
-    const orderId = order._id;
-    console.log(orderSuccess);
-    console.log(orderId);
 
+    const orderSuccess = await order.save();
     
     if (orderSuccess) {
       //Decrease product quantity
@@ -70,38 +42,39 @@ const loadOrderDetails = async (req,res)=>{
       await User.updateOne({ _id: userId }, { $unset: { cart: 1 } });
 
       if (order.paymentDetails === 'COD') {
-        res.render('user/success-page');
+        res.redirect('/success-page');
       }
     }
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server Error");
   }
 };
 
 
+//GET
+ //@route//order-details/:id
+const orderDetails = asyncHandler(async (req,res)=>{
+        const order = await Order.findOne({_id: req.params.id}).populate('products.productId')
+        res.render('user/order-details',{ layout: "layouts/userLayout",order: order})
+})
 
 
+//GET
+ //@route/order-cancel/:id
+const cancelOrder = asyncHandler(async (req,res)=>{
+    const order = await Order.findByIdAndUpdate(req.params.id, {orderStatus : 'CANCELLED'});
+    res.redirect('/account/orders')
+})
 
-// cancel order
-
-const cancelOrder = async (req,res)=>{
-    try {
-        const id = req.params.id;
-        const update = {
-            orderStatus : 'CANCELLED'
-        }
-        const order = await Order.findByIdAndUpdate(id,update);
-
-        res.redirect('/account/orders')
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
+//GET
+ //@route/order-cancel/:id
+ const successPage = asyncHandler(async (req,res)=>{
+      res.render('user/success-page')
+})
 
 module.exports= {
-    loadOrderDetails,
-    checkout,
-    cancelOrder,
+  placeOrder,
+  orderDetails,
+  cancelOrder,
+  successPage
 }

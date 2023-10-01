@@ -10,13 +10,16 @@ const orderSchema = new mongoose.Schema({
         productId: {
             type : mongoose.Schema.Types.ObjectId,
             ref: 'Product'
-
-
         },
         quantity: Number,
         price: Number,
     }],
+
     paymentMethod : String,
+    orderStatus: {
+        type : String,
+        default: "PENDING"
+    },
     paymentStatus: {
         type : String,
         default: "PENDING"
@@ -25,26 +28,15 @@ const orderSchema = new mongoose.Schema({
         type: Object,
         default : 'COD'
     },
-    shippingMethod: {
-        type : String,
-        default: "Post Mail Courier"
-    },
-    shippingCost: {
-        type : Number,
-        default: 0
-    },
+
     totalItems : Number,
     totalAmount : Number,   
-
     discount: {
 		type: Number,
 		default: 0,
 	},
+    
     shippingAddress : {},
-    orderStatus: {
-        type : String,
-        default: "PENDING"
-    },
     createdAt: {
         type: Date,
         default: () => moment.tz(Date.now(), "Asia/Kolkata")

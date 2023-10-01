@@ -4,7 +4,7 @@ const User = require('../../models/User');
 
 //GET
 //@route /admin/customers
-const customers = asyncHandler(async (req, res) => {
+    const customers = asyncHandler(async (req, res) => {
 
     //PAGINATION
     const page= req.query.page*1 || 1;

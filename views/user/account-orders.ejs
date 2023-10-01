@@ -51,33 +51,40 @@
                                         <div class="card-header">
                                             <h5 class="mb-0">Your Orders</h5>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order</th>
-                                                            <th>Date</th>
-                                                            <th>Status</th>
-                                                            <th>Total</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <% for(let i=0;i<orders.length;i++) {  %>
-                                                        <tr>
-                                                            <td><%=i+1%></td>
-                                                            <td><%= String(orders[i].createdAt).slice(4, 16) %></td>
-                                                            <td><%=orders[i].orderStatus%></td>
-                                                            <td>₹ <%=orders[i].totalAmount%> </td>
-                                                            <td><a href="/order-details/<%=orders[i]._id%>" class="btn-small d-block">View</a></td>
-                                                        </tr>
-                                                        <% } %>
-                                                    </tbody>
-                                                </table>
+                                        <% if (!orders.length) { %>
+                                            <img src="https://media.istockphoto.com/id/861576608/vector/empty-shopping-bag-icon-online-business-vector-icon-template.jpg?s=612x612&w=0&k=20&c=I7MbHHcjhRH4Dy0NVpf4ZN4gn8FVDnwn99YdRW2x5k0=" alt="">
+                                        <% } else { %>   
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Order</th>
+                                                                <th>Date</th>
+                                                                <th>Status</th>
+                                                                <th>Total</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% orderNo=-15+page*15 %>
+                                                            <% for(let i=0;i<orders.length;i++) {  %>
+                                                                <% orderNo++ %>
+                                                            <tr>
+                                                                <td><%=orderNo%></td>
+                                                                <td><%= String(orders[i].createdAt).slice(4, 16) %></td>
+                                                                <td><%=orders[i].orderStatus%></td>
+                                                                <td>₹ <%=orders[i].totalAmount%> </td>
+                                                                <td><a href="/order-details/<%=orders[i]._id%>" class="btn-small d-block">View</a></td>
+                                                            </tr>
+                                                            <% } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <% } %>
                                     </div>
+                                    <% if (orders.length) { %>
                                     <nav aria-label="Page navigation example">
                                         <% totalPage = Math.ceil(count/15) %>
                                         <ul class="pagination" style="align-items: center; justify-content: center;">
@@ -91,6 +98,7 @@
                                             <li class="page-item"><a class="page-link" data-totalPage="<% totalPage %>" data-cpage="<%= page %>" href="#"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#000000}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></a></li>
                                         </ul>
                                     </nav>
+                                    <% } %>
                             </div>
                         </div>
                     </div>

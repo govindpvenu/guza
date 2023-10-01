@@ -4,24 +4,18 @@ const Admin = require('../../models/Admin');
 
 let maxAge = 3 * 24 * 60 * 60;
 
-//GET
-//@route /admin/
-const dashboard = (req, res) => {
-    res.render("admin/index",{ layout: "layouts/adminLayout", })
-}
 
 //GET
 //@route /admin/login
 const adminLogin = (req, res) => {
-    // res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     emailErr = false, passErr = false
     res.render('admin/login-admin', { layout:"layouts/authLayout",passErr, emailErr })
 }
 
+
 //POST
 //@route /admin/login
 const adminVerify = async (req, res) => {
-    // res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     const { email, password } = req.body
     const admin = await Admin.findOne({email});
     if (admin) {
@@ -47,12 +41,10 @@ const adminVerify = async (req, res) => {
 //GET
 //@route /logout
 const adminLogout = (req, res) => {
-    // res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.clearCookie('admin_access');
     res.redirect('/admin/login')
 }
 module.exports = {
-    dashboard,
     adminLogin,
     adminVerify,
     adminLogout,

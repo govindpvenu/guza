@@ -16,8 +16,8 @@ const orders = asyncHandler(async (req, res) => {
     res.render('admin/orders',{layout: "layouts/adminLayout",orders,allOrders,count,page})
 })
 
-// cancel order
-
+//GET
+//@route /admin-order-cancel/:id
 const adminCancelOrder = async (req,res)=>{
     try {
         const id = req.params.id;
@@ -32,7 +32,8 @@ const adminCancelOrder = async (req,res)=>{
     }
 }
 
-
+//GET
+//@route /change-status/:id
 const changeStatus = async (req,res)=>{
     try {
         const id = req.params.id;
@@ -69,5 +70,4 @@ module.exports = {
     orders,
     adminCancelOrder,
     changeStatus
-
 }
