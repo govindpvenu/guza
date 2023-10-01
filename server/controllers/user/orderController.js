@@ -17,7 +17,6 @@ const loadOrderDetails = async (req,res)=>{
         // const order= await Order.findById(orderId);
         const order = await Order.findOne({_id: orderId}).populate('products.productId')
         console.log(order);
-        console.log('details of 0th product');
         res.render('user/order-details',{ layout: "layouts/userLayout",order: order})
 
     } catch (error) {

@@ -779,9 +779,11 @@ a {
   color: #111111;
 }
 a * {
+  
   color: #111111;
 }
 a:hover, a:hover * {
+  
   color: #C8815F;
 }
 
@@ -917,9 +919,6 @@ img:hover {
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 
-* {
-  transition: all 0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
-}
 
 .form-control {
   height: 48px;
@@ -5349,7 +5348,7 @@ button:focus:not(:focus-visible) {
   background-repeat: no-repeat;
   background-position: top left;
   background-size: cover;
-  padding: 50px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
 }
 .footer .menu-footer {
   display: inline-block;
@@ -8359,7 +8358,7 @@ footer a {
   text-align: center;
 }
 .box-form-cart .btn {
-  width: 100%;
+  width: 30%;
   margin-right: 8px;
 }
 .box-form-cart .btn:last-child {

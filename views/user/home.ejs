@@ -142,8 +142,11 @@
                     <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
                           style="height:269px; width: auto;" src="/images/<%= product.images[0] %>" alt="guza"><img
                           class="imageHover" src="/images/<%= product.images[1] %>" alt="guza"></a>
-                      <div class="button-select"><a href="#">Add to cart</a></div>
-                      <div class="box-quick-button"><a class="btn" href="#">
+                          <form action="/add-to-cart" method="post">
+                            <input type="hidden" name="productId" value="<%=product._id%>">
+                            <input type="hidden" name="quantity" value="1">
+                            <button  class="btn btn-black button-select"  type="submit">Add to Cart</button>
+                          </form>                      <div class="box-quick-button"><a class="btn" href="#">
                           <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
                             viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_116_452)">
@@ -482,12 +485,12 @@
     <!-- Features End -->
     
     <!-- Event -->
-    <section class="section block-sale-event"> 
+    <section class="section block-sale-event" style="padding-bottom: 150px;"> 
       <div class="container"> 
         <div class="box-sale-event">
           <div class="row align-items-center"> 
             <div class="col-lg-6">
-              <div class="image-sale-event wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;"> <img src="https://i.shgcdn.com/cdbaa606-f120-4c6e-a452-8729387f07aa/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Guza"></div>
+              <div class="image-sale-event wow" style="visibility: visible; "> <img src="https://i.shgcdn.com/cdbaa606-f120-4c6e-a452-8729387f07aa/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Guza"></div>
             </div>
             <div class="col-lg-6">
               <div class="box-padding wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;"><span class="text-17-medium neutral-dark text-uppercase">Sale Event</span>
@@ -501,71 +504,27 @@
     </section>
     <!-- Event  End-->
 
-    <!-- News Letter -->
-    <section class="section" style="padding: 120px 0px;">
-      <div class="container">
-        <div class="box-subsciber">
-          <div class="text-17-medium wow fadeInLeft">NEWSLETTER</div>
-          <h3 class="text-subscribe wow fadeInUp">Sign up and get up to <span class="tone-red">20% </span>off your first
-            purchase</h3>
-          <div class="box-form-subscribe wow fadeInRight">
-            <form class="form-sub" action="#" method="POST">
-              <input class="form-control" type="text" placeholder="Enter your email">
-              <input class="btn btn-subscribe" type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- News Letter  End-->
+
 
   </main>
-  <footer class="footer footer-type2-light footer-white">
-    <div class="footer-1">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-12 text-center text-lg-start"><a class="logo-footer" href="#"><img alt="luxride"
-                src="assets2/imgs/template/logo.svg"></a>
-            <ul class="menu-footer-inline">
-              <li><a href="about-us-1.html">About us</a></li>
-              <li><a href="carrers.html">Careers</a></li>
-              <li><a href="store-location.html">Store Locator</a></li>
-            </ul>
-          </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img class="mr-25 d-inline-block align-middle logo-footer-img" src="assets2/imgs/template/logo-light.svg" alt="Guza"><span class="body-p1 color-white d-inline-block align-middle">© 2023 Guza.Co. All rights reserved</span></div>
           <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
-            <div class="socials"><a href="#"><img src="assets2/imgs/template/icons/fb.svg" alt="Guza"></a><a
-                href="#"><img src="assets2/imgs/template/icons/insta.svg" alt="Guza"></a><a href="#"><img
-                  src="assets2/imgs/template/icons/tw.svg" alt="Guza"></a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-2">
-      <div class="container">
-        <div class="footer-bottom">
-          <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><span class="body-p1 neutral-medium-dark">©
-                2023 Guza.Co. All rights reserved</span></div>
-            <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
-              <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
-                <div class="dropdown mr-20">
-                  <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">EN</button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownLang">
-                    <li><a class="dropdown-item" href="#">EN</a></li>
-                    <li><a class="dropdown-item" href="#">JP</a></li>
-                    <li><a class="dropdown-item" href="#">KR</a></li>
-                  </ul>
-                </div>
-                <div class="dropdown">
-                  <button class="btn btn-line-bottom dropdown-toggle" id="dropdownCurrency" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">USD</button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownCurrency">
-                    <li><a class="dropdown-item" href="#">USD</a></li>
-                    <li><a class="dropdown-item" href="#">EURO</a></li>
-                    <li><a class="dropdown-item" href="#">AUD</a></li>
-                  </ul>
-                </div>
+            <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
+              <div class="dropdown mr-20">
+                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button" data-bs-toggle="dropdown" aria-expanded="false">EN</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownLang">
+                  <li><a class="dropdown-item" href="#">EN</a></li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownCurrency" type="button" data-bs-toggle="dropdown" aria-expanded="false">USD</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCurrency">
+                  <li><a class="dropdown-item" href="#">IND</a></li>
+                </ul>
               </div>
             </div>
           </div>

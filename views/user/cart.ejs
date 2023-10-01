@@ -1,41 +1,4 @@
-<style>
-    .swal2-popup {
-    display: none;
-    position: relative;
-    box-sizing: border-box;
-    flex-direction: column;
-    justify-content: center;
-    width: 32em;
-    max-width: 100%;
-    padding: 1.25em;
-    border: none;
-    border-radius: 5px;
-    background: white;
-    font-family: inherit;
-    font-size: 1rem;
-}
-  .swal2-title {
-    position: relative;
-    max-width: 100%;
-    margin: 0 0 0.4em;
-    padding: 0;
-    color: black;
-    font-size: 1.875em;
-    font-weight: 600;
-    text-align: center;
-    text-transform: none;
-    word-wrap: break-word;
 
-}
-.swal2-styled.swal2-confirm {
-    border: 0;
-    border-radius: 0.25em;
-    background: initial;
-    background-color: black;
-    color: #fff;
-    font-size: 1em;
-}
-</style>
 <main class="main">
     <div class="section block-breadcrumb">
       <div class="container"> 
@@ -74,21 +37,18 @@
                     </div>
                     <div class="box-form-cart text-center">
                       <div class="form-cart detail-qty">
-                        <a href="#" onclick="changeQuantity('<%=userCart.cart[i].productId._id%>',-1,'<%= userCart.cart[i].productId.sales_price %>','subtot-<%= i %>','cartSubTotal','total','qty-<%= userCart.cart[i].productId._id %>')" >
+                        <a href="#" onclick="changeQuantity('<%= userCart.cart[i].productId.quantity %>','<%=userCart.cart[i].productId._id%>',-1,'<%= userCart.cart[i].productId.sales_price %>','subtot-<%= i %>','cartSubTotal','total','qty-<%= userCart.cart[i].productId._id %>')" >
                           <span class="minus"></span>
                         </a>
                         <span class="qty-val form-control"  type="text" id="qty-<%= userCart.cart[i].productId._id %>"><%= userCart.cart[i].quantity %></span>
-                        <a href="#"  onclick="changeQuantity('<%=userCart.cart[i].productId._id%>',1,'<%= userCart.cart[i].productId.sales_price %>','subtot-<%= i %>','cartSubTotal','total','qty-<%= userCart.cart[i].productId._id %>')" >
+                        <a href="#"  onclick="changeQuantity('<%= userCart.cart[i].productId.quantity %>','<%=userCart.cart[i].productId._id%>',1,'<%= userCart.cart[i].productId.sales_price %>','subtot-<%= i %>','cartSubTotal','total','qty-<%= userCart.cart[i].productId._id %>')" >
                           <span class="plus"></span>
                         </a>
-
-                        <!-- <input class="qty-val form-control" type="text" name="quantity" value="1" min="1"> -->
                       </div>
                     </div>
                   </div>
                   <div class="item-cart-info-2">
-                    
-                    <p>₹</p>
+                    <p  class="body-p2">₹</p>
                     <p class="body-p2" id="subtot-<%= i %>"> <%= userCart.cart[i].productId.sales_price * userCart.cart[i].quantity %></p><a class="btn-remove-cart" href="/remove-cart/<%=userCart.cart[i].productId._id%>"></a>
                   </div>
                 </div>
@@ -130,7 +90,8 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between box-total-bottom">
                   <h5 class="neutral-medium-dark">Total</h5>
-                  <h5 class="neutral-dark" id="total">₹ <%= grandTotal %></h5>
+                  <h5 style="padding-left: 230px;" >₹</h5>
+                  <h5 class="neutral-dark" id="total"><%= grandTotal %></h5>
                 </div>
                 <% if(userCart.cart.length) { %>
                   <div class="box-button-cart"><a href="/checkout" class="btn btn-black">Proceed To Checkout</a></div>
@@ -143,8 +104,128 @@
         </div>
       </div>
     </section>
+    <section class="section block-may-also-like">
+      <div class="container">
+        <div class="text-center">
+          <h3 class="mb-60">You May Also Like</h3>
+        </div>
+        <div class="row">
+          <% randomProducts.forEach(product => { %>
+           
+            <div class="col-lg-3 col-md-6">
+              <div class="cardProduct wow fadeInUp">
+                <div class="cardImage"><img class="imageMain" style="height:410px; width: 420px;" src="/images/<%= product.images[0] %>" alt="guza"><a href="/product/<%= product._id%>"><img class="imageHover" style="height:410px; width: 420px;" src="/images/<%= product.images[1] %>" alt="guza"></a>
+                <form action="/add-to-cart" method="post">
+                  <input type="hidden" name="productId" value="<%=product._id%>">
+                  <input type="hidden" name="quantity" value="1">
+                  <button  class="btn btn-black button-select"  type="submit">Add to Cart</button>
+                </form>
+
+                  <div class="box-quick-button">
+                    <a class="btn" href="/wishhhh">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_116_452)">
+                          <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_116_452">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg>
+                    </a>
+
+                    <a class="btn" href="/product/<%= product._id %>">
+                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_91_73)">
+                          <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                        </g>
+                        <defs>
+                          <clippath id="clip0_91_73">
+                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                          </clippath>
+                        </defs>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="cardInfo"><a href="#">
+                    <h6 class="text-16-medium cardTitle"><%= product.title %></h6></a>
+                  <p class="body-p2 cardDesc">₹<%= product.sales_price %></p>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+
+        </div>
+      </div>
+    </section>
+
   </main>
-  
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img class="mr-25 d-inline-block align-middle logo-footer-img" src="assets2/imgs/template/logo-light.svg" alt="Guza"><span class="body-p1 color-white d-inline-block align-middle">© 2023 Guza.Co. All rights reserved</span></div>
+          <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
+            <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
+              <div class="dropdown mr-20">
+                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button" data-bs-toggle="dropdown" aria-expanded="false">EN</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownLang">
+                  <li><a class="dropdown-item" href="#">EN</a></li>
+                </ul>
+              </div>
+              <div class="dropdown">
+                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownCurrency" type="button" data-bs-toggle="dropdown" aria-expanded="false">USD</button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCurrency">
+                  <li><a class="dropdown-item" href="#">IND</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .swal2-popup {
+    display: none;
+    position: relative;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    width: 32em;
+    max-width: 100%;
+    padding: 1.25em;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    font-family: inherit;
+    font-size: 1rem;
+}
+  .swal2-title {
+    position: relative;
+    max-width: 100%;
+    margin: 0 0 0.4em;
+    padding: 0;
+    color: black;
+    font-size: 1.875em;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+
+}
+.swal2-styled.swal2-confirm {
+    border: 0;
+    border-radius: 0.25em;
+    background: initial;
+    background-color: black;
+    color: #fff;
+    font-size: 1em;
+}
+</style>
   <script>
     function cartEmpty() {
         Swal.fire(
@@ -154,7 +235,10 @@
     }
 </script>
   <script>
-    function changeQuantity(productId,count,price,subTotal,cartSubTotal,total,quantity){
+    function changeQuantity(stock,productId,count,price,subTotal,cartSubTotal,total,quantity){
+      console.log('----');
+
+      console.log(stock);
       console.log(productId);
       console.log(count);
       console.log(price);
@@ -162,20 +246,22 @@
       console.log(cartSubTotal);
       console.log(total);
       console.log(quantity);
+        const Stock = stock
         const subtotalValue = document.getElementById(subTotal).innerHTML
         const grandTotalValue = document.getElementById('grandTotal').innerHTML
         const quantityValue = document.getElementById(quantity).innerHTML
         let totalValue = parseInt(subtotalValue)
-        console.log('----');
         console.log('subtotalValue:'+subtotalValue);
         console.log(typeof(subtotalValue));
         console.log('grandTotalValue:'+grandTotalValue);
         console.log('quantityValue:'+quantityValue);
         console.log('totalValue:'+totalValue);
-        console.log('----');
        
         console.log(quantityValue,count);
         if(quantityValue == 1 && count == -1){
+            return;
+        }
+        if(quantityValue >= stock && count == 1){
             return;
         }
         console.log('ajax');
@@ -186,24 +272,23 @@
              productId,
              count
          },
-        })
-        
+        })  
+
         if(count === 1){
             document.getElementById(subTotal).innerHTML = parseInt(price)+totalValue
             document.getElementById('grandTotal').innerHTML = parseInt(price)+parseInt(grandTotalValue);
             document.getElementById('total').innerHTML = parseInt(price)+parseInt(grandTotalValue);
             document.getElementById(quantity).innerHTML = parseInt(quantityValue)+1;
             console.log('+');
-
         }else if(count === -1){
             document.getElementById(subTotal).innerHTML = totalValue-parseInt(price)
             document.getElementById('grandTotal').innerHTML = parseInt(grandTotalValue)-parseInt(price);
             document.getElementById('total').innerHTML = parseInt(grandTotalValue)-parseInt(price);
             document.getElementById(quantity).innerHTML = parseInt(quantityValue)-1;
             console.log('-');
-
         }
     
-              
+        console.log('----');
+    
     }
   </script>

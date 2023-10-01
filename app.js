@@ -45,6 +45,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const connectDB = require('./server/config/mongodb');
 connectDB()
 
+
+
 //serving public file
 app.use(express.static(__dirname + '/public'));
 

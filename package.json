@@ -21,6 +21,7 @@
     "express-flash-message": "^2.1.0",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
+    "js-image-zoom": "^0.7.0",
     "jsonwebtoken": "^9.0.2",
     "method-override": "^3.0.0",
     "moment-timezone": "^0.5.43",

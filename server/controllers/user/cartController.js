@@ -9,15 +9,14 @@ const getCart = async (req,res)=>{
     try {
 
         const userCart = await User.findOne({_id:  res.locals.user._id}).populate('cart.productId')
-        // console.log(JSON.stringify(userCart));
-        // console.log(userCart);
+        const randomProducts = await Product.aggregate([{ $match: { $and: [ { stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true } ] } },  { $sample: { size: 8 } }])
+
         let grandTotal=0;
         for(let i =0;i<userCart.cart.length;i++){
             grandTotal= grandTotal + parseInt(userCart.cart[i].productId.sales_price)* parseInt(userCart.cart[i].quantity)
         }
-        // console.log('grandTotal:'+grandTotal);
-        // console.log(cartItems);
-        res.render('user/cart', { layout: "layouts/userLayout" ,userCart: userCart,grandTotal: grandTotal})
+
+        res.render('user/cart', { layout: "layouts/userLayout" ,userCart: userCart,grandTotal: grandTotal,randomProducts})
     } catch (error) {
         console.log(error.message);
     }
@@ -29,36 +28,33 @@ const addToCart = async (req,res)=>{
     try {
         const productId = req.body.productId;
         const quantity = parseInt(req.body.quantity);
-        // console.log('ADDTOCART productId-----'+productId+'   quantity-----' + quantity);
-
-        if(isNaN(quantity) || quantity <= 0){
-            res.status(400).json({ message: 'Invalid quantity' });
-        }
-        
         const userId = res.locals.user._id
-        // console.log('ADDTOCART userId------'+userId);
+        
+        const product = await Product.findById(productId)
         const user = await User.findById(userId);
 
-        if(!user){
-            res.status(404).json({message: 'user not found'})
-        }
+        // if(isNaN(quantity) || quantity <= 0){
+        //   res.status(400).json({ message: 'Invalid quantity' });
+        // }
 
+        // if(!user){
+        //     res.status(404).json({message: 'user not found'})
+        // }
         const existingItem = user.cart.find((item) => (
             item.productId.equals(productId)
-          ));
-      
+        ));
+        
+
         if (existingItem) {
-            existingItem.quantity += quantity;
-          } else {
-            user.cart.push({ productId, quantity });
-            // user.cart1.push({productId,quantity})
+          existingItem.quantity += quantity;
+          if (existingItem.quantity>product.quantity) {
+            existingItem.quantity = product.quantity
           }
-      
-          await user.save();
+        } else {
+          user.cart.push({ productId, quantity });
+        }
+        await user.save();
 
-          // console.log('product added to cart')
-
-        //   res.redirect('/cart')
         res.redirect('/cart');
     } catch (error) {
         console.log(error.message);
@@ -87,6 +83,7 @@ const changeQuantity = async (req,res)=>{
             }
         )
         console.log("Dataa:", data)
+    
     } catch (error) {
         console.log(error.message);
     }

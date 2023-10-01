@@ -124,3 +124,42 @@ const product_type = await Product.aggregate([
   }
 ])
 
+<div class="box-main-gallery">
+<a class="zoom-image glightbox" href="/images/<%= product.images[0] %>"></a>
+<div  class="product-image-slider product-image-slider-1">
+  <% for( let i = 0; i < product.images.length; i++ ) { %>
+    <figure class="border-radius-10">
+      <a class="glightbox" href="/images/<%= product.images[i] %>">
+        <div class='image-hover-zoom' scale="2.0">
+          <img src="/images/<%= product.images[i] %>" alt="kidify">
+        </div>
+      </a>
+    </figure>
+  <% } %>
+</div>
+</div>
+
+
+<!-- Image Zoom Snippet (start iteration) -->
+<figure class="iz iz-js-image-zoom" data-large-size="1000x400">
+  <img class="iz__thumb iz-js-thumb" src="http://placehold.it/350x150" alt="[[fill me!]]" touch-action="none" width="350" height="150">
+  <figcaption>This is just a thumbnail
+    <br>(mouseover or touch to zoom)
+  </figcaption>
+  <div class="iz__zoom iz-js-zoom">
+    <img class="iz__zoom-pic iz-js-zoom-pic" aria-hidden="true">
+  </div>
+</figure>
+<!-- / Image Zoom Snippet -->
+<br>
+<!-- Image Zoom Snippet (start iteration) -->
+<figure class="iz iz-js-image-zoom" data-large-size="700x300">
+  <img class="iz__thumb iz-js-thumb" src="http://placehold.it/200x200" alt="[[fill me!]]" touch-action="none" width="200" height="200">
+  <figcaption>This is just a thumbnail
+    <br>(mouseover or touch to zoom)
+  </figcaption>
+  <div class="iz__zoom iz-js-zoom">
+    <img class="iz__zoom-pic iz-js-zoom-pic" aria-hidden="true">
+  </div>
+</figure>
+<!-- / Image Zoom Snippet -->
