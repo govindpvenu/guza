@@ -36,7 +36,8 @@
             width: 170px;
             border-radius: 5px;
             border: 2px solid #e2e9e1;
-            &.active, &:hover {
+            &.active,
+            &:hover {
                 border: 2px solid $color-brand;
             }
         }
@@ -73,7 +74,7 @@
 }
 
 #scrollUp {
-	width: 40px;
+    width: 40px;
     height: 40px;
     background-color: $color-brand;
     color: #ffffff;

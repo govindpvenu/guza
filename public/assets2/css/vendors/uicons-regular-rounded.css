@@ -1,11 +1,14 @@
 @font-face {
     font-family: "uicons-regular-rounded";
-    src: url("../../fonts/uicons/uicons-regular-rounded.eot#iefix") format("embedded-opentype"), 
-    url("../../fonts/uicons/uicons-regular-rounded.woff2") format("woff2"), 
-    url("../../fonts/uicons/uicons-regular-rounded.woff") format("woff");
+    src:
+        url("../../fonts/uicons/uicons-regular-rounded.eot#iefix")
+            format("embedded-opentype"),
+        url("../../fonts/uicons/uicons-regular-rounded.woff2") format("woff2"),
+        url("../../fonts/uicons/uicons-regular-rounded.woff") format("woff");
 }
 
-i[class^="fi-rr-"], span[class^="fi-rr-"] {
+i[class^="fi-rr-"],
+span[class^="fi-rr-"] {
     line-height: 0 !important;
 }
 

@@ -16,26 +16,28 @@
     }
 
     h5 {
-        margin:20px 0;
+        margin: 20px 0;
         a {
-            color: $color-text            
+            color: $color-text;
         }
     }
     &:hover {
-        a {color: $color-brand}
+        a {
+            color: $color-brand;
+        }
     }
 }
 
 .hero-card {
-	width: 100%;
-	position: relative;
-	background: #fff;
-	padding: 30px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    background: #fff;
+    padding: 30px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
     border: 1px solid #eee;
     &:hover {
         border: 1px solid $color-brand;
@@ -82,15 +84,15 @@
     }
 }
 .card {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	min-width: 0;
-	word-wrap: break-word;
-	background-color: #fff;
-	background-clip: border-box;
-	border: 1px solid #e2e9e1;
-	border-radius: .25rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e2e9e1;
+    border-radius: 0.25rem;
     .card-header {
         padding: 1rem;
         margin-bottom: 0;

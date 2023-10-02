@@ -72,10 +72,16 @@
             margin-left: 5px;
         }
         a {
-            i {margin-left: 5px;transition-duration: 0.3s;font-size: 10px;}
-            &:hover i {margin-left: 10px; transition-duration: 0.3s;}
+            i {
+                margin-left: 5px;
+                transition-duration: 0.3s;
+                font-size: 10px;
+            }
+            &:hover i {
+                margin-left: 10px;
+                transition-duration: 0.3s;
+            }
         }
-
     }
     &.style-2 {
         border: 1px solid #e2e9e1;
@@ -104,15 +110,15 @@
 
 /*Deal banners*/
 .deal {
-	width: 100%;
-	display: flex;
-	flex-flow: row wrap;
-	padding: 50px;
-	background-color: #f5f6f9;
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-	min-height: 420px;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 50px;
+    background-color: #f5f6f9;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 420px;
 
     > div {
         width: 100%;
@@ -157,7 +163,7 @@
 
         .new-price {
             font-weight: 400;
-            letter-spacing: -.01em;
+            letter-spacing: -0.01em;
             margin-right: 10px;
         }
         .old-price {
@@ -193,7 +199,6 @@
             margin-bottom: 20px;
         }
     }
-
 }
 
 .banner-bg {
@@ -211,7 +216,10 @@
     &:hover {
         box-shadow: $box-shadown-3-hover;
     }
-    img {display: inline-block;margin-bottom: 15px;}
+    img {
+        display: inline-block;
+        margin-bottom: 15px;
+    }
     h4 {
         font-size: 13px;
         font-weight: 700;

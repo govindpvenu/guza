@@ -1,37 +1,41 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer")
 
-const generateOTP=()=>{
-    return Math.floor(Math.random() * 1000000);
+const generateOTP = () => {
+    return Math.floor(Math.random() * 1000000)
 }
 
-const sendEmail = async (email,generatedOTP) => {
+const sendEmail = async (email, generatedOTP) => {
     try {
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            service: 'Gmail',
+            service: "Gmail",
             auth: {
-                user: 'govindpvenu.txt@gmail.com',
-                pass: 'xmmdtviyfcbstqrr',
-            }
-        });
+                user: "govindpvenu.txt@gmail.com",
+                pass: "xmmdtviyfcbstqrr",
+            },
+        })
         let mailOptions = {
             from: "govindpvenu.txt@gmail.com",
             to: email,
             subject: "Otp for registration is: ",
-            html: "<h3>OTP for account verification is </h3>" + "<h1 style='font-weight:bold;'>" + generatedOTP + "</h1>"
-        };
+            html:
+                "<h3>OTP for account verification is </h3>" +
+                "<h1 style='font-weight:bold;'>" +
+                generatedOTP +
+                "</h1>",
+        }
 
         await transporter.sendMail(mailOptions)
-        console.log("email sent sucessfully");
+        console.log("email sent sucessfully")
     } catch (error) {
-        console.log("email not sent");
-        console.log(error);
+        console.log("email not sent")
+        console.log(error)
     }
-};
+}
 
-module.exports ={ 
+module.exports = {
     sendEmail,
-    generateOTP
-};
+    generateOTP,
+}

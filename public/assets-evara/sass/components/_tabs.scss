@@ -21,17 +21,19 @@
         font-weight: 600;
         line-height: 1;
         &.active {
-           color: $color-brand;
-           background-color: #fde1bd;
+            color: $color-brand;
+            background-color: #fde1bd;
         }
         &:hover {
             color: $color-brand;
             background-color: #fde1bd;
             transform: translateY(-3px);
             transition: 0.2s;
-         }
+        }
 
-        &:first-child {margin-left: 0 !important;}
+        &:first-child {
+            margin-left: 0 !important;
+        }
     }
     &.no-border {
         border: none;
@@ -58,7 +60,7 @@
         padding: 0;
         margin: 0;
         li {
-           position: relative;
+            position: relative;
             a {
                 font-size: 14px;
                 color: $color-grey-2;

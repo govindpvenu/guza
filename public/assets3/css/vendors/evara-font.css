@@ -1,13 +1,20 @@
 @font-face {
     font-family: "evara-font";
-    src: url("../../fonts/evara-font/evara-font57b6.ttf?5ff2f70882bedebb09d812961feeb5e7") format("truetype"),
-        url("../../fonts/evara-font/evara-font57b6.woff?5ff2f70882bedebb09d812961feeb5e7") format("woff"),
-        url("../../fonts/evara-font/evara-font57b6.woff2?5ff2f70882bedebb09d812961feeb5e7") format("woff2"),
-        url("../../fonts/evara-font/evara-font57b6.eot?5ff2f70882bedebb09d812961feeb5e7#iefix") format("embedded-opentype"),
-        url("../../fonts/evara-font/evara-font57b6.svg?5ff2f70882bedebb09d812961feeb5e7#evara-font") format("svg");
+    src:
+        url("../../fonts/evara-font/evara-font57b6.ttf?5ff2f70882bedebb09d812961feeb5e7")
+            format("truetype"),
+        url("../../fonts/evara-font/evara-font57b6.woff?5ff2f70882bedebb09d812961feeb5e7")
+            format("woff"),
+        url("../../fonts/evara-font/evara-font57b6.woff2?5ff2f70882bedebb09d812961feeb5e7")
+            format("woff2"),
+        url("../../fonts/evara-font/evara-font57b6.eot?5ff2f70882bedebb09d812961feeb5e7#iefix")
+            format("embedded-opentype"),
+        url("../../fonts/evara-font/evara-font57b6.svg?5ff2f70882bedebb09d812961feeb5e7#evara-font")
+            format("svg");
 }
 
-i[class^="evara-font-"]:before, i[class*=" evara-font-"]:before {
+i[class^="evara-font-"]:before,
+i[class*=" evara-font-"]:before {
     font-family: evara-font !important;
     font-style: normal;
     font-weight: normal !important;
