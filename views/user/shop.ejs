@@ -20,44 +20,55 @@
               <div class="wrapper-overlay"></div>
               <div class="box-filters-sidebar"> 
                 <h5 class="title-filter">Filter</h5>
-                  <!-- Price -->
-                  <!-- <div class="block-filter"> 
-                    <h6 class="item-collapse">Price </h6>
-                    <div class="box-collapse scrollFilter">
-                      <ul class="list-filter-checkbox"> 
-                        <li> 
-                          <label class="cb-container">
-                            <input type="checkbox"><span class="text-small">$10.00 - $49.00</span><span class="checkmark"></span>
-                          </label>
-                        </li>
-                        <li> 
-                          <label class="cb-container">
-                            <input type="checkbox"><span class="text-small">$50.00 - $99.00</span><span class="checkmark"></span>
-                          </label>
-                        </li>
-                        <li> 
-                          <label class="cb-container">
-                            <input type="checkbox"><span class="text-small">$100.00 - $199.00</span><span class="checkmark"></span>
-                          </label>
-                        </li>
-                        <li> 
-                          <label class="cb-container">
-                            <input type="checkbox"><span class="text-small">$200.00 +</span><span class="checkmark"></span>
-                          </label>
-                        </li>
-                      </ul>
-                    </div>
-                  </div> -->
-                  <!-- Price -->
+
+                <!-- Price -->
+                <!-- <div class="block-filter"> 
+                  <h6 class="item-collapse">Price </h6>
+                  <div class="box-collapse scrollFilter">
+                    <ul class="list-filter-checkbox"> 
+                      <li> 
+                        <label class="cb-container">
+                          <input type="checkbox"><span class="text-small">$10.00 - $49.00</span><span class="checkmark"></span>
+                        </label>
+                      </li>
+                      <li> 
+                        <label class="cb-container">
+                          <input type="checkbox"><span class="text-small">$50.00 - $99.00</span><span class="checkmark"></span>
+                        </label>
+                      </li>
+                      <li> 
+                        <label class="cb-container">
+                          <input type="checkbox"><span class="text-small">$100.00 - $199.00</span><span class="checkmark"></span>
+                        </label>
+                      </li>
+                      <li> 
+                        <label class="cb-container">
+                          <input type="checkbox"><span class="text-small">$200.00 +</span><span class="checkmark"></span>
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div> -->
+                <!-- Price -->
+
                 <!-- Categories -->
                 <div class="block-filter"> 
                   <h6 class="item-collapse">Categories</h6>
                   <div class="box-collapse scrollFilter">
                     <ul class="list-filter-checkbox"> 
-                      <% allCategories.forEach(category => { %>
+                      <% allCategories.forEach(c => { %>
                         <li> 
                           <label class="cb-container">
-                            <input type="checkbox"><span class="text-small"><%= category.name %></span><span class="checkmark"></span>
+                            <% if (c.name===category) { %>
+                              <a href="/shop">
+                                <label></label>
+                              </a>
+                              <input id="myCheckbox"  type="checkbox" checked>
+                            <% } %>
+                            <a href="/shop?category=<%= c.name %>">
+                            <span class="text-small"><%= c.name %></span>
+                            </a>
+                            <span class="checkmark"></span>
                           </label>
                         </li>
                         <li> 
@@ -67,17 +78,21 @@
                 </div>
                 <!-- Categories -->
 
-
-      
                 <!-- Brand -->
                 <div class="block-filter"> 
                   <h6 class="item-collapse">Brand </h6>
                   <div class="box-collapse scrollFilter">
                     <ul class="list-filter-checkbox">
-                      <% brands.forEach(brand => { %>
+                      <% brands.forEach(b => { %>
                         <li> 
                           <label class="cb-container">
-                            <input type="checkbox"><span class="text-small"><%= brand.brand %>(<%= brand.productCount %>)</span><span class="checkmark"></span>
+                            <% if (b.brand===brand) { %>
+                              <input id="myCheckbox"  type="checkbox" checked>
+                            <% } %>
+                            <a href="/shop?brand=<%= b.brand %>">
+                            <span class="text-small"><%= b.brand %>(<%= b.productCount %>)</span>
+                            </a>
+                            <span class="checkmark"></span>
                           </label>
                         </li>
                       <% }) %> 
@@ -92,14 +107,19 @@
                     <h6 class="item-collapse">Type </h6>
                     <div class="box-collapse scrollFilter">
                       <ul class="list-filter-checkbox">
-                        <% product_type.forEach(type => { %>
-                          <li> 
-                            <label class="cb-container">
-                              <input type="checkbox"><span class="text-small"><%= type.product_type %>(<%= type.productCount %>)</span><span class="checkmark"></span>
-                            </label>
-                          </li>
-                        <% }) %> 
-  
+                        <% product_type.forEach(t => { %>
+                            <li> 
+                              <label class="cb-container">
+                                <% if (t.product_type===type) { %>
+                                  <input id="myCheckbox"  type="checkbox" checked>
+                                <% } %>
+                                <a href="/shop?type=<%= t.product_type %>">
+                                  <span class="text-small"><%= t.product_type %>(<%= t.productCount %>)</span>
+                                </a>
+                                <span class="checkmark"></span>
+                              </label>
+                            </li>
+                        <% }) %>
                       </ul>
                     </div>
                   </div>
@@ -110,28 +130,71 @@
                   <h6 class="item-collapse">Size </h6>
                   <div class="box-collapse scrollFilter">
                     <div class="block-size">
-                      <div class="list-sizes"><span class="item-size">XS </span><span class="item-size active">S </span><span class="item-size">M </span><span class="item-size">XL </span><span class="item-size">XXL </span></div>
+                      <div class="list-sizes">
+                        <a href="/shop?size=XS">
+                          <span class="item-size <% if (size === 'XS') { %>active<% } %>">XS</span>
+                        </a>
+
+                        <a href="/shop?size=S">
+                          <span class="item-size <% if (size === 'S') { %>active<% } %>">S</span>
+                        </a>
+
+                        <a href="/shop?size=M">
+                          <span class="item-size <% if (size === 'M') { %>active<% } %>">M</span>
+                        </a>
+
+                        <a href="/shop?size=XL">
+                          <span class="item-size <% if (size === 'XL') { %>active<% } %>">XL</span>
+                        </a>
+
+                        <a href="/shop?size=XXL">
+                          <span class="item-size <% if (size === 'XXL') { %>active<% } %>">XXL</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <!-- Size -->
+
               </div>
             </div>
             <div class="col-lg-9">
+              <form action="/shop" class="form-inline" style="padding-bottom: 30px;">
+                <input name="search" class="form-control mr-sm-2-s" type="search" placeholder="Search.." value="<%= search %>" aria-label="Search">
+                <button class="btn btn-outline my-2 my-sm-0" type="submit">
+                  <svg style="padding-right:20px ;" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 512 512"><style>svg{fill:#000000}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                </button>
+              </form>
               <div class="box-filter-top"> 
+
                 <div class="show-sm"> <a class="btn-open-filter" href="#">Filter </a></div>
                 <div class="number-product">
-                  <h5 class="title-filter">Products</h5>
-                  <p class="body-p2 neutral-medium-dark">Showing <%= allProducts.length %> of <%= count %> products</p>
+                  <!-- <h5 class="title-filter">Products</h5> -->
+                <p class="body-p2 neutral-medium-dark">Showing <%= allProducts.length %> of <%= count %> products</p>
                 </div>
                 <div class="box-sort"> 
                   <div class="box-sortby d-flex align-items-center">
                     <div class="dropdown dropdown-sort">
-                      <button class="btn dropdown-toggle" id="dropdownSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">Default Sorting</button>
+                      <button  class="btn dropdown-toggle" id="dropdownSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">Sort By</button>
                       <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort" style="margin: 0px;">
-                        <li><a class="dropdown-item active" href="#">Default Sorting</a></li>
-                        <li><a class="dropdown-item" href="#">Oldest products</a></li>
-                        <li><a class="dropdown-item" href="#">Comments products </a></li>
+                        <a href="/shop?sort=stock_status&order=1">
+                          <li class="dropdown-item <% if (sort==="stock_status" && order==="1") { %> active <% } %>">Default Sorting</li>
+                        </a>
+                        <a href="/shop?sort=Created At&order=1">
+                          <li class="dropdown-item<% if (sort==="Created At" && order==="1") { %> active <% } %>">Newest Arrivals</li>
+                        </a>
+                        <a href="/shop?sort=sales_price&order=1">
+                          <li class="dropdown-item <% if (sort==="sales_price" && order==="1") { %> active <% } %>">Price:Low to High</li>
+                        </a>
+                        <a href="/shop?sort=sales_price&order=-1">
+                          <li class="dropdown-item <% if (sort==="sales_price" && order==="-1") { %> active <% } %>">Price:High to Low</li>
+                        </a>
+                        <a href="/shop?sort=title&order=1">
+                          <li class="dropdown-item <% if (sort==="title" && order==="1") { %> active <% } %>">Name:Ascending</li>
+                        </a>
+                        <a href="/shop?sort=title&order=-1">
+                          <li class="dropdown-item <% if (sort==="title" && order==="-1") { %> active <% } %>">Name:Descending</li>
+                        </a>
                       </ul>
                     </div>
                   </div>
@@ -190,14 +253,14 @@
           <nav aria-label="Page navigation example">
             <% totalPage = Math.ceil(count/9) %>
             <ul class="pagination" style="align-items: center; justify-content: center;">
-                <li class="page-item"><a class="page-link"  data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#000000}</style><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg></a></li>
+                <li class="page-item"><a class="page-link" data-sort="<%= sort%>" data-order="<%= order%>"  data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#000000}</style><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg></a></li>
                 <% for( let i = 1; i <=totalPage ; i++ ) { %>
                     <li class="page-item">
                         <!-- Use data-page attribute to store the page number -->
-                        <a class="page-link" href="#" data-page="<%= i %>"><%= i%></a>
+                        <a class="page-link" href="#" data-sort="<%= sort%>" data-order="<%= order%>" data-page="<%= i %>"><%= i%></a>
                     </li>
                 <% } %>
-                <li class="page-item"><a class="page-link" data-totalPage="<% totalPage %>" data-cpage="<%= page %>" href="#"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#000000}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></a></li>
+                <li class="page-item"><a class="page-link"  data-sort="<%= sort%>" data-order="<%= order%>" data-totalPage="<% totalPage %>" data-cpage="<%= page %>" href="#"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#000000}</style><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></a></li>
             </ul>
         </nav>
         </div>
@@ -248,6 +311,19 @@
   }
 </style>
 <script>
+  // Get a reference to the checkbox element
+  // const checkbox = document.getElementById('myCheckbox');
+
+  // // Add an event listener to detect changes in the checkbox state
+  // checkbox.addEventListener('change', function() {
+  //   // Check if the checkbox is unchecked
+  //   if (!checkbox.checked) {
+  //     // Redirect to the desired URL
+  //     window.location.href = '/shop';
+  //   }
+  // });
+</script>
+<script>
     // Get all the page links
     var pageLinks = document.querySelectorAll('.pagination .page-item .page-link');
 
@@ -271,9 +347,11 @@
 
             // Get the page number from the data-page attribute
             var pageNumber = link.getAttribute('data-page');
+            var sort = link.getAttribute('data-sort');
+            var order = link.getAttribute('data-order');
 
             // Redirect to the new URL with the activated page number
-            window.location.href = '/shop?page=' + pageNumber;
+            window.location.href = `/shop?page=${pageNumber}&sort=${sort}&order=${order}`;
         });
     });
 
@@ -284,12 +362,12 @@
         // Calculate the previous page number based on the current active page
         var currentPage = document.querySelector('.pagination .page-item .page-link');
         var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
-        console.log(cpageNumber);
+
         if (cpageNumber > 1) {
             // Redirect to the previous page
-            window.location.href = '/shop?page=' + (cpageNumber - 1);
+            window.location.href = `/shop?page=${cpageNumber-1}&sort=${sort}&order=${order}`
         }else{
-            window.location.href = '/shop?page=' + cpageNumber;
+          window.location.href = `/shop?page=${cpageNumber}&sort=${sort}&order=${order}`
         }
     });
 
@@ -300,13 +378,14 @@
         // Calculate the next page number based on the current active page
         var currentPage = document.querySelector('.pagination .page-item .page-link');
         var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+        console.log("Currpage:"+cpageNumber);
         var totalPages = parseInt(currentPage.getAttribute('data-totalPage'));
-        console.log(totalPages);
+        console.log("totalpage:"+totalPages);
         if (cpageNumber < totalPages) {
             // Redirect to the next page
-            window.location.href = '/shop?page=' + (cpageNumber + 1);
+            window.location.href = `/shop?page=${cpageNumber+1}&sort=${sort}&order=${order}`
         }else{
-            window.location.href = '/shop?page=' + cpageNumber;
+          window.location.href = `/shop?page=${cpageNumber}&sort=${sort}&order=${order}`
         }
     });
 </script>

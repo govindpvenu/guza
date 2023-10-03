@@ -386,7 +386,6 @@
         shared("inspectSource", function (it) {
             return functionToString.call(it)
         })
-
         ;(module.exports = function (O, key, value, options) {
             var unsafe = options ? !!options.unsafe : false
             var simple = options ? !!options.enumerable : false

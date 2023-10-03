@@ -949,7 +949,7 @@ img:hover {
     padding: 10px 20px;
 }
 .form-control:focus {
-    border-color: #06d6a0;
+    border-color: #000000;
 }
 
 textarea.form-control {

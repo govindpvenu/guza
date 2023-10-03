@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const Product = require("../../models/Product")
 const Category = require("../../models/Category")
+const Order = require("../../models/Order")
 
 //GET
 //@route/
@@ -96,25 +97,42 @@ const productDetails = asyncHandler(async (req, res) => {
 //GET
 //@route /shop/
 const shopPage = asyncHandler(async (req, res) => {
+    //Sort
+    var sort = req.query.sort
+    var order = req.query.order
+    if (!sort) {
+        var sort = "stock_status"
+        var order = "1"
+    }
+
+    const sortMethod = {}
+    sortMethod[sort] = order
+    //Filter
+    const type = req.query.type
+    const brand = req.query.brand
+    const category = req.query.category
+    const size = req.query.size
+    var filter = [
+        { stock_status: "Available" },
+        { is_Listed: true },
+        { "category.is_Listed": true },
+    ]
+    type && filter.push({ product_type: type })
+    brand && filter.push({ brand: brand })
+    category && filter.push({ "category.name": category })
+    size && filter.push({ size: size })
+    //Search
+    const search = req.query.search
+    search && filter.push({ title: { $regex: search, $options: "i" } })
+
     //PAGINATION
     const page = req.query.page * 1 || 1
     const limit = 9
     const skip = (page - 1) * limit
-    const count = await Product.find({
-        $and: [
-            { stock_status: "Available" },
-            { is_Listed: true },
-            { "category.is_Listed": true },
-        ],
-    }).count()
+    const count = await Product.find({ $and: filter }).count()
 
-    const allProducts = await Product.find({
-        $and: [
-            { stock_status: "Available" },
-            { is_Listed: true },
-            { "category.is_Listed": true },
-        ],
-    })
+    const allProducts = await Product.find({ $and: filter })
+        .sort(sortMethod)
         .skip(skip)
         .limit(limit)
     const allCategories = await Category.find({})
@@ -157,6 +175,13 @@ const shopPage = asyncHandler(async (req, res) => {
         count,
         page,
         limit,
+        type,
+        brand,
+        category,
+        size,
+        sort,
+        order,
+        search,
     })
 })
 

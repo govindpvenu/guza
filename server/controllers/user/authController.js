@@ -97,7 +97,6 @@ const loginPage = asyncHandler(async (req, res) => {
         "Cache-Control",
         "no-store, no-cache, must-revalidate, private",
     )
-
     ;(emailErr = false), (passErr = false), (blockErr = false)
     res.render("user/login", {
         layout: "layouts/authLayout",
