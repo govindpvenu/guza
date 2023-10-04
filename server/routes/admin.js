@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const upload = require("../middleware/multer")
 //Controllers
-const { dashboard } = require("../controllers/admin/adminContoller")
+const { dashboard, salesReport } = require("../controllers/admin/adminContoller")
 const {
     adminLogin,
     adminVerify,
@@ -80,5 +80,9 @@ router.route("/customers/unblock/:id").get(unblockUser)
 router.route("/orders").get(isAdmin, orders)
 router.route("/admin-order-cancel/:id").get(isAdmin, adminCancelOrder)
 router.route("/change-status/:id").get(isAdmin, changeStatus)
+
+//Sales Report
+router.route("/sales-report").get(isAdmin, salesReport)
+
 
 module.exports = router

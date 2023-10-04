@@ -85,7 +85,7 @@
               <% product_type.forEach(type => { %>
                 <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group" aria-label="1 / 5">
                   <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                    <div class="cardImage"><a href="#"><img class="imageMain" style="height:410px; width: 420px;" src="/images/<%= type.firstImage %>" alt="guza"></a></div>
+                    <div class="cardImage"><a href="/shop?type=<%= type.product_type %>"><img class="imageMain" style="height:410px; width: 420px;" src="/images/<%= type.firstImage %>" alt="guza"></a></div>
                     <div class="cardInfo">
                       <h5 class="text-24-medium"><%= type.product_type %></h5>
                       <p class="text-17-medium cardDesc"><%= type.productCount %> items</p>
@@ -404,7 +404,7 @@
               <% brands.forEach(brand => { %>
               <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group" aria-label="1 / 5">
                 <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                  <div class="cardImage"><a href="#"><img class="imageMain" style="height:400px; width: 420px;" src="/images/<%= brand.firstImage %>" alt="guza"></a></div>
+                  <div class="cardImage"><a href="/shop?brand=<%= brand.brand %>"><img class="imageMain" style="height:400px; width: 420px;" src="/images/<%= brand.firstImage %>" alt="guza"></a></div>
                   <div class="cardInfo">
                     <h5 class="text-24-medium"><%= brand.brand %></h5>
                     <p class="text-17-medium cardDesc"><%= brand.productCount %> items</p>
@@ -495,7 +495,7 @@
             <div class="col-lg-6">
               <div class="box-padding wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;"><span class="text-17-medium neutral-dark text-uppercase">Sale Event</span>
                 <h3 class="neutral-dark mb-5 mt-10">Summer Shoe <br class="d-none d-lg-block">Limited Offer – ₹200</h3>
-                <p class="body-p2 neutral-dark mb-30">Until 12/27/23. Use code SUMMER43 at checkout</p><a class="btn btn-black" href="#">Shop Now</a>
+                <p class="body-p2 neutral-dark mb-30">Until 12/27/23. Use code SUMMER43 at checkout</p><a class="btn btn-black" href="/shop">Shop Now</a>
               </div>
             </div>
           </div>
