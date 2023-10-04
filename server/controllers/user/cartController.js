@@ -121,7 +121,7 @@ const checkoutPage = async (req, res) => {
         } else {
             res.render("user/checkout", {
                 layout: "layouts/userLayout",
-                user: user,
+                user,
                 userCart: userCart,
             })
         }

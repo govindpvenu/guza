@@ -13,6 +13,8 @@
     <section class="section block-cart">
       <div class="container mb-100 mt-60">
         <form class= "payment-form" action="/place-order" method="post">
+
+
           <div class="row mt-20"> 
             <div class="col-lg-6">
               <div class="col-md-12">
@@ -135,7 +137,7 @@
                       </div>
                       <div class="item-radio">
                         <label>
-                          <input class="form-check-input" required="" type="radio" name="payment_option" value="razorpay" id="exampleRadios3" disabled>
+                          <input class="form-check-input" required="" type="radio" name="payment_option" value="razorpay" id="exampleRadios3" checked="">
                           Razorpay
                         </label>
                       </div>
@@ -154,5 +156,85 @@
         </form>
       </div>
     </section>
+
   </main>
-  <script>
+ <!-- razorpay integration -->
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+ <script>
+    $(document).ready(function(){
+        $('.payment-form').submit(function(e){
+            e.preventDefault()
+            var formData = $(this).serialize();
+            console.log("-----formData-----");
+            console.log(formData);
+            $.ajax({
+                url : "/place-order",
+                method : "post",
+                data : formData,
+                success : function(res) {
+                    if(res.status === "razorpay"){
+                        var options = {
+                            "key":""+res.key_id+"",
+                            "amount" : ""+res.amount+"",
+                            "currency" : "INR",
+                            "order_id" : ""+res.order_id+"",
+                            "receipt" : ""+res.receipt+"",
+                            
+                            "handler":function(response){
+                              // alert(response.razorpay_payment_id);
+                              // alert(response.razorpay_order_id);
+                              // alert(response.razorpay_signature)
+                                // alert(res.reciept)
+                                // alert("payment success")
+                                verifyPayment(response, res.order_id ,res.reciept)
+
+                            },
+                            "prefill" : {
+                                "contact" : ""+res.contact+"",
+                                "name" : ""+res.name+"",
+                                "email" : ""+res.email+""
+                            },
+                            "theme" : {
+                                "color" : "#2300a3"
+                            }
+                        }
+                        
+                        var razorpayObj = new Razorpay(options);
+                        razorpayObj.on('payment.failed', function(response){
+                            alert("payment done")
+                        })
+                        razorpayObj.open();
+                    
+                    }
+                    else if(res.status === "COD"){
+                      window.location.href = "/success-page"
+                    }
+                    else{
+                      alert("erroorr")
+                        alert(res.msg)
+                    }
+                }
+            })
+        })
+    })
+
+    function verifyPayment(payment, order, orderId) {
+            // alert("cal comes")
+            // alert(orderId)
+            // alert(payment)
+            // alert(order)
+            $.ajax({
+                url: '/verify-payment',
+                data: {
+                    payment,
+                    order,
+                    orderId
+                },
+                method: 'post',
+                success: function () {
+                 window.location.href = "/success-page"
+                }
+            })
+        }
+  </script>
+
