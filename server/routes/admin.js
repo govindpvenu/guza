@@ -39,10 +39,11 @@ const {
 //Middlewares
 const { isAdmin, isAdminAuth } = require("../middleware/adminAuth")
 const { resizeImages } = require("../middleware/sharp")
+const { getProductCount,getUserCount,getOrderCount,getTotalRevenue,recentOrders,recentProducts,newUsers } = require('../helper/retrieveData')
 
 //--------Routes-------
 //Admin Auth
-router.route("/").get(isAdmin, dashboard)
+router.route("/").get(isAdmin,getProductCount, getUserCount,getOrderCount,getTotalRevenue,recentOrders,recentProducts,newUsers,dashboard)
 router.route("/login").get(isAdminAuth, adminLogin).post(adminVerify)
 router.route("/logout").get(adminLogout)
 

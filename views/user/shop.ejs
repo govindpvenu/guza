@@ -87,7 +87,7 @@
                         <li> 
                           <label class="cb-container">
                             <% if (b.brand===brand) { %>
-                              <input id="myCheckbox"  type="checkbox" checked>
+                                <input id="myCheckbox"  type="checkbox" checked>
                             <% } %>
                             <a href="/shop?brand=<%= b.brand %>">
                             <span class="text-small"><%= b.brand %>(<%= b.productCount %>)</span>
@@ -311,17 +311,17 @@
   }
 </style>
 <script>
-  // Get a reference to the checkbox element
-  // const checkbox = document.getElementById('myCheckbox');
+  //Get a reference to the checkbox element
+  const checkbox = document.getElementById('myCheckbox');
 
-  // // Add an event listener to detect changes in the checkbox state
-  // checkbox.addEventListener('change', function() {
-  //   // Check if the checkbox is unchecked
-  //   if (!checkbox.checked) {
-  //     // Redirect to the desired URL
-  //     window.location.href = '/shop';
-  //   }
-  // });
+  // Add an event listener to detect changes in the checkbox state
+  checkbox.addEventListener('change', function() {
+    // Check if the checkbox is unchecked
+    if (!checkbox.checked) {
+      // Redirect to the desired URL
+      window.location.href = '/shop';
+    }
+  });
 </script>
 <script>
     // Get all the page links

@@ -24,7 +24,7 @@
                                     <div class="media align-items-center static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">Total Revenue</span>
-                                            <h4 class="mb-0 counter">$6659
+                                            <h4 class="mb-0 counter">₹ <%= totalRevenue %>
                                                 <span class="badge badge-light-primary grow">
                                                     <i data-feather="trending-up"></i>8.5%</span>
                                             </h4>
@@ -43,9 +43,9 @@
                                     <div class="media static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">Total Orders</span>
-                                            <h4 class="mb-0 counter">9856
+                                            <h4 class="mb-0 counter"><%= orderCount %>
                                                 <span class="badge badge-light-danger grow">
-                                                    <i data-feather="trending-down"></i>8.5%</span>
+                                                    <i data-feather="trending-down"></i>4.6</span>
                                             </h4>
                                         </div>
                                         <div class="align-self-center text-center">
@@ -62,7 +62,7 @@
                                     <div class="media static-tocap-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">Total Products</span>
-                                            <h4 class="mb-0 counter">893
+                                            <h4 class="mb-0 counter"><%= productCount %>
                                                 <a href="/admin/products/add-product" class="badge badge-light-secondary grow">
                                                     ADD NEW</a>
                                             </h4>
@@ -82,10 +82,10 @@
                                     <div class="media static-top-widget">
                                         <div class="media-body p-0">
                                             <span class="m-0">Total Customers</span>
-                                            <h4 class="mb-0 counter">4.6k
+                                            <h4 class="mb-0 counter"><%= userCount %>
                                                 <span class="badge badge-light-success grow">
-                                                    <i data-feather="trending-down"></i>8.5%</span>
-                                            </h4>~
+                                                    <i data-feather="trending-down"></i>3.5</span>
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -112,26 +112,12 @@
                         <!-- Earning chart  end-->
 
 
-                        <!-- Best Selling Product Start -->
+                        <!-- New users  Start -->
                         <div class="col-xl-6 col-md-12">
                             <div class="card o-hidden card-hover">
                                 <div class="card-header card-header-top card-header--2 px-0 pt-0">
                                     <div class="card-header-title">
-                                        <h4>Best Selling Product</h4>
-                                    </div>
-
-                                    <div class="best-selling-box d-sm-flex d-none">
-                                        <span>Short By:</span>
-                                        <div class="dropdown">
-                                            <button class="btn p-0 dropdown-toggle" type="button"
-                                                id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                data-bs-auto-close="true">Today</button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </div>
+                                        <h4>New Users </h4>
                                     </div>
                                 </div>
 
@@ -142,134 +128,40 @@
                                             w-image
                                             w-image table border-0">
                                                 <tbody>
+                                                    <% newUsers.forEach(user => { %>
+                                                     
                                                     <tr>
+
                                                         <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="/assets/images/product/1.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
+                                                            <div class="product-detail-box">
+                                                                <h6>Name</h6>
+                                                                <h5><%= user.name %></h5>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$29.00</h5>
+                                                                <h6>Phone</h6>
+                                                                <h5>₹<%= user.phone %></h5>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
-                                                                <h6>Orders</h6>
-                                                                <h5>62</h5>
+                                                                <h6>Email</h6>
+                                                                <h5><%= user.email %></h5>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
-                                                                <h6>Stock</h6>
-                                                                <h5>510</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Amount</h6>
-                                                                <h5>$1,798</h5>
+                                                                <h6>Date join</h6>
+                                                                <h5> <%= user.createdAt.toDateString() %></h5>
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <% }) %>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="/assets/images/product/2.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$29.00</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Orders</h6>
-                                                                <h5>62</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Stock</h6>
-                                                                <h5>510</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Amount</h6>
-                                                                <h5>$1,798</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-image">
-                                                                    <img src="/assets/images/product/3.png"
-                                                                        class="img-fluid" alt="Product">
-                                                                </div>
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$29.00</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Orders</h6>
-                                                                <h5>62</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Stock</h6>
-                                                                <h5>510</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Amount</h6>
-                                                                <h5>$1,798</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -277,8 +169,92 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Best Selling Product End -->
+                        <!--  New users Product End -->
 
+                        <!-- Recently added  Start -->
+                        <div class="col-xl-6 col-md-12">
+                            <div class="card o-hidden card-hover">
+                                <div class="card-header card-header-top card-header--2 px-0 pt-0">
+                                    <div class="card-header-title">
+                                        <h4>Recently added </h4>
+                                    </div>
+                                </div>
+
+                                <div class="card-body p-0">
+                                    <div>
+                                        <div class="table-responsive">
+                                            <table class="best-selling-table w-image
+                                            w-image
+                                            w-image table border-0">
+                                                <tbody>
+                                                    <% recentProducts.forEach(product => { %>
+                                                     
+                                                    <tr>
+                                                        <td>
+                                                            <div class="best-product-box">
+                                                                <span class="order-image">
+                                                                    <img height="60px" width="60px" src="/images/<%= product.images[0]%>"
+                                                                        class="img-fluid" alt="users">
+                                                                </span>
+                                                                <h5>:</h5>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="product-detail-box">
+                                                                <h6>Title</h6>
+                                                                <h5><%= product.title %></h5>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="product-detail-box">
+                                                                <h6>Status</h6>
+                                                                <% if (product.stock_status ==="Available") { %>
+                                                                    <h5 class="text-success"><%= product.stock_status %></h5>
+                                                                <% } %>
+                                                                <% if (product.stock_status ==="Not Available") { %>
+                                                                        <h5 class="text-danger"><%= product.stock_status %></h5>
+                                                                <% } %>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="product-detail-box">
+                                                                <h6>Price</h6>
+                                                                <h5>₹<%= product.sales_price %></h5>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="product-detail-box">
+                                                                <h6>Stock left</h6>
+                                                                <h5><%= product.quantity %></h5>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="product-detail-box">
+                                                                <h6>Type</h6>
+                                                                <h5><%= product.product_type %></h5>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="product-detail-box">
+                                                                <h6>Size</h6>
+                                                                <h5><%= product.size %></h5>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  Recently Product End -->
 
                         <!-- Recent orders start-->
                         <div class="col-xl-6">
@@ -288,19 +264,6 @@
                                         <h4>Recent Orders</h4>
                                     </div>
 
-                                    <div class="best-selling-box d-sm-flex d-none">
-                                        <span>Short By:</span>
-                                        <div class="dropdown">
-                                            <button class="btn p-0 dropdown-toggle" type="button"
-                                                id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                                data-bs-auto-close="true">Today</button>
-                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="card-body p-0">
@@ -308,164 +271,59 @@
                                         <div class="table-responsive">
                                             <table class="best-selling-table table border-0">
                                                 <tbody>
+                                                    <% recentOrders.forEach(order => { %>
                                                     <tr>
                                                         <td>
                                                             <div class="best-product-box">
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>#64548</h6>
-                                                                </div>
+                                                                <a class="d-block">
+                                                                    <span class="order-image">
+                                                                        <img height="60px" width="60px" src="/images/<%= order.products[0].productId.images[0]%>"
+                                                                            class="img-fluid" alt="users">
+                                                                    </span>
+                                                                    </a>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
                                                                 <h6>Date Placed</h6>
-                                                                <h5>5/1/22</h5>
+                                                                <h5><%=  String(order.createdAt).slice(4, 16) %></h5>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
                                                                 <h6>Price</h6>
-                                                                <h5>$250.00</h5>
+                                                                <h5>₹<%= order.totalAmount %></h5>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
                                                                 <h6>Order Status</h6>
-                                                                <h5>Completed</h5>
+                                                                <% if (order.orderStatus ==="SUCCESS") { %>
+                                                                    <h5 class="text-success">Success</h5>
+                                                                <% } %>
+                                                                <% if (order.orderStatus ==="PENDING") { %>
+                                                                    <h5 class="text-danger">Pending</h5>
+                                                                <% } %>
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <div class="product-detail-box">
                                                                 <h6>Payment</h6>
-                                                                <h5 class="text-danger">Unpaid</h5>
+                                                                <% if (order.paymentStatus ==="RECEIVED") { %>
+                                                                    <h5 class="text-success">Paid</h5>
+                                                                <% } %>
+                                                                <% if (order.paymentStatus ==="PENDING") { %>
+                                                                    <h5 class="text-danger">Unpaid</h5>
+                                                                <% } %>
+
                                                             </div>
                                                         </td>
                                                     </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Date Placed</h6>
-                                                                <h5>5/1/22</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$250.00</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Order Status</h6>
-                                                                <h5>Completed</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Payment</h6>
-                                                                <h5 class="theme-color">Paid</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Date Placed</h6>
-                                                                <h5>5/1/22</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$250.00</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Order Status</h6>
-                                                                <h5>Completed</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Payment</h6>
-                                                                <h5 class="theme-color">Paid</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="best-product-box">
-                                                                <div class="product-name">
-                                                                    <h5>Aata Buscuit</h5>
-                                                                    <h6>26-08-2022</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Date Placed</h6>
-                                                                <h5>5/1/22</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Price</h6>
-                                                                <h5>$250.00</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Order Status</h6>
-                                                                <h5>Completed</h5>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            <div class="product-detail-box">
-                                                                <h6>Payment</h6>
-                                                                <h5 class="theme-color">Paid</h5>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <% }) %>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -475,20 +333,14 @@
                         </div>
                         <!-- Recent orders end-->
 
-                        <!-- Earning chart star-->
-                        <div class="col-xl-6">
-                            <div class="card o-hidden card-hover">
-                                <div class="card-header border-0 mb-0">
-                                    <div class="card-header-title">
-                                        <h4>Earning</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body p-0">
-                                    <div id="bar-chart-earning"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Earning chart end-->
+
+
+
+
+
+
+
+
 
 
                     </div>

@@ -16,6 +16,7 @@ const orders = asyncHandler(async (req, res) => {
         .limit(limit)
     res.render("admin/orders", {
         layout: "layouts/adminLayout",
+        title:"Order Management",
         orders,
         allOrders,
         count,

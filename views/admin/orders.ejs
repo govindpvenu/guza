@@ -24,6 +24,8 @@
                                                         <th>Order Image</th>
                                                         <th>Date</th>
                                                         <th>Payment Method</th>
+                                                        <th>Payment Status</th>
+
                                                         <th>Delivery Status</th>
                                                         <th>Amount</th>
                                                         <th>Option</th>
@@ -47,11 +49,41 @@
                                                             <%= String(allOrders[i].createdAt).slice(4, 16) %>
                                                         </td>
                                                         <td>
-                                                            <%= allOrders[i].paymentDetails %>
+                                                            <% if (allOrders[i].paymentDetails === "COD") { %>
+                                                                <p style="color:rgba(255, 136, 0, 0.977);">
+                                                             Cash on delivery
+                                                             </p>
+                                                            <% } %>
+                                                            <% if (allOrders[i].paymentDetails === "razorpay") { %>
+                                                                
+                                                                <p style="color:rgba(0, 149, 255, 0.977);">Razorpay</p>
+                                                               <% } %>
                                                         </td>
 
+                                                        <% if (allOrders[i].paymentStatus==='RECEIVED') { %>
+                                                            <td style="padding-left: 90px;">
+                                                                    <button  type="button" class="btn btn-outline-primary">Recieved</button>
+                                                            </td>
+                                                        <% } %>
+                                                        <% if (allOrders[i].paymentStatus==='PENDING') { %>
+                                                            <td style="padding-left: 90px;">
+                                                                    <button  type="button" class="btn btn-outline-danger btn">Not received</button>
+                    
+                                                            </td>
+                                                        <% } %>
+                                                        <% if (allOrders[i].paymentStatus==='CANCELLED') { %>
+                                                            <td style="padding-left: 90px;">
+                                                                    <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
+                                                            </td>
+                                                        <% } %>
+
+
+
+
+
+
                                                         <% if (allOrders[i].orderStatus==='SUCCESS') { %>
-                                                            <td style="padding-left: 150px;">
+                                                            <td style="padding-left: 90px;">
                                                                 <a href="/admin/change-status/<%= allOrders[i]._id %>">
                                                                     <button  type="button" class="btn btn-outline-primary">Success</button>
                         
@@ -59,7 +91,7 @@
                                                             </td>
                                                         <% } %>
                                                         <% if (allOrders[i].orderStatus==='PENDING') { %>
-                                                            <td style="padding-left: 150px;">
+                                                            <td style="padding-left: 90px;">
                                                                 <a href="/admin/change-status/<%= allOrders[i]._id %>">
                                                                     <button  type="button" class="btn btn-outline-danger btn">Pending</button>
                         
@@ -67,7 +99,7 @@
                                                             </td>
                                                         <% } %>
                                                         <% if (allOrders[i].orderStatus==='CANCELLED') { %>
-                                                            <td style="padding-left: 150px;">
+                                                            <td style="padding-left: 90px;">
                                                                 <a href="/admin/change-status/<%= allOrders[i]._id %>">
                                                                     <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
                         

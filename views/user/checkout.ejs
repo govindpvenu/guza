@@ -145,7 +145,9 @@
                   </div>
                   <% if (!user.address.length) { %>
                     <button class="btn btn-black" id="place-order-button" type="submit" disabled > Place Order</button></div>
-                    <% } else { %>
+                  <% } else if (!userCart.cart.length) { %>
+                    <button class="btn btn-black" id="place-order-button" type="submit" disabled > Place Order</button></div>
+                  <% } else { %>
                       <button class="btn btn-black" id="place-order-button" type="submit" > Place Order</button></div>
                   <% } %>
 
@@ -194,14 +196,15 @@
                                 "name" : ""+res.name+"",
                                 "email" : ""+res.email+""
                             },
+                            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8IYtSChmAt0TZX1lgMV8tm4b-BFRjYDjSmA&usqp=CAU",
                             "theme" : {
-                                "color" : "#2300a3"
+                                "color" : "#000000"
                             }
                         }
                         
                         var razorpayObj = new Razorpay(options);
                         razorpayObj.on('payment.failed', function(response){
-                            alert("payment done")
+                            alert("payment")
                         })
                         razorpayObj.open();
                     
@@ -210,8 +213,7 @@
                       window.location.href = "/success-page"
                     }
                     else{
-                      alert("erroorr")
-                        alert(res.msg)
+                      window.location.href = "/cart"
                     }
                 }
             })

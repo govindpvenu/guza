@@ -8,6 +8,7 @@ const categories = asyncHandler(async (req, res) => {
     const messages = await req.consumeFlash("info")
     res.render("admin/categories", {
         layout: "layouts/adminLayout",
+        title:"Category Management",
         messages,
         allCategories,
     })
@@ -18,6 +19,7 @@ const addCategory = asyncHandler(async (req, res) => {
     const messages = await req.consumeFlash("info")
     res.render("admin/add-category", {
         layout: "layouts/adminLayout",
+        title:"Category Management",
         messages,
     })
 })
@@ -49,6 +51,7 @@ const editCategory = asyncHandler(async (req, res) => {
     let category = await Category.findOne({ _id: category_id })
     res.render("admin/edit-category", {
         layout: "layouts/adminLayout",
+        title:"Category Management",
         category,
     })
 })

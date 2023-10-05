@@ -29,6 +29,23 @@
                                     <div class="card-header-title">
                                         <h4>Sales Report</h4>
                                     </div>
+                                    <div class="col-lg-2 col-6 col-md-3 ms-auto">
+                                        <select class="form-select" onchange="location.href='/admin/sales-report?report=' + this.value">
+                                            <%if(reportOrder=='daily'){%>
+                                            <option selected>daily</option>
+                                            <option>monthly</option>
+                                            <option> yearly</option>
+                                            <%}else if(reportOrder == 'monthly'){%>
+                                                <option>daily</option>
+                                            <option selected>monthly</option>
+                                            <option>yearly</option>
+                                            <%}else{%>
+                                                <option>daily</option>
+                                            <option>monthly</option>
+                                            <option selected>yearly</option>
+                                            <%}%>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="card-body">
@@ -37,143 +54,37 @@
                                             <table class="user-table list-table table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Transfer Id</th>
-                                                        <th>Name</th>
-                                                        <th>Date</th>
-                                                        <th>Total</th>
-                                                        <th>Options</th>
+                                                        <th>#</th>
+                                                        <th> Order ID</th>
+                                                        <th scope="col">Customer Name</th>
+                                                        <th scope="col">Payment Method</th>
+                                                        <th scope="col">Payment Method</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col" > Total Price </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>14783112</td>
-                                                        <td>Gray Brody</td>
-                                                        <td>20-05-2020</td>
-                                                        <td>$369</td>
-                                                        <td>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="order-detail.html">
-                                                                        <span class="ri-eye-line"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-pencil"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-trash"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>87541221</td>
-                                                        <td>Perez Alonzo</td>
-                                                        <td>07-12-2020</td>
-                                                        <td>$546</td>
-                                                        <td>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="order-detail.html">
-                                                                        <span class="ri-eye-line"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-pencil"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-trash"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>213514462</td>
-                                                        <td>woters maxine</td>
-                                                        <td>12-12-2020</td>
-                                                        <td>$369</td>
-                                                        <td>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="order-detail.html">
-                                                                        <span class="ri-eye-line"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-pencil"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-trash"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>235896144</td>
-                                                        <td>christian</td>
-                                                        <td>16-05-2020</td>
-                                                        <td>$4699</td>
-                                                        <td>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="order-detail.html">
-                                                                        <span class="ri-eye-line"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-pencil"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-trash"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>461178242</td>
-                                                        <td>Lane Skylar</td>
-                                                        <td>25-10-2020</td>
-                                                        <td>$1342</td>
-                                                        <td>
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="order-detail.html">
-                                                                        <span class="ri-eye-line"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-pencil"></span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="javascript:void(0)">
-                                                                        <span class="lnr lnr-trash"></span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                    </tr>
+                                                    <%for(i=0;i<order.length;i++){%>
+                                                        <tr>
+                                                            <td><%=i+1%></td>
+                                                            <td><%=order[i]._id%></td>
+                                                            <td><b><%=order[i].shippingAddress.name%></b></td>
+                                                            <td><%=order[i].paymentDetails%></td>
+                                                            <td><%=order[i].paymentStatus%></td>
+                                                            <td>
+                                                                <%if(order[i].orderStatus=='PENDING'){%>
+                                                                    <span class="badge rounded-pill alert-warning">Pending</span>
+                                                                <%}else if(order[i].orderStatus == 'SUCCESS'){%>
+                                                                    <span class="badge rounded-pill alert-success">Success</span> 
+                                                                <%}else if(order[i].orderStatus == 'CANCELLED'){%>
+                                                                    <span class="badge rounded-pill alert-success">Cancelled</span> 
+                                                                <%}else{%>
+                                                                    <span class="badge rounded-pill alert-danger">Delivered</span> 
+                                                                <%}%>
+                                                            </td>
+                                                            <td style="padding-left: 70px;" >₹<%=order[i].totalAmount%></td>
+                                                        </tr>
+                                                        <%}%>
                                                 </tbody>
                                             </table>
                                         </div>
