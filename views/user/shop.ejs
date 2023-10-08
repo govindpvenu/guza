@@ -60,10 +60,9 @@
                         <li> 
                           <label class="cb-container">
                             <% if (c.name===category) { %>
-                              <a href="/shop">
-                                <label></label>
-                              </a>
-                              <input id="myCheckbox"  type="checkbox" checked>
+                              <input onchange="location.href='/shop'" type="checkbox" checked>
+                            <% } else { %>
+                              <input onchange="location.href='/shop?category=<%= c.name %>'" type="checkbox">
                             <% } %>
                             <a href="/shop?category=<%= c.name %>">
                             <span class="text-small"><%= c.name %></span>
@@ -87,8 +86,10 @@
                         <li> 
                           <label class="cb-container">
                             <% if (b.brand===brand) { %>
-                                <input id="myCheckbox"  type="checkbox" checked>
-                            <% } %>
+                              <input onchange="location.href='/shop'" type="checkbox" checked>
+                              <% } else { %>
+                                <input onchange="location.href='/shop?brand=<%= b.brand %>'" type="checkbox">
+                                <% } %>
                             <a href="/shop?brand=<%= b.brand %>">
                             <span class="text-small"><%= b.brand %>(<%= b.productCount %>)</span>
                             </a>
@@ -111,7 +112,9 @@
                             <li> 
                               <label class="cb-container">
                                 <% if (t.product_type===type) { %>
-                                  <input id="myCheckbox"  type="checkbox" checked>
+                              <input onchange="location.href='/shop'" type="checkbox" checked>
+                              <% } else { %>
+                                <input onchange="location.href='/shop?type=<%= t.product_type %>'" type="checkbox">
                                 <% } %>
                                 <a href="/shop?type=<%= t.product_type %>">
                                   <span class="text-small"><%= t.product_type %>(<%= t.productCount %>)</span>
@@ -131,23 +134,23 @@
                   <div class="box-collapse scrollFilter">
                     <div class="block-size">
                       <div class="list-sizes">
-                        <a href="/shop?size=XS">
+                        <a <% if (size === 'XS') { %> href="/shop" <% } else { %> href="/shop?size=XS" <% } %>>
                           <span class="item-size <% if (size === 'XS') { %>active<% } %>">XS</span>
                         </a>
-
-                        <a href="/shop?size=S">
+                        
+                        <a  <% if (size === 'S') { %> href="/shop" <% } else { %> href="/shop?size=S" <% } %>>
                           <span class="item-size <% if (size === 'S') { %>active<% } %>">S</span>
                         </a>
 
-                        <a href="/shop?size=M">
+                        <a <% if (size === 'M') { %> href="/shop" <% } else { %> href="/shop?size=M" <% } %>>
                           <span class="item-size <% if (size === 'M') { %>active<% } %>">M</span>
                         </a>
 
-                        <a href="/shop?size=XL">
+                        <a <% if (size === 'XL') { %> href="/shop" <% } else { %> href="/shop?size=XL" <% } %>>
                           <span class="item-size <% if (size === 'XL') { %>active<% } %>">XL</span>
                         </a>
 
-                        <a href="/shop?size=XXL">
+                        <a <% if (size === 'XXL') { %> href="/shop" <% } else { %> href="/shop?size=XXL" <% } %>>
                           <span class="item-size <% if (size === 'XXL') { %>active<% } %>">XXL</span>
                         </a>
                       </div>
@@ -180,8 +183,8 @@
                         <a href="/shop?sort=stock_status&order=1">
                           <li class="dropdown-item <% if (sort==="stock_status" && order==="1") { %> active <% } %>">Default Sorting</li>
                         </a>
-                        <a href="/shop?sort=Created At&order=1">
-                          <li class="dropdown-item<% if (sort==="Created At" && order==="1") { %> active <% } %>">Newest Arrivals</li>
+                        <a href="/shop?sort=createdAt&order=-1">
+                          <li class="dropdown-item<% if (sort==="createdAt" && order==="-1") { %> active <% } %>">Newest Arrivals</li>
                         </a>
                         <a href="/shop?sort=sales_price&order=1">
                           <li class="dropdown-item <% if (sort==="sales_price" && order==="1") { %> active <% } %>">Price:Low to High</li>
@@ -210,6 +213,7 @@
               <% if (!allProducts.length) { %>
                 <img src="assets2/Images/no-product-found.png" alt="">
               <% } %>
+                
                 <% allProducts.forEach(product => { %>
                   <div class="product-item">
                     <div class="cardProduct wow fadeInUp">

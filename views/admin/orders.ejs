@@ -15,6 +15,27 @@
                                 <div class="card-body">
                                     <div class="title-header option-title">
                                         <h5>Order List</h5>
+                                        <div class="d-flex">
+                                            <div >
+                                                <select class="form-select" onchange="location.href='/admin/orders?paymentMethod=' + this.value">
+
+                                                    <%if(paymentMethod=='Razorpay'){%>
+                                                        <option >All</option>
+                                                        <option selected>Razorpay</option>
+                                                        <option>COD</option>
+                                                    <%}else if(paymentMethod=='COD' ){%>
+                                                        <option>All</option>
+                                                        <option>Razorpay</option>
+                                                        <option selected>COD</option>
+                                                    <%}else{%>
+                                                        <option selected>All</option>
+                                                        <option>Razorpay</option>
+                                                        <option>COD</option>
+                                                    <%}%>
+                                                </select>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div>
                                         <div class="table-responsive">
@@ -113,14 +134,72 @@
                                                         <td>
                                                             <ul>
                                                                 <li>
-                                                                    <a class="align-items-center btn-sm btn-secondary d-flex" href="/admin/admin-order-cancel/<%=allOrders[i]._id%>">
+                                                                    <a class="align-items-center btn-sm btn-secondary d-flex " data-bs-toggle="modal"
+                                                                                        data-bs-target="#exampleModalToggle<%= allOrders[i]._id %>" href="javascript:void(0)">
                                                                         Cancel
                                                                     </a>
-                                                                    
                                                                 </li>
                                                             </ul>
                                                         </td>
                                                     </tr>
+                                                                                                                    <!-- Delete Modal Box Start -->
+                                                                                                                    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle<%=allOrders[i]._id%>" aria-hidden="true"
+                                                                                                                        tabindex="-1">
+                                                                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                                                                            <div class="modal-content">
+                                                                                                                                <div class="modal-header d-block text-center">
+                                                                                                                                    <h5 class="modal-title w-100" id="exampleModalLabel22">Do you want to cancel this order?</h5>
+                                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                                                                        <i class="fas fa-times"></i>
+                                                                                                                                    </button>
+                                                                                                                                </div>
+                                                                                                                                <div class="modal-body">
+                                                                                                                                    <div class="remove-box">
+                                                                                                                                        <p>This will cancel the order from a customer.
+                                                                                                                                        </p>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="modal-footer">
+                                                                                                                                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                                                                                                                                    <button type="button" class="btn btn-animation btn-md fw-bold"
+                                                                                                                                        data-bs-target="#exampleModalToggle2<%=allOrders[i]._id%>" data-bs-toggle="modal"
+                                                                                                                                        data-bs-dismiss="modal">Yes</button>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    
+                                                                                                                    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2<%=allOrders[i]._id%>" aria-hidden="true"
+                                                                                                                        tabindex="-1">
+                                                                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                                                                            <div class="modal-content">
+                                                                                                                                <div class="modal-header">
+                                                                                                                                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                                                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                                                                        <i class="fas fa-times"></i>
+                                                                                                                                    </button>
+                                                                                                                                </div>
+                                                                                                                                <div class="modal-body">
+                                                                                                                                    <div class="remove-box text-center">
+                                                                                                                                        <div class="wrapper">
+                                                                                                                                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                                                                                                                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                                                                                                                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                                                                                                                            </svg>
+                                                                                                                                        </div>
+                                                                                                                                        <h4 class="text-content">Order Cancelled Successfully.</h4>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="modal-footer">
+                                                                                                                    
+                                                                                                                                    <a href="/admin/admin-order-cancel/<%=allOrders[i]._id%>">
+                                                                                                                                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                                                                                                                            data-bs-dismiss="modal">Close</button></a>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <!-- Delete Modal Box End -->
                                                 <% } %>
                                                 </tbody>
                                             </table>
@@ -132,14 +211,14 @@
                             <nav aria-label="Page navigation example">
                                 <% totalPage = Math.ceil(count/7) %>
                                 <ul class="pagination" style="align-items: center; justify-content: center;">
-                                    <li class="page-item"><a class="page-link"  data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link"  data-paymentMethod="<%= paymentMethod %>" data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Previous</a></li>
                                     <% for( let i = 1; i <=totalPage ; i++ ) { %>
                                         <li class="page-item">
                                             <!-- Use data-page attribute to store the page number -->
-                                            <a class="page-link" href="#" data-page="<%= i %>"><%= i%></a>
+                                            <a class="page-link" href="#"  data-paymentMethod="<%= paymentMethod %>" data-page="<%= i %>"><%= i%></a>
                                         </li>
                                     <% } %>
-                                    <li class="page-item"><a class="page-link" data-totalPage="<% totalPage %>" data-cpage="<%= page %>" href="#">Next</a></li>
+                                    <li class="page-item"><a class="page-link" data-paymentMethod="<%= paymentMethod %>" data-totalPage="<% totalPage %>" data-cpage="<%= page %>" href="#">Next</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -194,9 +273,10 @@
 
                 // Get the page number from the data-page attribute
                 var pageNumber = link.getAttribute('data-page');
+                var paymentMethod = link.getAttribute('data-paymentMethod');
 
                 // Redirect to the new URL with the activated page number
-                window.location.href = '/admin/orders?page=' + pageNumber;
+            window.location.href = `/admin/orders?paymentMethod=${paymentMethod}&page=${pageNumber}`;
             });
         });
 
@@ -207,12 +287,14 @@
             // Calculate the previous page number based on the current active page
             var currentPage = document.querySelector('.pagination .page-item .page-link');
             var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+             var paymentMethod = currentPage.getAttribute('data-paymentMethod');
+
             console.log(cpageNumber);
             if (cpageNumber > 1) {
                 // Redirect to the previous page
-                window.location.href = '/admin/orders?page=' + (cpageNumber - 1);
+                window.location.href = `/admin/orders?paymentMethod=${paymentMethod}&page=${cpageNumber - 1}`;
             }else{
-                window.location.href = '/admin/orders?page=' + cpageNumber;
+                window.location.href = `/admin/orders?paymentMethod=${paymentMethod}&page=${cpageNumber}`;
             }
         });
 
@@ -224,13 +306,14 @@
             var currentPage = document.querySelector('.pagination .page-item .page-link');
             var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
             var totalPages = parseInt(currentPage.getAttribute('data-totalPage'));
+                    var paymentMethod = currentPage.getAttribute('data-paymentMethod');
             console.log(totalPages);
             if (cpageNumber < totalPages) {
                 // Redirect to the next page
-                window.location.href = '/admin/orders?page=' + (cpageNumber + 1);
+            window.location.href = `/admin/orders?paymentMethod=${paymentMethod}&page=${cpageNumber + 1}`;
             }else{
-                console.log('haai');
-                window.location.href = '/admin/orders?page=' + cpageNumber;
+                window.location.href = `/admin/orders?paymentMethod=${paymentMethod}&page=${cpageNumber}`;
+
             }
         });
     </script>

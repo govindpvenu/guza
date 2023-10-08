@@ -7,211 +7,380 @@
 
     <!-- page-wrapper Start-->
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
-        <%- include('../partials/header') %>
-            <!-- Page Body Start-->
-            <div class="page-body-wrapper">
-                <%- include('../partials/sidebar') %>
-                    <!-- Container-fluid starts-->
-                    <div class="page-body">
-                        <div class="container-fluid">
-                            <!-- flash message -->
-                            <% messages.forEach(element=> { %>
-                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                <%= element %>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <!-- Page Header Start-->
+        <div class="page-header">
+            <div class="header-wrapper m-0">
+                <div class="header-logo-wrapper p-0">
+                    <div class="logo-wrapper">
+                        <a href="index.html">
+                            <img class="img-fluid main-logo" src="/assets/images/logo/1.png" alt="logo">
+                            <img class="img-fluid white-logo" src="/assets/images/logo/1-white.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="toggle-sidebar">
+                        <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
+                        <a href="index.html">
+                            <img src="/assets/images/logo/1.png" class="img-fluid" alt="">
+                        </a>
+                    </div>
+                </div>
+                <h2 style="padding-right: 200px;">
+                    <%= title %>
+                </h2>
+                <form class="search-full" action="/admin/products">
+                    <div class="form-group w-100">
+                        <input class="form-control-plaintext w-100" type="text" placeholder="Search Products .."
+                            name="search">
+                    </div>
+                </form>
+
+                <div class="nav-right col-6 pull-right right-header p-0">
+                    <ul class="nav-menus">
+                        <li>
+                            <span class="header-search">
+                                <i class="ri-search-line"></i>
+                            </span>
+                        </li>
+
+                        <li class="profile-nav onhover-dropdown pe-0 me-0">
+                            <div class="media profile-media">
+                                <img class="user-profile rounded-circle"
+                                    src="data:image/png;base64,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"
+                                    alt="">
+                                <div class="user-name-hide media-body">
+                                    <span>Govind p venu</span>
+                                    <p class="mb-0 font-roboto">Admin<i class="middle ri-arrow-down-s-line"></i></p>
                                 </div>
-                                <% }) %>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card card-table">
-                                        <div class="card-body">
-                                            <div class="title-header option-title d-sm-flex d-block">
-                                                <h5>Products List</h5>
-                                                <div class="right-options">
-                                                    <ul>
-                                                        <form class="d-inline-flex">
-                                                            <a href="/admin/products/add-product"
-                                                                class="align-items-center btn btn-theme d-flex">
-                                                                <i data-feather="plus-square"></i>Add Product
-                                                            </a>
-                                                        </form>
-                                                    </ul>
+                            </div>
+                            <ul class="profile-dropdown onhover-show-div">
+                                <li>
+                                    <a href="/admin/customers">
+                                        <i data-feather="users"></i>
+                                        <span>Users</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/orders">
+                                        <i data-feather="archive"></i>
+                                        <span>Orders</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        href="javascript:void(0)">
+                                        <i data-feather="log-out"></i>
+                                        <span>Log out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header Ends-->
+        <!-- Modal Start -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                        <p>Are you sure you want to log out?</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="button-box">
+                            <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                            <a href="/admin/logout">
+                                <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal End -->
+        <!-- Page Body Start-->
+        <div class="page-body-wrapper">
+            <%- include('../partials/sidebar') %>
+                <!-- Container-fluid starts-->
+                <div class="page-body">
+                    <div class="container-fluid">
+                        <!-- flash message -->
+                        <% messages.forEach(element=> { %>
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <%= element %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                            </div>
+                            <% }) %>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card card-table">
+                                            <div class="card-body">
+                                                <div class="title-header option-title d-sm-flex d-block">
+                                                    <div class="right-options">
+                                                        <ul>
+                                                            <form class="d-inline-flex">
+                                                                <a href="/admin/products/add-product"
+                                                                    class="align-items-center btn btn-theme d-flex">
+                                                                    <i data-feather="plus-square"></i>Add Product
+                                                                </a>
+                                                            </form>
+                                                        </ul>
+
+                                                    </div>
+
+                                                    <h5>Products List</h5>
+
+                                                    <div class="box-sort">
+                                                        <div class="box-sortby d-flex align-items-center">
+                                                            <div class="dropdown dropdown-sort">
+                                                                <button class="btn btn-primary dropdown-toggle"
+                                                                    id="dropdownSort" type="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">Sort
+                                                                    By</button>
+                                                                <ul class="dropdown-menu dropdown-menu-light"
+                                                                    aria-labelledby="dropdownSort">
+                                                                    <li <% if (sort==='createdAt' && order==='-1' ) { %>
+                                                                        style=" background-color: darkgrey;" <% } %>
+                                                                            class="dropdown-item"><a
+                                                                                href="/admin/products?sort=createdAt&order=-1">Date
+                                                                                Added</a></li>
+                                                                    <li <% if (sort==='sales_price' && order==='1' ) {
+                                                                        %> style=" background-color: darkgrey;" <% } %>
+                                                                            class="dropdown-item"><a
+                                                                                href="/admin/products?sort=sales_price&order=1">Price:
+                                                                                Low to High</a></li>
+                                                                    <li <% if (sort==='sales_price' && order==='-1' ) {
+                                                                        %> style=" background-color: darkgrey;"
+                                                                        <% } %> class="dropdown-item"><a
+                                                                                href="/admin/products?sort=sales_price&order=-1">Price:
+                                                                                High to Low</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <div class="table-responsive">
-                                                    <table class="table all-package theme-table table-product"
-                                                        id="table_id">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Product Image</th>
-                                                                <th>Product Name</th>
-                                                                <th>Quantity</th>
-                                                                <th>Category</th>
-                                                                <th>Regular price</th>
-                                                                <th>Sales price</th>
-                                                                <th>Option</th>
-                                                            </tr>
-                                                        </thead>
 
-                                                        <tbody>
-                                                            <% allProducts.forEach(product=> { %>
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="table-image">
-                                                                            <img src="/images/<%= product.images[0] %>"
-                                                                                class="img-fluid" alt="">
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= product.title %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= product.quantity %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= product.category.name %>
-                                                                    </td>
-                                                                
-                                                                    <td class="td-price">₹ <%= product.regular_price %>
-                                                                    </td>
-                                                                    </td>
-                                                                    <td class="td-price">₹ <%= product.sales_price %>
-                                                                    </td>
-                                                                    
-                                                                    <td>
-                                                                        <ul>
+                                                <div>
+                                                    <div class="table-responsive">
+                                                        <% if (!allProducts.length) { %>
+                                                            <div style=" display: flex; justify-content: center;">
+                                                                <img src="/assets2/Images/no-product-found.png" alt="">
+                                                            </div>
+                                                            <% } else { %>
+                                                                <table
+                                                                    class="table all-package theme-table table-product"
+                                                                    id="table_id">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Product Image</th>
+                                                                            <th>Product Name</th>
+                                                                            <th>Quantity</th>
+                                                                            <th>Category</th>
+                                                                            <th>Regular price</th>
+                                                                            <th>Sales price</th>
+                                                                            <th>Option</th>
+                                                                        </tr>
+                                                                    </thead>
 
-                                                                            <li>
-                                                                                <a href="/admin/products/edit/<%= product._id %>">
-                                                                                    <i class="ri-pencil-line"></i>
-                                                                                </a>
-                                                                            </li>
-
-                                                                            <li>
-                                                                                <a href="javascript:void(0)"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#exampleModalToggle<%= product._id %>">
-                                                                                    <i class="ri-delete-bin-line"></i>
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- Delete Modal Box Start -->
-                                                                <div class="modal fade theme-modal remove-coupon"
-                                                                    id="exampleModalToggle<%= product._id %>"
-                                                                    aria-hidden="true" tabindex="-1">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
-                                                                            <div
-                                                                                class="modal-header d-block text-center">
-                                                                                <h5 class="modal-title w-100"
-                                                                                    id="exampleModalLabel22">Are You
-                                                                                    Sure ?</h5>
-                                                                                <button type="button" class="btn-close"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <i class="fas fa-times"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <div class="remove-box">
-                                                                                    <p>The permission for the use/group,
-                                                                                        preview is inherited from the
-                                                                                        object, object will create a
-                                                                                        new permission for this object
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                    class="btn btn-animation btn-md fw-bold"
-                                                                                    data-bs-dismiss="modal">No</button>
-                                                                                <button type="button"
-                                                                                    class="btn btn-animation btn-md fw-bold"
-                                                                                    data-bs-target="#exampleModalToggle2<%= product._id %>"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-dismiss="modal">Yes</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="modal fade theme-modal remove-coupon"
-                                                                    id="exampleModalToggle2<%= product._id %>"
-                                                                    aria-hidden="true" tabindex="-1">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title text-center"
-                                                                                    id="exampleModalLabel12">Done</h5>
-                                                                                <button type="button" class="btn-close"
-                                                                                    data-bs-dismiss="modal"
-                                                                                    aria-label="Close">
-                                                                                    <i class="fas fa-times"></i>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <div class="remove-box text-center">
-                                                                                    <div class="wrapper">
-                                                                                        <svg class="checkmark"
-                                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                                            viewBox="0 0 52 52">
-                                                                                            <circle
-                                                                                                class="checkmark__circle"
-                                                                                                cx="26" cy="26" r="25"
-                                                                                                fill="none" />
-                                                                                            <path
-                                                                                                class="checkmark__check"
-                                                                                                fill="none"
-                                                                                                d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                                                                                        </svg>
+                                                                    <tbody>
+                                                                        <% allProducts.forEach(product=> { %>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="table-image">
+                                                                                        <img src="/images/<%= product.images[0] %>"
+                                                                                            class="img-fluid" alt="">
                                                                                     </div>
-                                                                                    <h4 class="text-content">It's
-                                                                                        Removed.</h4>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= product.title %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= product.quantity %>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <%= product.category.name %>
+                                                                                </td>
+
+                                                                                <td class="td-price">₹ <%=
+                                                                                        product.regular_price %>
+                                                                                </td>
+                                                                                </td>
+                                                                                <td class="td-price">₹ <%=
+                                                                                        product.sales_price %>
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <ul>
+
+                                                                                        <li>
+                                                                                            <a
+                                                                                                href="/admin/products/edit/<%= product._id %>">
+                                                                                                <i
+                                                                                                    class="ri-pencil-line"></i>
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <li>
+                                                                                            <a href="javascript:void(0)"
+                                                                                                data-bs-toggle="modal"
+                                                                                                data-bs-target="#exampleModalToggle<%= product._id %>">
+                                                                                                <i
+                                                                                                    class="ri-delete-bin-line"></i>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <!-- Delete Modal Box Start -->
+                                                                            <div class="modal fade theme-modal remove-coupon"
+                                                                                id="exampleModalToggle<%= product._id %>"
+                                                                                aria-hidden="true" tabindex="-1">
+                                                                                <div
+                                                                                    class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div
+                                                                                            class="modal-header d-block text-center">
+                                                                                            <h5 class="modal-title w-100"
+                                                                                                id="exampleModalLabel22">
+                                                                                                Are
+                                                                                                You
+                                                                                                Sure ?</h5>
+                                                                                            <button type="button"
+                                                                                                class="btn-close"
+                                                                                                data-bs-dismiss="modal"
+                                                                                                aria-label="Close">
+                                                                                                <i
+                                                                                                    class="fas fa-times"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <div class="remove-box">
+                                                                                                <p>The permission for
+                                                                                                    the
+                                                                                                    use/group,
+                                                                                                    preview is inherited
+                                                                                                    from the
+                                                                                                    object, object will
+                                                                                                    create a
+                                                                                                    new permission for
+                                                                                                    this
+                                                                                                    object
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button"
+                                                                                                class="btn btn-animation btn-md fw-bold"
+                                                                                                data-bs-dismiss="modal">No</button>
+                                                                                            <button type="button"
+                                                                                                class="btn btn-animation btn-md fw-bold"
+                                                                                                data-bs-target="#exampleModalToggle2<%= product._id %>"
+                                                                                                data-bs-toggle="modal"
+                                                                                                data-bs-dismiss="modal">Yes</button>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                                <a
-                                                                                    href="/admin/products/delete/<%= product._id %>">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-primary"
-                                                                                        data-bs-toggle="modal"
-                                                                                        data-bs-dismiss="modal">Close</button></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Delete Modal Box End -->
-                                                                <% }) %>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
 
+                                                                            <div class="modal fade theme-modal remove-coupon"
+                                                                                id="exampleModalToggle2<%= product._id %>"
+                                                                                aria-hidden="true" tabindex="-1">
+                                                                                <div
+                                                                                    class="modal-dialog modal-dialog-centered">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title text-center"
+                                                                                                id="exampleModalLabel12">
+                                                                                                Done</h5>
+                                                                                            <button type="button"
+                                                                                                class="btn-close"
+                                                                                                data-bs-dismiss="modal"
+                                                                                                aria-label="Close">
+                                                                                                <i
+                                                                                                    class="fas fa-times"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <div
+                                                                                                class="remove-box text-center">
+                                                                                                <div class="wrapper">
+                                                                                                    <svg class="checkmark"
+                                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                                        viewBox="0 0 52 52">
+                                                                                                        <circle
+                                                                                                            class="checkmark__circle"
+                                                                                                            cx="26"
+                                                                                                            cy="26"
+                                                                                                            r="25"
+                                                                                                            fill="none" />
+                                                                                                        <path
+                                                                                                            class="checkmark__check"
+                                                                                                            fill="none"
+                                                                                                            d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                                                                                    </svg>
+                                                                                                </div>
+                                                                                                <h4
+                                                                                                    class="text-content">
+                                                                                                    It's
+                                                                                                    Removed.</h4>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <a
+                                                                                                href="/admin/products/delete/<%= product._id %>">
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-primary"
+                                                                                                    data-bs-toggle="modal"
+                                                                                                    data-bs-dismiss="modal">Close</button></a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- Delete Modal Box End -->
+                                                                            <% }) %>
+                                                                    </tbody>
+                                                                </table>
+                                                                <% } %>
+
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <nav aria-label="Page navigation example">
-                                <% totalPage = Math.ceil(count/7) %>
-                                <ul class="pagination" style="align-items: center; justify-content: center;">
-                                    <li class="page-item"><a class="page-link"  data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Previous</a></li>
-                                    <% for( let i = 1; i <=totalPage ; i++ ) { %>
-                                        <li class="page-item">
-                                            <!-- Use data-page attribute to store the page number -->
-                                            <a class="page-link" href="#" data-page="<%= i %>"><%= i%></a>
-                                        </li>
-                                    <% } %>
-                                    <li class="page-item"><a class="page-link" data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- Container-fluid Ends-->
+                                <nav aria-label="Page navigation example">
+                                    <% totalPage=Math.ceil(count/7) %>
+                                        <ul class="pagination" style="align-items: center; justify-content: center;">
+                                            <li class="page-item"><a class="page-link" data-sort="<%= sort%>"
+                                                    data-order="<%= order%>" data-totalPage="<%= totalPage %>"
+                                                    data-cpage="<%= page %>" href="#">Previous</a></li>
+                                            <% for( let i=1; i <=totalPage ; i++ ) { %>
+                                                <li class="page-item">
+                                                    <!-- Use data-page attribute to store the page number -->
+                                                    <a class="page-link" href="#" data-sort="<%= sort%>"
+                                                        data-order="<%= order%>" data-page="<%= i %>">
+                                                        <%= i%>
+                                                    </a>
+                                                </li>
+                                                <% } %>
+                                                    <li class="page-item"><a class="page-link" data-sort="<%= sort%>"
+                                                            data-order="<%= order%>" data-totalPage="<%= totalPage %>"
+                                                            data-cpage="<%= page %>" href="#">Next</a></li>
+                                        </ul>
+                                </nav>
                     </div>
-            </div>
+                    <!-- Container-fluid Ends-->
+                </div>
+        </div>
     </div>
     <!-- page-wrapper End-->
 
@@ -236,12 +405,13 @@
     <!-- Modal End -->
 
     <style>
-        .page-link{
-           color: #0da487; 
+        .page-link {
+            color: #0da487;
         }
+
         .pagination .page-item.active .page-link {
             background-color: #0da487;
-            border-color:#0da487;
+            border-color: #0da487;
             color: white;
         }
 
@@ -260,13 +430,13 @@
         var nextButton = document.querySelector('.pagination li:last-child .page-link');
 
         // Attach a click event listener to each page link
-        pageLinks.forEach(function(link) {
-            link.addEventListener('click', function(event) {
+        pageLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
                 // Prevent the default behavior of the link
                 event.preventDefault();
 
                 // Remove 'active' class from all page items
-                pageLinks.forEach(function(link) {
+                pageLinks.forEach(function (link) {
                     link.parentElement.classList.remove('active');
                 });
 
@@ -275,42 +445,48 @@
 
                 // Get the page number from the data-page attribute
                 var pageNumber = link.getAttribute('data-page');
+                var sort = link.getAttribute('data-sort');
+                var order = link.getAttribute('data-order');
 
                 // Redirect to the new URL with the activated page number
-                window.location.href = '/admin/products?page=' + pageNumber;
+                window.location.href = `/admin/products?page=${pageNumber}&sort=${sort}&order=${order}`
             });
         });
 
         // Attach a click event listener to the Previous button
-        prevButton.addEventListener('click', function(event) {
+        prevButton.addEventListener('click', function (event) {
             event.preventDefault();
-            
+
             // Calculate the previous page number based on the current active page
             var currentPage = document.querySelector('.pagination .page-item .page-link');
             var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+            var sort = currentPage.getAttribute('data-sort');
+            var order = currentPage.getAttribute('data-order');
             console.log(cpageNumber);
             if (cpageNumber > 1) {
                 // Redirect to the previous page
-                window.location.href = '/admin/products?page=' + (cpageNumber - 1);
-            }else{
-                window.location.href = '/admin/products?page=' + cpageNumber;
+                window.location.href = `/admin/products?page=${cpageNumber - 1}&sort=${sort}&order=${order}`
+            } else {
+                window.location.href = `/admin/products?page=${cpageNumber}&sort=${sort}&order=${order}`
             }
         });
 
         // Attach a click event listener to the Next button
-        nextButton.addEventListener('click', function(event) {
+        nextButton.addEventListener('click', function (event) {
             event.preventDefault();
-            
+
             // Calculate the next page number based on the current active page
             var currentPage = document.querySelector('.pagination .page-item .page-link');
             var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
             var totalPages = parseInt(currentPage.getAttribute('data-totalPage'));
+            var sort = currentPage.getAttribute('data-sort');
+            var order = currentPage.getAttribute('data-order');
             console.log(totalPages);
             if (cpageNumber < totalPages) {
                 // Redirect to the next page
-                window.location.href = '/admin/products?page=' + (cpageNumber + 1);
-            }else{
-                window.location.href = '/admin/products?page=' + cpageNumber;
+                window.location.href = `/admin/products?page=${cpageNumber + 1}&sort=${sort}&order=${order}`
+            } else {
+                window.location.href = `/admin/products?page=${cpageNumber}&sort=${sort}&order=${order}`
             }
         });
     </script>

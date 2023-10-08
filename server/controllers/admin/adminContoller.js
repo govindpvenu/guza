@@ -23,7 +23,7 @@ const salesReport = async (req, res) => {
     const page = req.query.page * 1 || 1
     const limit = req.query.limit * 1 || 7
     const skip = (page - 1) * limit
-    console.log(limit);
+    console.log(limit)
     //REPORT
     const reportOrder = req.query.report
     const today = new Date()
@@ -79,7 +79,7 @@ const monthlyreport = async (req, res) => {
 
         const orderSuccessDetails = await Order.find({
             createdAt: { $gte: start, $lte: end },
-        });
+        })
 
         const monthlySales = {}
         orderSuccessDetails.forEach((order) => {
@@ -96,8 +96,10 @@ const monthlyreport = async (req, res) => {
             monthlySales[monthName].revenue += order.totalAmount
             monthlySales[monthName].productCount += orderSuccessDetails.length
             monthlySales[monthName].orderCount++
-            if (order.paymentDetails === "COD") monthlySales[monthName].codCount++
-            else if (order.paymentDetails === "razorpay") monthlySales[monthName].razorpayCount++
+            if (order.paymentDetails === "COD")
+                monthlySales[monthName].codCount++
+            else if (order.paymentDetails === "razorpay")
+                monthlySales[monthName].razorpayCount++
         })
         const monthlyData = {
             labels: [],
@@ -112,10 +114,15 @@ const monthlyreport = async (req, res) => {
             if (monthlySales.hasOwnProperty(monthName)) {
                 monthlyData.labels.push(monthName)
                 monthlyData.revenueData.push(monthlySales[monthName].revenue)
-                monthlyData.productCountData.push(monthlySales[monthName].productCount,)
-                monthlyData.orderCountData.push(monthlySales[monthName].orderCount,)
+                monthlyData.productCountData.push(
+                    monthlySales[monthName].productCount,
+                )
+                monthlyData.orderCountData.push(
+                    monthlySales[monthName].orderCount,
+                )
                 monthlyData.codCountData.push(monthlySales[monthName].codCount)
-                monthlyData.razorpayCountData.push(monthlySales[monthName].razorpayCount,
+                monthlyData.razorpayCountData.push(
+                    monthlySales[monthName].razorpayCount,
                 )
             }
         }

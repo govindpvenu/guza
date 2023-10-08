@@ -98,12 +98,8 @@ const productDetails = asyncHandler(async (req, res) => {
 //@route /shop/
 const shopPage = asyncHandler(async (req, res) => {
     //Sort
-    var sort = req.query.sort
-    var order = req.query.order
-    if (!sort) {
-        var sort = "stock_status"
-        var order = "1"
-    }
+    var sort = req.query.sort || "stock_status"
+    var order = req.query.order || 1
 
     const sortMethod = {}
     sortMethod[sort] = order
@@ -150,7 +146,7 @@ const shopPage = asyncHandler(async (req, res) => {
             },
         },
         { $project: { _id: 0, brand: "$_id", productCount: 1 } },
-    ])
+    ]).sort({ brand: 1 })
     const product_type = await Product.aggregate([
         {
             $match: {
@@ -165,7 +161,7 @@ const shopPage = asyncHandler(async (req, res) => {
             },
         },
         { $project: { _id: 0, product_type: "$_id", productCount: 1 } },
-    ])
+    ]).sort({ product_type: 1 })
     res.render("user/shop", {
         layout: "layouts/userLayout",
         allProducts,
@@ -185,8 +181,48 @@ const shopPage = asyncHandler(async (req, res) => {
     })
 })
 
+//GET
+//@route /wishlist/
+const wishlistPage = asyncHandler(async (req, res) => {
+    const randomProducts = await Product.aggregate([
+        {
+            $match: {
+                $and: [
+                    { stock_status: "Available" },
+                    { is_Listed: true },
+                    { "category.is_Listed": true },
+                ],
+            },
+        },
+        { $sample: { size: 8 } },
+    ])
+    res.render("user/wishlist", {
+        layout: "layouts/userLayout",
+        randomProducts,
+    })
+})
+
+//GET
+//@route /contact/
+const contactPage = asyncHandler(async (req, res) => {
+    res.render("user/contact", {
+        layout: "layouts/userLayout",
+    })
+})
+
+//GET
+//@route /about/
+const aboutPage = asyncHandler(async (req, res) => {
+    res.render("user/about", {
+        layout: "layouts/userLayout",
+    })
+})
+
 module.exports = {
     homePage,
     productDetails,
     shopPage,
+    wishlistPage,
+    aboutPage,
+    contactPage,
 }

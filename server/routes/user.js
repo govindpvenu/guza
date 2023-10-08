@@ -6,6 +6,9 @@ const {
     homePage,
     productDetails,
     shopPage,
+    wishlistPage,
+    contactPage,
+    aboutPage,
 } = require("../controllers/user/userController")
 const {
     accountDetails,
@@ -63,6 +66,9 @@ router.route("/verify").get(isUserAuth, verifyOtp).post(validateOtp)
 router.route("/").get(notProtectedRoute, homePage)
 router.route("/shop").get(notProtectedRoute, shopPage)
 router.route("/product/:id").get(notProtectedRoute, productDetails)
+router.route("/contact").get(notProtectedRoute, contactPage)
+router.route("/about").get(notProtectedRoute, aboutPage)
+router.route("/wishlist").get(notProtectedRoute, wishlistPage)
 
 //Cart
 router.route("/cart").get(protectedRoute, cartPage)

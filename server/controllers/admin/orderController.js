@@ -1,16 +1,34 @@
 const asyncHandler = require("express-async-handler")
 const Order = require("../../models/Order")
+const { ObjectId } = require("mongodb")
 
 //GET
 //@route /orders/
 const orders = asyncHandler(async (req, res) => {
+    //FILTER
+    var filter = [{}]
+    const paymentMethod = req.query.paymentMethod
+
+    switch (paymentMethod) {
+        case "Razorpay":
+            filter.push({ paymentDetails: "razorpay" })
+            break
+        case "COD":
+            filter.push({ paymentDetails: "COD" })
+            break
+        default:
+            break
+    }
+
     //PAGINATION
     const page = req.query.page * 1 || 1
     const limit = req.query.limit * 1 || 7
     const skip = (page - 1) * limit
-    const count = await Order.find({}).populate("products.productId").count()
+    const count = await Order.find({ $and: filter })
+        .populate("products.productId")
+        .count()
 
-    const allOrders = await Order.find({})
+    const allOrders = await Order.find({ $and: filter })
         .populate("products.productId")
         .skip(skip)
         .limit(limit)
@@ -21,6 +39,7 @@ const orders = asyncHandler(async (req, res) => {
         allOrders,
         count,
         page,
+        paymentMethod,
     })
 })
 

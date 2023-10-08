@@ -5,27 +5,42 @@ const Category = require("../../models/Category")
 //GET
 //@route /admin/products
 const products = asyncHandler(async (req, res) => {
+    //SORT
+    var sort = req.query.sort || "createdAt"
+    var order = req.query.order || 1
+    const sortMethod = {}
+    sortMethod[sort] = order
+
+    //Search
+    const search = req.query.search
+    var filter = [{ is_Listed: true }, { "category.is_Listed": true }]
+    search && filter.push({ title: { $regex: search, $options: "i" } })
+
     //PAGINATION
     const page = req.query.page * 1 || 1
     const limit = req.query.limit * 1 || 7
     const skip = (page - 1) * limit
     const count = await Product.find({
-        $and: [{ is_Listed: true }, { "category.is_Listed": true }],
+        $and: filter,
     }).count()
+
     const allProducts = await Product.find({
-        $and: [{ is_Listed: true }, { "category.is_Listed": true }],
+        $and: filter,
     })
+        .sort(sortMethod)
         .skip(skip)
         .limit(limit)
 
     const messages = await req.consumeFlash("info")
     res.render("admin/products", {
         layout: "layouts/adminLayout",
-        title: "Product Management",
+        title: "Products",
         messages,
         allProducts,
         count,
         page,
+        sort,
+        order,
     })
 })
 

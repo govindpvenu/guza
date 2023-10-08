@@ -4,21 +4,38 @@ const User = require("../../models/User")
 //GET
 //@route /admin/customers
 const customers = asyncHandler(async (req, res) => {
+    //Search
+    const search = req.query.search || ""
+
+    //SORT
+    var sort = req.query.sort || "createdAt"
+    var order = req.query.order || 1
+
+    const sortMethod = {}
+    sortMethod[sort] = order
+
     //PAGINATION
     const page = req.query.page * 1 || 1
     const limit = req.query.limit * 1 || 7
     const skip = (page - 1) * limit
     const count = await User.find({}).count()
 
-    const allCustomers = await User.find({}).skip(skip).limit(limit)
+    const allCustomers = await User.find({
+        name: { $regex: search, $options: "i" },
+    })
+        .sort(sortMethod)
+        .skip(skip)
+        .limit(limit)
     const messages = await req.consumeFlash("info")
     res.render("admin/customers", {
         layout: "layouts/adminLayout",
-        title: "User Management",
+        title: "Users",
         messages,
         allCustomers,
         page,
         count,
+        sort,
+        order,
     })
 })
 

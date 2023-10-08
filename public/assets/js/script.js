@@ -79,10 +79,10 @@
 
     $(".mega-menu-container").css("display", "none")
     $(".header-search").click(function () {
-        $(".search-full").addClass("open")
+        $(".search-fulll").addClass("open")
     })
     $(".close-search").click(function () {
-        $(".search-full").removeClass("open")
+        $(".search-fulll").removeClass("open")
         $("body").removeClass("offcanvas")
     })
     $(".mobile-toggle").click(function () {
@@ -107,7 +107,7 @@
             $(".page-wrapper").removeClass("offcanvas-bookmark")
         }
     })
-    $(".search-full input").keyup(function (e) {
+    $(".search-fulll input").keyup(function (e) {
         console.log(e.target.value)
         if (e.target.value) {
             $("body").addClass("offcanvas")
@@ -118,10 +118,10 @@
 
     $("body").keydown(function (e) {
         if (e.keyCode == 27) {
-            $(".search-full input").val("")
+            $(".search-fulll input").val("")
             $(".form-control-search input").val("")
             $(".page-wrapper").removeClass("offcanvas-bookmark")
-            $(".search-full").removeClass("open")
+            $(".search-fulll").removeClass("open")
             $(".search-form .form-control-search").removeClass("open")
             $("body").removeClass("offcanvas")
         }
