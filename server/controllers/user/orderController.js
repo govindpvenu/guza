@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const Razorpay = require("razorpay")
 
-
 const User = require("../../models/User")
 const Product = require("../../models/Product")
 const Order = require("../../models/Order")
@@ -18,26 +17,20 @@ var razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 })
 
-
-
-
 //POST
 //@route/place-order
 const placeOrder = async (req, res) => {
-
     try {
-
         const userId = res.locals.user._id
         const user = await User.findById(userId)
         const address = user.address.find(
             (address) => address._id.toString() === req.body.address,
         )
-        if(!user.cart.length){
-            res.redirect('/cart')
+        if (!user.cart.length) {
+            res.redirect("/cart")
             return
         }
-        console.log(user.cart.length);
-
+        console.log(user.cart.length)
 
         const order = new Order({
             customerId: userId,
@@ -50,7 +43,7 @@ const placeOrder = async (req, res) => {
         })
 
         const orderSuccess = await order.save()
-        const orderId = order._id;
+        const orderId = order._id
 
         if (orderSuccess) {
             //Decrease product quantity
@@ -70,97 +63,100 @@ const placeOrder = async (req, res) => {
             await User.updateOne({ _id: userId }, { $unset: { cart: 1 } })
 
             if (order.paymentDetails === "COD") {
-                console.log('COD');
+                console.log("COD")
                 // res.render('user/success-page');
                 // res.redirect("/success-page")
-                res.status(200).send({status: 'COD',})
-            }else if (req.body.payment_option === "razorpay") {
-                console.log('razorpay');
-                const amount = req.body.total * 100; // Amount in paise
+                res.status(200).send({ status: "COD" })
+            } else if (req.body.payment_option === "razorpay") {
+                console.log("razorpay")
+                const amount = req.body.total * 100 // Amount in paise
                 const options = {
-                  amount: amount,
-                  currency: "INR",
-                  receipt: orderId,
-                };
-        
+                    amount: amount,
+                    currency: "INR",
+                    receipt: orderId,
+                }
+
                 // Create a Razorpay order
-                razorpay.orders.create(options,(err, order) => {
-                  if (!err) {
-                    console.log("Razorpay order created");
-                    console.log(orderId);
-        
-                    // Send Razorpay response to the client
-                    res.status(200).send({
-                      status:"razorpay",
-                      success: true,
-                      msg: "Order created",
-                      order_id: order.id,
-                      amount: amount,
-                      reciept: orderId,
-                      key_id:  process.env.RAZORPAY_KEY_ID,
-                      contact: "7994652840",
-                      name: "admin",
-                      email: "admin@gmail.com",
-                    });
-                  } else {
-                    console.error("Razorpay order creation failed:", err);
-                    res.status(400).send({ success: false, msg: "Something went wrong!" });
-                  }
-                });
-              }
-              else{
-                console.log(error);
-              }
+                razorpay.orders.create(options, (err, order) => {
+                    if (!err) {
+                        console.log("Razorpay order created")
+                        console.log(orderId)
+
+                        // Send Razorpay response to the client
+                        res.status(200).send({
+                            status: "razorpay",
+                            success: true,
+                            msg: "Order created",
+                            order_id: order.id,
+                            amount: amount,
+                            reciept: orderId,
+                            key_id: process.env.RAZORPAY_KEY_ID,
+                            contact: "7994652840",
+                            name: "admin",
+                            email: "admin@gmail.com",
+                        })
+                    } else {
+                        console.error("Razorpay order creation failed:", err)
+                        res.status(400).send({
+                            success: false,
+                            msg: "Something went wrong!",
+                        })
+                    }
+                })
+            } else {
+                console.log(error)
+            }
         }
     } catch (error) {
         console.error(error.message)
-        console.log(error);
-        res.status(500).send("Internal Server Error");
+        console.log(error)
+        res.status(500).send("Internal Server Error")
     }
 }
 
-
 //POST
 //@route/verify-payment
-const verifyPayment = async(req, res) => {
+const verifyPayment = async (req, res) => {
     try {
-      console.log('this is id:',req.body.orderId);
-      console.log('body:');
-      console.log(req.body);
-      console.log('this is id1:',req.body['payment[razorpay_payment_id]']);
-      const razorpay_order_id = req.body['payment[razorpay_order_id]']
-      const razorpay_payment_id = req.body['payment[razorpay_payment_id]']
-      const razorpay_signature = req.body['payment[razorpay_signature]']
-      console.log('this is id2:',req.body.payment);
-    //   const kk = await Order.find({_id : new mongoose.Types.ObjectId(req.body.orderId)}).lean()
-    //   if(kk)
-    //     console.log(kk);
-      const crypto = require('crypto')
-      let hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
-      hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
-      hmac = hmac.digest('hex');
-        
-      console.log(hmac);
-      console.log(razorpay_signature);
-      if (hmac == razorpay_signature) {
-        console.log('call comes here');
-        console.log(typeof(req.body.orderId));
-        await Order.updateOne({_id :req.body.orderId},{$set : { paymentStatus : 'RECEIVED', orderStatus :"SUCCESS"}}).lean()
+        console.log("this is id:", req.body.orderId)
+        console.log("body:")
+        console.log(req.body)
+        console.log("this is id1:", req.body["payment[razorpay_payment_id]"])
+        const razorpay_order_id = req.body["payment[razorpay_order_id]"]
+        const razorpay_payment_id = req.body["payment[razorpay_payment_id]"]
+        const razorpay_signature = req.body["payment[razorpay_signature]"]
+        console.log("this is id2:", req.body.payment)
+        //   const kk = await Order.find({_id : new mongoose.Types.ObjectId(req.body.orderId)}).lean()
+        //   if(kk)
+        //     console.log(kk);
+        const crypto = require("crypto")
+        let hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+        hmac.update(razorpay_order_id + "|" + razorpay_payment_id)
+        hmac = hmac.digest("hex")
 
-        res.status(200).json({ status: 'success', msg: 'Payment verified' });
-      } else {
-        console.log('um b');
-        res.status(400).json({ status: 'error', msg: 'Payment verification failed' });
-      }
+        console.log(hmac)
+        console.log(razorpay_signature)
+        if (hmac == razorpay_signature) {
+            console.log("call comes here")
+            console.log(typeof req.body.orderId)
+            await Order.updateOne(
+                { _id: req.body.orderId },
+                { $set: { paymentStatus: "RECEIVED", orderStatus: "SUCCESS" } },
+            ).lean()
+
+            res.status(200).json({ status: "success", msg: "Payment verified" })
+        } else {
+            console.log("um b")
+            res.status(400).json({
+                status: "error",
+                msg: "Payment verification failed",
+            })
+        }
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ status: 'error', msg: 'Internal server error' });
+        console.error(err)
+        res.status(500).json({ status: "error", msg: "Internal server error" })
     }
-  };
-
-
-
-
+}
 
 //GET
 //@route//order-details/:id

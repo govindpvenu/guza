@@ -2,7 +2,11 @@ const express = require("express")
 const router = express.Router()
 const upload = require("../middleware/multer")
 //Controllers
-const { dashboard, salesReport } = require("../controllers/admin/adminContoller")
+const {
+    dashboard,
+    salesReport,
+    monthlyreport,
+} = require("../controllers/admin/adminContoller")
 const {
     adminLogin,
     adminVerify,
@@ -39,11 +43,32 @@ const {
 //Middlewares
 const { isAdmin, isAdminAuth } = require("../middleware/adminAuth")
 const { resizeImages } = require("../middleware/sharp")
-const { getProductCount,getUserCount,getOrderCount,getTotalRevenue,recentOrders,recentProducts,newUsers } = require('../helper/retrieveData')
+const {
+    getProductCount,
+    getUserCount,
+    getOrderCount,
+    getTotalRevenue,
+    recentOrders,
+    recentProducts,
+    newUsers,
+} = require("../helper/retrieveData")
 
 //--------Routes-------
 //Admin Auth
-router.route("/").get(isAdmin,getProductCount, getUserCount,getOrderCount,getTotalRevenue,recentOrders,recentProducts,newUsers,dashboard)
+router
+    .route("/")
+    .get(
+        isAdmin,
+        getProductCount,
+        getUserCount,
+        getOrderCount,
+        getTotalRevenue,
+        recentOrders,
+        recentProducts,
+        newUsers,
+        dashboard,
+    )
+router.route("/monthly-report").get(monthlyreport)
 router.route("/login").get(isAdminAuth, adminLogin).post(adminVerify)
 router.route("/logout").get(adminLogout)
 
@@ -84,6 +109,5 @@ router.route("/change-status/:id").get(isAdmin, changeStatus)
 
 //Sales Report
 router.route("/sales-report").get(isAdmin, salesReport)
-
 
 module.exports = router

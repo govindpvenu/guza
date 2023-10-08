@@ -31,18 +31,18 @@
                                     </div>
                                     <div class="col-lg-2 col-6 col-md-3 ms-auto">
                                         <select class="form-select" onchange="location.href='/admin/sales-report?report=' + this.value">
-                                            <%if(reportOrder=='daily'){%>
-                                            <option selected>daily</option>
-                                            <option>monthly</option>
-                                            <option> yearly</option>
-                                            <%}else if(reportOrder == 'monthly'){%>
-                                                <option>daily</option>
-                                            <option selected>monthly</option>
-                                            <option>yearly</option>
+                                            <%if(reportOrder=='Daily'){%>
+                                            <option selected>Daily</option>
+                                            <option>Monthly</option>
+                                            <option> Yearly</option>
+                                            <%}else if(reportOrder == 'Monthly'){%>
+                                                <option>Daily</option>
+                                            <option selected>Monthly</option>
+                                            <option>Yearly</option>
                                             <%}else{%>
-                                                <option>daily</option>
-                                            <option>monthly</option>
-                                            <option selected>yearly</option>
+                                                <option>Daily</option>
+                                            <option>Monthly</option>
+                                            <option selected>Yearly</option>
                                             <%}%>
                                         </select>
                                     </div>
@@ -54,7 +54,7 @@
                                             <table class="user-table list-table table">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <!-- <th>#</th> -->
                                                         <th> Order ID</th>
                                                         <th scope="col">Customer Name</th>
                                                         <th scope="col">Payment Method</th>
@@ -64,9 +64,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                        <% if (!order.length) { %>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <img src="https://media.istockphoto.com/id/861576608/vector/empty-shopping-bag-icon-online-business-vector-icon-template.jpg?s=612x612&w=0&k=20&c=I7MbHHcjhRH4Dy0NVpf4ZN4gn8FVDnwn99YdRW2x5k0=" alt="">
+
+                                                </td>
+                                            </tr>
+                                        <% } else { %>   
+                                         
+
+
                                                     <%for(i=0;i<order.length;i++){%>
                                                         <tr>
-                                                            <td><%=i+1%></td>
+                                                            <!-- <td><%=i+1%></td> -->
                                                             <td><%=order[i]._id%></td>
                                                             <td><b><%=order[i].shippingAddress.name%></b></td>
                                                             <td><%=order[i].paymentDetails%></td>
@@ -85,14 +98,34 @@
                                                             <td style="padding-left: 70px;" >₹<%=order[i].totalAmount%></td>
                                                         </tr>
                                                         <%}%>
+                             <% } %>
+
                                                 </tbody>
                                             </table>
                                         </div>
+
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
                         </div>
                         <!-- Booking history  end-->
+                     <% if (order.length) { %>
+                        <nav aria-label="Page navigation example">
+                            <% totalPage = Math.ceil(count/7) %>
+                            <ul class="pagination" style="align-items: center; justify-content: center;">
+                                <li class="page-item"><a class="page-link" data-reportOrder="<%= reportOrder %>" data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Previous</a></li>
+                                <% for( let i = 1; i <=totalPage ; i++ ) { %>
+                                    <li class="page-item">
+                                        <!-- Use data-page attribute to store the page number -->
+                                        <a class="page-link" href="#" data-reportOrder="<%= reportOrder %>" data-page="<%= i %>"><%= i%></a>
+                                    </li>
+                                <% } %>
+                                <li class="page-item"><a class="page-link" data-reportOrder="<%= reportOrder %>" data-totalPage="<%= totalPage %>" data-cpage="<%= page %>" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    <% } %>
                     </div>
                 </div>
                 <!-- Container-fluid Ends-->
@@ -105,3 +138,91 @@
 
 
 </body>
+<!-- PAGINATION -->
+<style>
+    .page-link{
+       color: #0da487; 
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #0da487;
+        border-color:#0da487;
+        color: white;
+    }
+
+    .pagination .page-item .page-link:hover {
+        background-color: #0da487;
+        border-color: #0da487;
+        color: white;
+    }
+</style>
+<script>
+    // Get all the page links
+    var pageLinks = document.querySelectorAll('.pagination .page-item .page-link');
+
+    // Get the Previous and Next buttons
+    var prevButton = document.querySelector('.pagination li:first-child .page-link');
+    var nextButton = document.querySelector('.pagination li:last-child .page-link');
+
+    // Attach a click event listener to each page link
+    pageLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Prevent the default behavior of the link
+            event.preventDefault();
+
+            // Remove 'active' class from all page items
+            pageLinks.forEach(function(link) {
+                link.parentElement.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked page item
+            link.parentElement.classList.add('active');
+
+            // Get the page number from the data-page attribute
+            var pageNumber = link.getAttribute('data-page');
+            var reportOrder = link.getAttribute('data-reportOrder');
+            // Redirect to the new URL with the activated page number
+            window.location.href = `/admin/sales-report?report=${reportOrder}&page=${pageNumber}`;
+        });
+    });
+
+    // Attach a click event listener to the Previous button
+    prevButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // Calculate the previous page number based on the current active page
+        var currentPage = document.querySelector('.pagination .page-item .page-link');
+        var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+        var reportOrder = currentPage.getAttribute('data-reportOrder');
+        console.log("reportOrder:"+reportOrder);
+        console.log(cpageNumber);
+        if (cpageNumber > 1) {
+            // Redirect to the previous page
+            window.location.href = `/admin/sales-report?report=${reportOrder}&page=${cpageNumber - 1}`;
+            // window.location.href = '/admin/sales-report?page=' + (cpageNumber - 1);
+        }else{
+                window.location.href = `/admin/sales-report?report=${reportOrder}&page=${cpageNumber}`;
+            // window.location.href = '/admin/sales-report?page=' + cpageNumber;
+        }
+    });
+
+    // Attach a click event listener to the Next button
+    nextButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        // Calculate the next page number based on the current active page
+        var currentPage = document.querySelector('.pagination .page-item .page-link');
+        var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
+        console.log("Currpage:"+cpageNumber);
+        var reportOrder = currentPage.getAttribute('data-reportOrder');
+        console.log("reportOrder:"+reportOrder);
+        var totalPages = parseInt(currentPage.getAttribute('data-totalPage'));
+        console.log("totalpage:"+totalPages);
+        if (cpageNumber < totalPages) {
+            // Redirect to the next page
+            window.location.href = `/admin/sales-report?report=${reportOrder}&page=${cpageNumber+1}`;
+            // window.location.href = '/admin/sales-report?page=' + cpageNumber;
+        }else{
+                        window.location.href = `/admin/sales-report?report=${reportOrder}&page=${cpageNumber}`;
+        }
+    });
+</script>

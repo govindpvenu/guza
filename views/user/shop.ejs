@@ -207,6 +207,9 @@
               </div> -->
               <div class="box-list-products">
                 <!-- product -->
+              <% if (!allProducts.length) { %>
+                <img src="assets2/Images/no-product-found.png" alt="">
+              <% } %>
                 <% allProducts.forEach(product => { %>
                   <div class="product-item">
                     <div class="cardProduct wow fadeInUp">
@@ -351,7 +354,7 @@
             var order = link.getAttribute('data-order');
 
             // Redirect to the new URL with the activated page number
-            window.location.href = `/shop?page=${pageNumber}&sort=${sort}&order=${order}`;
+            window.location.href = `/shop?page=${pageNumber}&sort=${sort}&order=${order}`
         });
     });
 
@@ -362,7 +365,8 @@
         // Calculate the previous page number based on the current active page
         var currentPage = document.querySelector('.pagination .page-item .page-link');
         var cpageNumber = parseInt(currentPage.getAttribute('data-cpage'));
-
+        var sort = currentPage.getAttribute('data-sort');
+        var order = currentPage.getAttribute('data-order');
         if (cpageNumber > 1) {
             // Redirect to the previous page
             window.location.href = `/shop?page=${cpageNumber-1}&sort=${sort}&order=${order}`
@@ -381,6 +385,9 @@
         console.log("Currpage:"+cpageNumber);
         var totalPages = parseInt(currentPage.getAttribute('data-totalPage'));
         console.log("totalpage:"+totalPages);
+        var sort = currentPage.getAttribute('data-sort');
+        var order = currentPage.getAttribute('data-order');
+
         if (cpageNumber < totalPages) {
             // Redirect to the next page
             window.location.href = `/shop?page=${cpageNumber+1}&sort=${sort}&order=${order}`

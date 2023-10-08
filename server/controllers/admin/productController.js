@@ -21,7 +21,7 @@ const products = asyncHandler(async (req, res) => {
     const messages = await req.consumeFlash("info")
     res.render("admin/products", {
         layout: "layouts/adminLayout",
-        title:"Product Management",
+        title: "Product Management",
         messages,
         allProducts,
         count,
@@ -35,7 +35,7 @@ const addProduct = asyncHandler(async (req, res) => {
     const allCategories = await Category.find({})
     res.render("admin/add-product", {
         layout: "layouts/adminLayout",
-        title:"Product Management",
+        title: "Product Management",
         allCategories,
     })
 })
@@ -86,7 +86,7 @@ const editProduct = asyncHandler(async (req, res) => {
     const allCategories = await Category.find({})
     res.render("admin/edit-product", {
         layout: "layouts/adminLayout",
-        title:"Product Management",
+        title: "Product Management",
         product,
         allCategories,
     })

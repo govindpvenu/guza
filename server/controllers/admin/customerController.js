@@ -14,7 +14,7 @@ const customers = asyncHandler(async (req, res) => {
     const messages = await req.consumeFlash("info")
     res.render("admin/customers", {
         layout: "layouts/adminLayout",
-        title:"User Management",
+        title: "User Management",
         messages,
         allCustomers,
         page,

@@ -7,6 +7,7 @@ const bodyParser = require("body-parser")
 const methodOverride = require("method-override")
 const { flash } = require("express-flash-message")
 const Swal = require("sweetalert2")
+const morgan = require("morgan")
 
 const jwt = require("jsonwebtoken")
 //routers
@@ -28,6 +29,8 @@ app.use(
         saveUninitialized: false,
     }),
 )
+//morgan
+// app.use(morgan("dev"))
 
 // setup flash
 app.use(flash({ sessionKeyName: "express-flash-message" }))

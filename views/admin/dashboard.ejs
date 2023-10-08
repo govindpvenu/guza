@@ -94,22 +94,29 @@
 
 
                         <!-- chart card section End -->
-
-
-                        <!-- Earning chart star-->
-                        <div class="col-xl-6">
+                                                <div class="col-xl-6">
                             <div class="card o-hidden card-hover">
                                 <div class="card-header border-0 pb-1">
                                     <div class="card-header-title">
                                         <h4>Revenue Report</h4>
                                     </div>
                                 </div>
-                                <div class="card-body p-0">
-                                    <div id="report-chart"></div>
-                                </div>
+                                <div class="col-md-9">
+                                    <canvas id="lineChart"></canvas>
+                                  </div>
                             </div>
                         </div>
-                        <!-- Earning chart  end-->
+                        <div class="col-md-3 " hidden>
+                            <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">Statistics</h5>
+                                <p class="card-text">Total Revenue: <span id="revenue">Loading...</span></p>
+                                <p class="card-text">Order Count: <span id="ordercount">Loading...</span></p>
+                                <p class="card-text">Product Sales: <span id="productsales">Loading...</span></p>
+                              </div>
+                            </div>
+                          </div>
+                        
 
 
                         <!-- New users  Start -->
@@ -129,7 +136,6 @@
                                             w-image table border-0">
                                                 <tbody>
                                                     <% newUsers.forEach(user => { %>
-                                                     
                                                     <tr>
 
                                                         <td>
@@ -307,6 +313,9 @@
                                                                 <% if (order.orderStatus ==="PENDING") { %>
                                                                     <h5 class="text-danger">Pending</h5>
                                                                 <% } %>
+                                                                <% if (order.orderStatus ==="CANCELLED") { %>
+                                                                    <h5 class="text-danger">Cancelled</h5>
+                                                                <% } %>
                                                             </div>
                                                         </td>
 
@@ -342,7 +351,6 @@
 
 
 
-
                     </div>
                 </div>
                 <!-- Container-fluid Ends-->
@@ -356,152 +364,81 @@
     <!-- page-wrapper End-->
 
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        //line
+    var ctxL = document.getElementById("lineChart").getContext('2d');
+    var myLineChart;
 
-<script>
-    var chart = new ApexCharts(document.querySelector("#report-chart"), options)
-chart.render()
+    async function fetchMonthlyData() {
+      try {
+        const response = await fetch('/admin/monthly-report'); // Replace with your actual endpoint
+        const data = await response.json();
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        // Initialize arrays for revenue and order count data for all months
+        const allMonthsRevenue = Array.from({ length: 12 }, () => 0);
+        const allMonthsOrderCount = Array.from({ length: 12 }, () => 0);
+        const allMonthsproductCountData = Array.from({ length: 12 }, () => 0);
 
-//pie chart for visitors
-var options = {
-    series: [44, 55, 41, 17],
-    labels: [
-        "The Passersby",
-        "The Occasionals",
-        "The Regulars",
-        "The Superfans",
-    ],
-    chart: {
-        width: "100%",
-        height: 275,
-        type: "donut",
-    },
+        // Update data arrays with fetched data
+        data.labels.forEach((label, index) => {
+          const monthIndex = months.indexOf(label);
+          if (monthIndex !== -1) {
+            allMonthsRevenue[monthIndex] = data.revenueData[index];
+            allMonthsOrderCount[monthIndex] = data.orderCountData[index];
+            allMonthsproductCountData[monthIndex] = data.productCountData[index];
+          }
+        });
 
-    legend: {
-        fontSize: "12px",
-        position: "bottom",
-        offsetX: 1,
-        offsetY: -1,
 
-        markers: {
-            width: 10,
-            height: 10,
-        },
+        const element = document.getElementById('revenue')
+        const revenue = data.revenueData[0]
+        element.textContent = revenue
 
-        itemMargin: {
-            vertical: 2,
-        },
-    },
+        const element1 = document.getElementById('ordercount')
+        const ordercount = data.orderCountData[0]
+        element1.textContent = ordercount
 
-    colors: ["#28c870", "#ffa044", "#9e65c2", "#6670bd", "#FF9800"],
+        const element2 = document.getElementById('productsales')
+        const productsaled = data.productCountData[0]
+        element2.textContent = productsaled
 
-    plotOptions: {
-        pie: {
-            startAngle: -90,
-            endAngle: 270,
-        },
-    },
 
-    dataLabels: {
-        enabled: false,
-    },
 
-    responsive: [
-        {
-            breakpoint: 1835,
-            options: {
-                chart: {
-                    height: 245,
-                },
-
-                legend: {
-                    position: "bottom",
-
-                    itemMargin: {
-                        horizontal: 5,
-                        vertical: 1,
-                    },
-                },
+        myLineChart = new Chart(ctxL, {
+          type: 'line',
+          data: {
+            labels: months,
+            datasets: [{                                      
+              label: "Total Revenue",
+              data: allMonthsRevenue,
+              backgroundColor: 'rgba(0, 137, 132, .2)',
+              borderColor: '#198754',
+              borderWidth: 2
             },
-        },
-
-        {
-            breakpoint: 1388,
-            options: {
-                chart: {
-                    height: 330,
-                },
-
-                legend: {
-                    position: "bottom",
-                },
+            {
+              label: "Order Count",
+              data: allMonthsOrderCount,
+              backgroundColor: 'rgb(242,111,88)',
+              borderColor: 'rgba(0, 10, 130, .7',
+              borderWidth: 2
             },
-        },
+            {
+              label: "Product Count",
+              data: allMonthsproductCountData,
+              backgroundColor: 'rgb(144,151,209)',
+              borderColor: 'rgba(0, 10, 130, .7)',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
-        {
-            breakpoint: 1275,
-            options: {
-                chart: {
-                    height: 300,
-                },
-
-                legend: {
-                    position: "bottom",
-                },
-            },
-        },
-
-        {
-            breakpoint: 1158,
-            options: {
-                chart: {
-                    height: 280,
-                },
-
-                legend: {
-                    fontSize: "10px",
-                    position: "bottom",
-                    offsetY: 10,
-                },
-            },
-        },
-
-        {
-            theme: {
-                mode: "dark",
-                palette: "palette1",
-                monochrome: {
-                    enabled: true,
-                    color: "#255aee",
-                    shadeTo: "dark",
-                    shadeIntensity: 0.65,
-                },
-            },
-        },
-
-        {
-            breakpoint: 598,
-            options: {
-                chart: {
-                    height: 280,
-                },
-
-                legend: {
-                    fontSize: "12px",
-                    position: "bottom",
-                    offsetX: 5,
-                    offsetY: -5,
-
-                    markers: {
-                        width: 10,
-                        height: 10,
-                    },
-
-                    itemMargin: {
-                        vertical: 1,
-                    },
-                },
-            },
-        },
-    ],
-}
-</script>
+    fetchMonthlyData();
+    </script>

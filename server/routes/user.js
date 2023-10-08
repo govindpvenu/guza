@@ -76,8 +76,7 @@ router.route("/place-order").post(protectedRoute, placeOrder)
 router.route("/order-details/:id").get(protectedRoute, orderDetails)
 router.route("/order-cancel/:id").get(protectedRoute, cancelOrder)
 router.route("/success-page").get(protectedRoute, successPage)
-router.route("/verify-payment").post(protectedRoute,verifyPayment)
-
+router.route("/verify-payment").post(protectedRoute, verifyPayment)
 
 //account
 router.route("/account").get(protectedRoute, userDashboard)
