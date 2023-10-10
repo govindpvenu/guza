@@ -1,4 +1,6 @@
 {
+    "printWidth": 9999999,
+    "trailingComma": "es5",
     "tabWidth": 4,
     "semi": false
 }

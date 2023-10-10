@@ -40,17 +40,11 @@ const updateUser = asyncHandler(async (req, res) => {
         })
     } else {
         const { name, email, phone, password, npassword } = req.body
-        const userUpdate = await User.findOneAndUpdate(
-            { _id: user._id },
-            { name, email, phone },
-        )
+        const userUpdate = await User.findOneAndUpdate({ _id: user._id }, { name, email, phone })
         console.log(changePassword)
         if (changePassword) {
             const hashedPassword = await bcrypt.hash(npassword, 10)
-            const userUpdate = await User.findOneAndUpdate(
-                { _id: user._id },
-                { password: hashedPassword },
-            )
+            const userUpdate = await User.findOneAndUpdate({ _id: user._id }, { password: hashedPassword })
         }
         await req.flash("success", "Account details edited successfully")
         res.redirect("/account/account-details")
@@ -100,7 +94,7 @@ const postAddress = asyncHandler(async (req, res) => {
                         address: req.body.address,
                     },
                 },
-            },
+            }
         )
         await req.flash("success", "Address added successfully")
         res.redirect("/account/add-address")
@@ -126,9 +120,7 @@ const editAddress = asyncHandler(async (req, res) => {
     const address_id = req.params.id
 
     const userData = await User.findOne({ _id: user._id })
-    const address = userData.address.find(
-        (a) => a._id.toString() === address_id,
-    )
+    const address = userData.address.find((a) => a._id.toString() === address_id)
     res.render("user/account-edit-address", {
         layout: "layouts/userLayout",
         user,
@@ -142,9 +134,7 @@ const updateAddress = asyncHandler(async (req, res) => {
     const user = res.locals.user
     const address_id = req.params.id
     const userData = await User.findOne({ _id: user._id })
-    const address = userData.address.find(
-        (a) => a._id.toString() === address_id,
-    )
+    const address = userData.address.find((a) => a._id.toString() === address_id)
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         const alert = errors.array()
@@ -166,7 +156,7 @@ const updateAddress = asyncHandler(async (req, res) => {
                     "address.$.pin": req.body.pin,
                     "address.$.address": req.body.address,
                 },
-            },
+            }
         )
         await req.flash("success", "Address updated successfully")
         res.redirect("/account/manage-address")
@@ -184,7 +174,7 @@ const deleteAddress = asyncHandler(async (req, res) => {
             $pull: {
                 address: { _id: address_id },
             },
-        },
+        }
     )
     await req.flash("success", "Address deleted successfully")
     res.redirect("/account/manage-address")
@@ -199,9 +189,7 @@ const orders = asyncHandler(async (req, res) => {
     const skip = (page - 1) * limit
     const count = await Order.find({ customerId: user._id }).count()
 
-    const orders = await Order.find({ customerId: user._id })
-        .skip(skip)
-        .limit(limit)
+    const orders = await Order.find({ customerId: user._id }).skip(skip).limit(limit)
 
     res.render("user/account-orders", {
         layout: "layouts/userLayout",

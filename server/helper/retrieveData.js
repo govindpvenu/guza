@@ -68,10 +68,7 @@ module.exports = {
                     },
                 },
             ])
-            const totalRevenue =
-                totalRevenueAggregate.length > 0
-                    ? totalRevenueAggregate[0].totalAmountSum
-                    : 0
+            const totalRevenue = totalRevenueAggregate.length > 0 ? totalRevenueAggregate[0].totalAmountSum : 0
             if (totalRevenue || totalRevenue === 0) {
                 console.log("TotalRevenue ::::::::::::::::::" + totalRevenue)
                 res.locals.totalRevenue = totalRevenue
@@ -86,14 +83,9 @@ module.exports = {
     recentOrders: async (req, res, next) => {
         try {
             console.log("Getting recentOrders------------>")
-            const recentOrders = await Order.find({})
-                .populate("products.productId")
-                .sort({ createdAt: -1 })
-                .limit(3)
+            const recentOrders = await Order.find({}).populate("products.productId").sort({ createdAt: -1 }).limit(3)
             if (recentOrders) {
-                console.log(
-                    "recentOrders ::::::::::::::::::" + recentOrders.length,
-                )
+                console.log("recentOrders ::::::::::::::::::" + recentOrders.length)
                 res.locals.recentOrders = recentOrders
                 console.log(res.locals.recentOrders)
             }
@@ -112,9 +104,7 @@ module.exports = {
                 .sort({ createdAt: -1 })
                 .limit(3)
             if (recentProducts) {
-                console.log(
-                    "recentProducts ::::::::::::::::::" + recentProducts.length,
-                )
+                console.log("recentProducts ::::::::::::::::::" + recentProducts.length)
                 res.locals.recentProducts = recentProducts
                 console.log(res.locals.recentProducts)
             }
@@ -127,9 +117,7 @@ module.exports = {
     newUsers: async (req, res, next) => {
         try {
             console.log("Getting newUsers------------>")
-            const newUsers = await User.find({})
-                .sort({ createdAt: -1 })
-                .limit(4)
+            const newUsers = await User.find({}).sort({ createdAt: -1 }).limit(4)
             if (newUsers) {
                 console.log("newUsers ::::::::::::::::::" + newUsers.length)
                 res.locals.newUsers = newUsers

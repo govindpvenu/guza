@@ -13,21 +13,14 @@ const cartPage = async (req, res) => {
         const randomProducts = await Product.aggregate([
             {
                 $match: {
-                    $and: [
-                        { stock_status: "Available" },
-                        { is_Listed: true },
-                        { "category.is_Listed": true },
-                    ],
+                    $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
                 },
             },
             { $sample: { size: 8 } },
         ])
         let grandTotal = 0
         for (let i = 0; i < userCart.cart.length; i++) {
-            grandTotal =
-                grandTotal +
-                parseInt(userCart.cart[i].productId.sales_price) *
-                    parseInt(userCart.cart[i].quantity)
+            grandTotal = grandTotal + parseInt(userCart.cart[i].productId.sales_price) * parseInt(userCart.cart[i].quantity)
         }
 
         res.render("user/cart", {
@@ -51,9 +44,7 @@ const addToCart = async (req, res) => {
         const product = await Product.findById(productId)
         const user = await User.findById(userId)
 
-        const existingItem = user.cart.find((item) =>
-            item.productId.equals(productId),
-        )
+        const existingItem = user.cart.find((item) => item.productId.equals(productId))
         if (existingItem) {
             existingItem.quantity += quantity
             if (existingItem.quantity > product.quantity) {
@@ -74,11 +65,7 @@ const addToCart = async (req, res) => {
 const changeQuantity = async (req, res) => {
     count = parseInt(req.body.count)
     try {
-        await User.updateOne(
-            { _id: res.locals.user._id, "cart.productId": req.body.productId },
-            { $inc: { "cart.$.quantity": count } },
-            { new: true },
-        )
+        await User.updateOne({ _id: res.locals.user._id, "cart.productId": req.body.productId }, { $inc: { "cart.$.quantity": count } }, { new: true })
         res.json(true)
     } catch (error) {
         console.log(error.message)
@@ -93,9 +80,8 @@ const deleteCartItem = async (req, res) => {
         const productIdToDelete = req.params.id
         const user = await User.findById(userId)
 
-        user.cart = user.cart.filter(
-            (item) => !item.productId.equals(productIdToDelete),
-        )
+        console.log(productIdToDelete);
+        user.cart = user.cart.filter((item) => !item.productId.equals(productIdToDelete))
 
         await user.save()
         res.redirect("/cart")
@@ -108,10 +94,7 @@ const deleteCartItem = async (req, res) => {
 //@route /checkout
 const checkoutPage = async (req, res) => {
     try {
-        res.setHeader(
-            "Cache-Control",
-            "no-store, no-cache, must-revalidate, private",
-        )
+        res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
         const user = await User.findById(res.locals.user._id)
         const userCart = await User.findOne({
             _id: res.locals.user._id,

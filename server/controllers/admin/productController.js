@@ -58,19 +58,7 @@ const addProduct = asyncHandler(async (req, res) => {
 //POST
 //@route /admin/product/post-product
 const postProduct = asyncHandler(async (req, res) => {
-    const {
-        title,
-        description,
-        brand,
-        price,
-        category,
-        regular_price,
-        sales_price,
-        quantity,
-        size,
-        product_type,
-        stock_status,
-    } = req.body
+    const { title, description, brand, price, category, regular_price, sales_price, quantity, size, product_type, stock_status } = req.body
     const category_id = await Category.findOne({ name: category }, {})
     // const fileNames = req.files.map(file => file.filename);
     const fileNames = req.body.images
@@ -111,18 +99,7 @@ const editProduct = asyncHandler(async (req, res) => {
 //@route /admin/product/edit/:id
 const updateProduct = asyncHandler(async (req, res) => {
     let product_id = req.params.id
-    const {
-        title,
-        description,
-        brand,
-        category,
-        regular_price,
-        sales_price,
-        quantity,
-        product_type,
-        size,
-        stock_status,
-    } = req.body
+    const { title, description, brand, category, regular_price, sales_price, quantity, product_type, size, stock_status } = req.body
     const category_id = await Category.findOne({ name: category }, {})
     // const fileNames = req.files.map(file => file.filename);
     const fileNames = req.body.images
@@ -148,7 +125,7 @@ const updateProduct = asyncHandler(async (req, res) => {
                 size,
                 stock_status,
                 images: imgArr,
-            },
+            }
         )
     } else {
         const product = await Product.findByIdAndUpdate(
@@ -164,7 +141,7 @@ const updateProduct = asyncHandler(async (req, res) => {
                 product_type,
                 size,
                 stock_status,
-            },
+            }
         )
     }
     await req.flash("info", "Product edited successfully")
@@ -175,25 +152,18 @@ const updateProduct = asyncHandler(async (req, res) => {
 //@route /admin/product/delete/:id
 const deleteProduct = asyncHandler(async (req, res) => {
     let product_id = req.params.id
-    let product = await Product.findByIdAndUpdate(
-        { _id: product_id },
-        { is_Listed: false },
-    )
+    let product = await Product.findByIdAndUpdate({ _id: product_id }, { is_Listed: false })
     await req.flash("info", "Product has been deleted")
     res.redirect("/admin/products")
 })
 
 //delete product image
-
 const deleteImage = async (req, res) => {
     const id = req.params.id
     const img = req.params.img
 
     try {
-        const updatedDocument = await Product.findOneAndUpdate(
-            { _id: id },
-            { $pull: { images: img } },
-        )
+        const updatedDocument = await Product.findOneAndUpdate({ _id: id }, { $pull: { images: img } })
 
         if (!updatedDocument) {
             console.log("Document not found")
@@ -207,6 +177,7 @@ const deleteImage = async (req, res) => {
         })
     }
 }
+
 module.exports = {
     products,
     addProduct,

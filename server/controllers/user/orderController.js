@@ -23,9 +23,7 @@ const placeOrder = async (req, res) => {
     try {
         const userId = res.locals.user._id
         const user = await User.findById(userId)
-        const address = user.address.find(
-            (address) => address._id.toString() === req.body.address,
-        )
+        const address = user.address.find((address) => address._id.toString() === req.body.address)
         if (!user.cart.length) {
             res.redirect("/cart")
             return
@@ -139,10 +137,7 @@ const verifyPayment = async (req, res) => {
         if (hmac == razorpay_signature) {
             console.log("call comes here")
             console.log(typeof req.body.orderId)
-            await Order.updateOne(
-                { _id: req.body.orderId },
-                { $set: { paymentStatus: "RECEIVED", orderStatus: "SUCCESS" } },
-            ).lean()
+            await Order.updateOne({ _id: req.body.orderId }, { $set: { paymentStatus: "RECEIVED", orderStatus: "SUCCESS" } }).lean()
 
             res.status(200).json({ status: "success", msg: "Payment verified" })
         } else {
@@ -161,9 +156,7 @@ const verifyPayment = async (req, res) => {
 //GET
 //@route//order-details/:id
 const orderDetails = asyncHandler(async (req, res) => {
-    const order = await Order.findOne({ _id: req.params.id }).populate(
-        "products.productId",
-    )
+    const order = await Order.findOne({ _id: req.params.id }).populate("products.productId")
     res.render("user/order-details", {
         layout: "layouts/userLayout",
         order: order,

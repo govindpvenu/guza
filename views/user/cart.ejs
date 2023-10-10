@@ -35,12 +35,13 @@
                 <div class="item-cart">
                   <div class="item-cart-image"><img src="/images/<%= userCart.cart[i].productId.images[0] %>" alt="Guza"></div>
                   <div class="item-cart-info">
-                    <div class="item-cart-info-1"><a class="text-16-medium" href="#"><%= userCart.cart[i].productId.title %></a>
+                    <div class="item-cart-info-1"><a class="text-16-medium" href="/product/<%= userCart.cart[i].productId._id %>"><%= userCart.cart[i].productId.title %></a>
                     <div class="box-info-size-color-product">
                       <p class="box-size">
                         <span class="body-p2 neutral-medium-dark">Type:</span>
                         <span class="body-p2 neutral-dark"><%= userCart.cart[i].productId.product_type %></span>
                       </p>
+                      <br>
                       <p class="box-color">
                         <span class="body-p2 neutral-medium-dark">Price:</span>
                         <span class="body-p2 neutral-dark">₹<%= userCart.cart[i].productId.sales_price %></span>
@@ -151,7 +152,7 @@
                 </form>
 
                 <div class="box-quick-button">
-                  <a class="btn" href="/wishhhh">
+                  <!-- <a class="btn" href="/wishhhh">
                     <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
                       viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_116_452)">
@@ -165,7 +166,7 @@
                         </clippath>
                       </defs>
                     </svg>
-                  </a>
+                  </a> -->
 
                   <a class="btn" href="/product/<%= product._id %>">
                     <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"

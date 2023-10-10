@@ -48,11 +48,19 @@ const userSchema = mongoose.Schema(
                 quantity: Number,
             },
         ],
+        wishlist: [
+            {
+                productId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Product",
+                },
+            },
+        ],
     },
 
     {
         timestamps: true,
-    },
+    }
 )
 
 module.exports = mongoose.model("User", userSchema)

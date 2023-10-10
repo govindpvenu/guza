@@ -2,72 +2,21 @@ const express = require("express")
 const router = express.Router()
 const upload = require("../middleware/multer")
 //Controllers
-const {
-    dashboard,
-    salesReport,
-    monthlyreport,
-} = require("../controllers/admin/adminContoller")
-const {
-    adminLogin,
-    adminVerify,
-    adminLogout,
-} = require("../controllers/admin/authController")
-const {
-    products,
-    addProduct,
-    postProduct,
-    deleteProduct,
-    editProduct,
-    updateProduct,
-    deleteImage,
-} = require("../controllers/admin/productController")
-const {
-    editCategory,
-    updateCategory,
-    deleteCategory,
-    categories,
-    addCategory,
-    postCategory,
-} = require("../controllers/admin/categoryController")
-const {
-    customers,
-    blockUser,
-    unblockUser,
-} = require("../controllers/admin/customerController")
-const {
-    orders,
-    adminCancelOrder,
-    changeStatus,
-} = require("../controllers/admin/orderController")
+const { dashboard, salesReport, monthlyreport } = require("../controllers/admin/adminContoller")
+const { adminLogin, adminVerify, adminLogout } = require("../controllers/admin/authController")
+const { products, addProduct, postProduct, deleteProduct, editProduct, updateProduct, deleteImage } = require("../controllers/admin/productController")
+const { editCategory, updateCategory, deleteCategory, categories, addCategory, postCategory } = require("../controllers/admin/categoryController")
+const { customers, blockUser, unblockUser } = require("../controllers/admin/customerController")
+const { orders, adminCancelOrder, changeStatus } = require("../controllers/admin/orderController")
 
 //Middlewares
 const { isAdmin, isAdminAuth } = require("../middleware/adminAuth")
 const { resizeImages } = require("../middleware/sharp")
-const {
-    getProductCount,
-    getUserCount,
-    getOrderCount,
-    getTotalRevenue,
-    recentOrders,
-    recentProducts,
-    newUsers,
-} = require("../helper/retrieveData")
+const { getProductCount, getUserCount, getOrderCount, getTotalRevenue, recentOrders, recentProducts, newUsers } = require("../helper/retrieveData")
 
 //--------Routes-------
 //Admin Auth
-router
-    .route("/")
-    .get(
-        isAdmin,
-        getProductCount,
-        getUserCount,
-        getOrderCount,
-        getTotalRevenue,
-        recentOrders,
-        recentProducts,
-        newUsers,
-        dashboard,
-    )
+router.route("/").get(isAdmin, getProductCount, getUserCount, getOrderCount, getTotalRevenue, recentOrders, recentProducts, newUsers, dashboard)
 router.route("/monthly-report").get(monthlyreport)
 router.route("/login").get(isAdminAuth, adminLogin).post(adminVerify)
 router.route("/logout").get(adminLogout)
@@ -75,26 +24,16 @@ router.route("/logout").get(adminLogout)
 //Product Management
 router.route("/products").get(isAdmin, products)
 router.route("/products/add-product").get(isAdmin, addProduct)
-router
-    .route("/products/post-product")
-    .post(isAdmin, upload.array("image"), resizeImages, postProduct)
+router.route("/products/post-product").post(isAdmin, upload.array("image"), resizeImages, postProduct)
 router.route("/products/delete/:id").get(isAdmin, deleteProduct)
-router
-    .route("/products/edit/:id")
-    .get(isAdmin, editProduct)
-    .post(isAdmin, upload.array("image"), resizeImages, updateProduct)
+router.route("/products/edit/:id").get(isAdmin, editProduct).post(isAdmin, upload.array("image"), resizeImages, updateProduct)
 router.route("/delete-image/:id/:img").get(isAdmin, deleteImage)
 
 //Category Management
 router.route("/categories").get(isAdmin, categories)
 router.route("/categories/add-category").get(isAdmin, addCategory)
-router
-    .route("/categories/post-category")
-    .post(isAdmin, upload.single("image"), postCategory)
-router
-    .route("/categories/edit/:id")
-    .get(isAdmin, editCategory)
-    .post(isAdmin, upload.single("image"), updateCategory)
+router.route("/categories/post-category").post(isAdmin, upload.single("image"), postCategory)
+router.route("/categories/edit/:id").get(isAdmin, editCategory).post(isAdmin, upload.single("image"), updateCategory)
 router.route("/categories/delete/:id").get(isAdmin, deleteCategory)
 
 //User Management

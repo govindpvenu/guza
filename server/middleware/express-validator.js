@@ -4,10 +4,7 @@ const user = require("./userAuth")
 const User = require("../models/User")
 
 const userValidation = [
-    check("name")
-        .exists()
-        .isLength({ min: 3 })
-        .withMessage("Name must be more than 3 characters long"),
+    check("name").exists().isLength({ min: 3 }).withMessage("Name must be more than 3 characters long"),
     check("email", "Email is not valid")
         .isEmail()
         .custom(async (value) => {
@@ -49,9 +46,7 @@ const userValidation = [
         changePassword = false
         if (value) {
             if (value.length < 8 || value !== npassword) {
-                throw new Error(
-                    "Confirm password should match the new password",
-                )
+                throw new Error("Confirm password should match the new password")
             }
             changePassword = true
         }

@@ -4,10 +4,7 @@ require("dotenv").config()
 module.exports = {
     isAdminAuth: (req, res, next) => {
         const token = req.cookies.admin_access
-        res.setHeader(
-            "Cache-Control",
-            "no-store, no-cache, must-revalidate, private",
-        )
+        res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
         if (!token) {
             next()
         } else {
@@ -22,10 +19,7 @@ module.exports = {
         }
     },
     isAdmin: (req, res, next) => {
-        res.setHeader(
-            "Cache-Control",
-            "no-store, no-cache, must-revalidate, private",
-        )
+        res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
         const token = req.cookies.admin_access
         if (!token) {
             res.redirect("/admin/login")

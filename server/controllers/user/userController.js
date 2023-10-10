@@ -2,26 +2,19 @@ const asyncHandler = require("express-async-handler")
 const Product = require("../../models/Product")
 const Category = require("../../models/Category")
 const Order = require("../../models/Order")
+const User = require("../../models/User")
 
 //GET
 //@route/
 const homePage = asyncHandler(async (req, res) => {
     const allProducts = await Product.find({
-        $and: [
-            { stock_status: "Available" },
-            { is_Listed: true },
-            { "category.is_Listed": true },
-        ],
+        $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
     })
 
     const brands = await Product.aggregate([
         {
             $match: {
-                $and: [
-                    { stock_status: "Available" },
-                    { is_Listed: true },
-                    { "category.is_Listed": true },
-                ],
+                $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
             },
         },
         {
@@ -37,11 +30,7 @@ const homePage = asyncHandler(async (req, res) => {
     const product_type = await Product.aggregate([
         {
             $match: {
-                $and: [
-                    { stock_status: "Available" },
-                    { is_Listed: true },
-                    { "category.is_Listed": true },
-                ],
+                $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
             },
         },
         {
@@ -73,24 +62,30 @@ const homePage = asyncHandler(async (req, res) => {
 //GET
 //@route /product/:id
 const productDetails = asyncHandler(async (req, res) => {
+    const userLoggined = res.locals.user
+    var productId = req.params.id
+    console.log(userLoggined);
+    if (userLoggined) {
+        const user = await User.findById(res.locals.user._id)
+        var itemExists = user.wishlist.find((item) => item.productId.equals(productId))
+        console.log(itemExists);
+    }
     const randomProducts = await Product.aggregate([
         {
             $match: {
-                $and: [
-                    { stock_status: "Available" },
-                    { is_Listed: true },
-                    { "category.is_Listed": true },
-                ],
+                $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
             },
         },
         { $sample: { size: 8 } },
     ])
-    const product = await Product.findOne({ _id: req.params.id })
-    console.log(randomProducts)
+
+    const product = await Product.findOne({ _id:productId })
+
     res.render("user/product-details", {
         layout: "layouts/userLayout",
         product,
         randomProducts,
+        itemExists
     })
 })
 
@@ -108,11 +103,7 @@ const shopPage = asyncHandler(async (req, res) => {
     const brand = req.query.brand
     const category = req.query.category
     const size = req.query.size
-    var filter = [
-        { stock_status: "Available" },
-        { is_Listed: true },
-        { "category.is_Listed": true },
-    ]
+    var filter = [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }]
     type && filter.push({ product_type: type })
     brand && filter.push({ brand: brand })
     category && filter.push({ "category.name": category })
@@ -127,10 +118,7 @@ const shopPage = asyncHandler(async (req, res) => {
     const skip = (page - 1) * limit
     const count = await Product.find({ $and: filter }).count()
 
-    const allProducts = await Product.find({ $and: filter })
-        .sort(sortMethod)
-        .skip(skip)
-        .limit(limit)
+    const allProducts = await Product.find({ $and: filter }).sort(sortMethod).skip(skip).limit(limit)
     const allCategories = await Category.find({})
     const brands = await Product.aggregate([
         {
@@ -181,24 +169,88 @@ const shopPage = asyncHandler(async (req, res) => {
     })
 })
 
+
+
+//POST
+//@route /add-to-wishlist
+const addToWishList = async (req, res) => {
+    try {
+        const userId = res.locals.user._id
+        const productId = req.body.productId
+        const user = await User.findById(userId)
+
+        console.log('adding to wishlist');
+
+        const existingItem = user.wishlist.find((item) => item.productId.equals(productId))
+        if (existingItem) {
+            user.wishlist.splice(user.wishlist.indexOf(existingItem.item), 1)
+            await user.save()
+            res.status(200).send({ itemExists:true })
+        } else {
+            user.wishlist.push({ productId })
+            await user.save()
+            res.status(200).send({ itemExists: false })
+        }
+
+        } catch (error) {
+        console.log(error.message)
+    }
+}
+
+//POST
+//@route /remove-wishlist
+const deleteWishlistItem = async (req, res) => {
+    try {
+        const userId = res.locals.user._id
+        const productIdToDelete = req.params.id
+        const user = await User.findById(userId)
+        console.log(productIdToDelete);
+        console.log(user.wishlist.length);
+        user.wishlist = user.wishlist.filter((item) => !item.productId.equals(productIdToDelete))
+        
+        await user.save()
+        res.redirect('/wishlist')
+        // res.status(200).send({ deleted: true })
+        // const existingItem = user.wishlist.find((item) => item.productId.equals(productId))
+        // if (existingItem) {
+        //     user.wishlist.splice(user.wishlist.indexOf(existingItem.item), 1)
+        //     await user.save()
+        //     res.status(200).send({ itemExists: true })
+        // } else {
+        //     user.wishlist.push({ productId })
+        //     await user.save()
+        //     res.status(200).send({ itemExists: false })
+        // }
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+
 //GET
 //@route /wishlist/
 const wishlistPage = asyncHandler(async (req, res) => {
     const randomProducts = await Product.aggregate([
         {
             $match: {
-                $and: [
-                    { stock_status: "Available" },
-                    { is_Listed: true },
-                    { "category.is_Listed": true },
-                ],
+                $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
             },
         },
         { $sample: { size: 8 } },
     ])
+
+    const user = await User.findOne({
+        _id: res.locals.user._id,
+    }).populate("wishlist.productId")
+
+    const wishlist = user.wishlist
+    console.log(wishlist[0]);
+
     res.render("user/wishlist", {
         layout: "layouts/userLayout",
         randomProducts,
+        wishlist
     })
 })
 
@@ -225,4 +277,6 @@ module.exports = {
     wishlistPage,
     aboutPage,
     contactPage,
+    addToWishList,
+    deleteWishlistItem
 }

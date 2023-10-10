@@ -63,15 +63,9 @@ const updateCategory = asyncHandler(async (req, res) => {
     const { name } = req.body
     if (req.file) {
         const image = req.file.filename
-        const category = await Category.findOneAndUpdate(
-            { _id: category_id },
-            { image },
-        )
+        const category = await Category.findOneAndUpdate({ _id: category_id }, { image })
     }
-    const category = await Category.findOneAndUpdate(
-        { _id: category_id },
-        { name },
-    )
+    const category = await Category.findOneAndUpdate({ _id: category_id }, { name })
     await req.flash("info", "Category edited")
     res.redirect("/admin/categories")
 })
@@ -80,10 +74,7 @@ const updateCategory = asyncHandler(async (req, res) => {
 //@route /admin/categories/delete/:id
 const deleteCategory = asyncHandler(async (req, res) => {
     let category_id = req.params.id
-    let category = await Category.findByIdAndUpdate(
-        { _id: category_id },
-        { is_Listed: false },
-    )
+    let category = await Category.findByIdAndUpdate({ _id: category_id }, { is_Listed: false })
     await req.flash("info", "Category deleted")
     res.redirect("/admin/categories")
 })

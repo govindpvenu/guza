@@ -27,7 +27,7 @@ app.use(
         },
         resave: false,
         saveUninitialized: false,
-    }),
+    })
 )
 //morgan
 // app.use(morgan("dev"))
@@ -37,12 +37,7 @@ app.use(flash({ sessionKeyName: "express-flash-message" }))
 
 //Template engine
 app.use(expressLayouts)
-app.set(
-    "layout",
-    "./layouts/authLayout",
-    "./layouts/adminLayout",
-    "./layouts/userLayout",
-)
+app.set("layout", "./layouts/authLayout", "./layouts/adminLayout", "./layouts/userLayout")
 app.set("view engine", "ejs")
 
 //bodyparser

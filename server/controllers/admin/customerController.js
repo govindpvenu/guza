@@ -44,10 +44,7 @@ const customers = asyncHandler(async (req, res) => {
 const blockUser = asyncHandler(async (req, res) => {
     let userId = req.params.id
     res.clearCookie("user_access")
-    let user = await User.findByIdAndUpdate(
-        { _id: userId },
-        { isBlocked: true },
-    )
+    let user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: true })
     await req.flash("info", "User blocked")
     res.redirect("/admin/customers")
 })
@@ -56,10 +53,7 @@ const blockUser = asyncHandler(async (req, res) => {
 //@route /admin/customers/unblock/:id
 const unblockUser = asyncHandler(async (req, res) => {
     let userId = req.params.id
-    let user = await User.findByIdAndUpdate(
-        { _id: userId },
-        { isBlocked: false },
-    )
+    let user = await User.findByIdAndUpdate({ _id: userId }, { isBlocked: false })
     await req.flash("info", "User unblocked")
     res.redirect("/admin/customers")
 })

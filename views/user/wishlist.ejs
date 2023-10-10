@@ -15,29 +15,36 @@
           <div class="col-lg-12">
             <div class="box-title-cart">
               <h4>Your Wishlist</h4>
-              <h6>2 items</h6>
+              <h6><%= wishlist.length %> items</h6>
             </div>
-            <div class="list-items-cart">
-              <div class="item-cart">
-                <div class="item-cart-image"><img src="assets2/imgs/page/cart/sp2.png" alt="Guza"></div>
-                <div class="item-cart-info">
-                  <div class="item-cart-info-1"><a class="text-16-medium" href="#">Ball Crew Shirt</a>
-                    <div class="box-info-size-color-product">
-                      <p class="box-color"><span class="body-p2 neutral-medium-dark">Color:</span><span class="body-p2 neutral-dark">Navy</span></p>
-                      <p class="box-size"><span class="body-p2 neutral-medium-dark">Size:</span><span class="body-p2 neutral-dark">S</span></p>
-                    </div>
-                    <div class="box-form-cart">
-                      <div class="form-cart detail-qty"><span class="minus"></span>
-                        <input class="qty-val form-control" type="text" name="quantity" value="1" min="1"><span class="plus"></span>
+
+            <% wishlist.forEach(product=> { %>
+              <div class="list-items-cart">
+                <div class="item-cart">
+                  <div class="item-cart-image"><img src="images/<%= product.productId.images[0] %>" alt="Guza"></div>
+                  <div class="item-cart-info">
+                    <div class="item-cart-info-1"><a class="text-16-medium" href="/product/<%= product.productId._id %>">
+                        <%= product.productId.title %>
+                      </a>
+                      <div class="box-info-size-color-product">
+                        <p class="box-color"><span class="body-p2 neutral-medium-dark">Type:</span><span
+                            class="body-p2 neutral-dark"><%= product.productId.product_type %></span></p>
+                        <p class="box-size"><span class="body-p2 neutral-medium-dark">Size:</span><span
+                            class="body-p2 neutral-dark"><%= product.productId.size %></span></p>
                       </div>
                     </div>
-                  </div>
-                  <div class="item-cart-info-2">
-                    <p class="body-p2">$24.00</p><a class="btn-remove-cart" href="#"></a>
+                    <div class="item-cart-info-2">
+                      <p class="body-p2"> ₹<%= product.productId.sales_price %></p>
+                      <a class="btn-remove-cart" href="/remove-wishlist/<%= product.productId._id %>"></a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              <% }) %>
+
+
+
+
   <section class="section block-may-also-like">
     <div class="container">
       <div class="text-center">
@@ -59,7 +66,7 @@
                 </form>
   
                 <div class="box-quick-button">
-                  <a class="btn" href="/wishhhh">
+                  <!-- <a class="btn" href="/wishhhh">
                     <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
                       viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_116_452)">
@@ -73,7 +80,7 @@
                         </clippath>
                       </defs>
                     </svg>
-                  </a>
+                  </a> -->
   
                   <a class="btn" href="/product/<%= product._id %>">
                     <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"

@@ -24,14 +24,9 @@ const orders = asyncHandler(async (req, res) => {
     const page = req.query.page * 1 || 1
     const limit = req.query.limit * 1 || 7
     const skip = (page - 1) * limit
-    const count = await Order.find({ $and: filter })
-        .populate("products.productId")
-        .count()
+    const count = await Order.find({ $and: filter }).populate("products.productId").count()
 
-    const allOrders = await Order.find({ $and: filter })
-        .populate("products.productId")
-        .skip(skip)
-        .limit(limit)
+    const allOrders = await Order.find({ $and: filter }).populate("products.productId").skip(skip).limit(limit)
     res.render("admin/orders", {
         layout: "layouts/adminLayout",
         title: "Order Management",

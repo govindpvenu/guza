@@ -31,7 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
             phoneErr,
         })
     } else if (phoneExists) {
-        ;(phoneErr = true), (emailErr = false)
+        (phoneErr = true), (emailErr = false)
         res.render("user/signup", {
             layout: "layouts/authLayout",
             phoneErr,
@@ -93,10 +93,7 @@ const validateOtp = asyncHandler(async (req, res) => {
 //GET
 //@route /login
 const loginPage = asyncHandler(async (req, res) => {
-    res.setHeader(
-        "Cache-Control",
-        "no-store, no-cache, must-revalidate, private",
-    )
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
     ;(emailErr = false), (passErr = false), (blockErr = false)
     res.render("user/login", {
         layout: "layouts/authLayout",
