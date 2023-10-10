@@ -5,17 +5,12 @@ const User = require("../../models/User")
 const Product = require("../../models/Product")
 const Order = require("../../models/Order")
 
-// const {
-//     generateOrderRazorpay,
-//     verifyOrderPayment,
-// } = require("../../helper/razorpay")
+const {
+    generateOrderRazorpay,
+    verifyOrderPayment,
+} = require("../../helper/razorPay")
 
-const { error, log } = require("console")
 
-var razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
-})
 
 //POST
 //@route/place-order
@@ -67,32 +62,24 @@ const placeOrder = async (req, res) => {
                 res.status(200).send({ status: "COD" })
             } else if (req.body.payment_option === "razorpay") {
                 console.log("razorpay")
-                const amount = req.body.total * 100 // Amount in paise
-                const options = {
+                const total = req.body.total
+                const generatedOrder = await generateOrderRazorpay(orderId,total );
+
+                // Send Razorpay response to the client
+                res.status(200).send({
+                    status: "razorpay",
+                    success: true,
+                    msg: "Order created",
+                    order_id: order.id,
                     amount: amount,
-                    currency: "INR",
-                    receipt: orderId,
-                }
+                    reciept: orderId,
+                    key_id: process.env.RAZORPAY_KEY_ID,
+                    contact: "7994652840",
+                    name: "admin",
+                    email: "admin@gmail.com",
+                })
 
-                // Create a Razorpay order
-                razorpay.orders.create(options, (err, order) => {
-                    if (!err) {
-                        console.log("Razorpay order created")
-                        console.log(orderId)
-
-                        // Send Razorpay response to the client
-                        res.status(200).send({
-                            status: "razorpay",
-                            success: true,
-                            msg: "Order created",
-                            order_id: order.id,
-                            amount: amount,
-                            reciept: orderId,
-                            key_id: process.env.RAZORPAY_KEY_ID,
-                            contact: "7994652840",
-                            name: "admin",
-                            email: "admin@gmail.com",
-                        })
+            
                     } else {
                         console.error("Razorpay order creation failed:", err)
                         res.status(400).send({
