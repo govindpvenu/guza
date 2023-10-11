@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const Order = require("../../models/Order")
+const User = require("../../models/User")
 const { ObjectId } = require("mongodb")
 
 //GET
@@ -15,6 +16,9 @@ const orders = asyncHandler(async (req, res) => {
             break
         case "COD":
             filter.push({ paymentDetails: "COD" })
+            break
+        case "wallet":
+            filter.push({ paymentDetails: "wallet" })
             break
         default:
             break
@@ -43,10 +47,11 @@ const orders = asyncHandler(async (req, res) => {
 const adminCancelOrder = async (req, res) => {
     try {
         const id = req.params.id
-        const update = {
-            orderStatus: "CANCELLED",
-        }
-        const order = await Order.findByIdAndUpdate(id, update)
+        const order = await Order.findByIdAndUpdate(id, { orderStatus: "CANCELLED" })
+        const orderAmount = order.totalAmount
+        const userId = order.customerId
+        console.log({ orderAmount });
+        const user = await User.findByIdAndUpdate(userId, { $inc: { 'wallet': orderAmount } })
 
         res.redirect("/admin/orders")
     } catch (error) {
@@ -63,20 +68,31 @@ const changeStatus = async (req, res) => {
         const order = await Order.findOne({ _id: id })
         console.log("current status:" + order.orderStatus)
         switch (order.orderStatus) {
-            case "SUCCESS":
-                console.log("success")
-                update = { orderStatus: "CANCELLED" }
-                break
-
             case "PENDING":
-                console.log("pending")
-                update = { orderStatus: "SUCCESS" }
+                update = { orderStatus: "PLACED" }
                 break
 
-            case "CANCELLED":
-                console.log("cancelled")
+            case "PLACED":
+                update = { orderStatus: "SHIPPED" }
+                break
+            
+            case "SHIPPED":
+                update = { orderStatus: "OUT OF DELIVERY" }
+                break
+
+            case "OUT OF DELIVERY":
+                update = { orderStatus: "DELIVERED" }
+                break
+
+            case "DELIVERED":
                 update = { orderStatus: "PENDING" }
                 break
+
+
+            case "CANCELLED":
+                update = { orderStatus: "PENDING" }
+                break
+                
             default:
                 console.log("default")
                 break

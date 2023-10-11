@@ -17,7 +17,11 @@
               <h4>Your Wishlist</h4>
               <h6><%= wishlist.length %> items</h6>
             </div>
-
+            <% if (!wishlist.length) { %>
+            <div style="text-align: center;">
+              <img src="assets2/Images/empty-wishlist.png" alt="">
+            </div>
+          <% } else { %>
             <% wishlist.forEach(product=> { %>
               <div class="list-items-cart">
                 <div class="item-cart">
@@ -41,6 +45,9 @@
                 </div>
               </div>
               <% }) %>
+
+              <% } %>
+
 
 
 

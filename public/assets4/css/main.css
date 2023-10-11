@@ -2339,6 +2339,9 @@ label {
 .nav-tabs.no-border {
     border: none;
 }
+.nav-link:hover {
+    color: black;
+}
 
 .nav-tabs.right .nav-item:last-child .nav-link {
     margin-right: 0;
@@ -3777,7 +3780,7 @@ table .product-thumbnail img {
 }
 
 .product-cart-wrap .product-content-wrap {
-    padding: 0 20px 15px 20px;
+    padding: 0 20px 15px 20px;,
 }
 
 .product-cart-wrap .product-content-wrap .product-category {
@@ -3788,6 +3791,7 @@ table .product-thumbnail img {
     color: #90908e;
     font-size: 12px;
 }
+
 
 .product-cart-wrap .product-content-wrap .product-category a:hover {
     color: #000000;

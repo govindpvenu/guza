@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt")
 const { check, validationResult } = require("express-validator")
 const User = require("../../models/User")
 const Order = require("../../models/Order")
+const { generateOrderRazorpay, verifyOrderPayment } = require("../../helper/razorPay")
+
 const { default: mongoose } = require("mongoose")
 
 //GET
@@ -200,6 +202,74 @@ const orders = asyncHandler(async (req, res) => {
     })
 })
 
+//GET
+//@route /account/wallet
+const wallet = asyncHandler(async (req, res) => {
+    const user = res.locals.user
+
+    
+    res.render("user/account-wallet", {
+        layout: "layouts/userLayout",
+        user,
+    })
+})
+
+//POST
+//@route /add-to-wallet
+const addToWallet = async (req, res) => {
+    try {
+        const money = req.body.money
+        const orderId = "" + Date.now()
+        const generatedOrder = await generateOrderRazorpay(orderId, money)
+        // Send Razorpay response to the client
+        console.log("Send Razorpay response to the client");
+        res.status(200).send({
+            status: "razorpay",
+            success: true,
+            msg: "Order created",
+            order_id: generatedOrder.id,
+            amount: generatedOrder.amount,
+            reciept: orderId,
+            key_id: process.env.RAZORPAY_KEY_ID,
+            contact: "7994652840",
+            name: "admin",
+            email: "admin@gmail.com",
+        })
+    } catch (error) {
+        console.error("Razorpay order creation failed:", error)
+        res.status(400).send({success: false, msg: "Something went wrong!",})
+    }
+}
+
+//POST
+//@route/verify-wallet-payment
+const verifyWalletPayment = async (req, res) => {
+    console.log(req.body.amount);
+    try {
+        verifyOrderPayment(req.body)
+            .then(async () => {
+
+                console.log("Payment SUCCESSFUL")
+                const amount = req.body.amount/100
+                console.log({amount});
+                const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { 'wallet': amount } })
+                res.status(200).json({ status: "success", msg: "Payment verified" })
+            })
+            .catch((err) => {
+                console.log(err)
+                res.json({ status: false, errMsg: "Payment failed!" })
+            })
+    } catch (err) {
+        console.log("3g")
+        res.status(400).json({
+            status: "error",
+            msg: "Payment verification failed",
+        })
+    }
+}
+
+
+
 module.exports = {
     userDashboard,
     accountDetails,
@@ -216,4 +286,9 @@ module.exports = {
     deleteAddress,
 
     orders,
+
+    wallet,
+    addToWallet,
+    verifyWalletPayment
+
 }

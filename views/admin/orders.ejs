@@ -76,9 +76,11 @@
                                                              </p>
                                                             <% } %>
                                                             <% if (allOrders[i].paymentDetails === "razorpay") { %>
-                                                                
                                                                 <p style="color:rgba(0, 149, 255, 0.977);">Razorpay</p>
                                                                <% } %>
+                                                            <% if (allOrders[i].paymentDetails==="wallet" ) { %>
+                                                                <p style="color:rgb(0, 255, 34);">Wallet</p>
+                                                                <% } %>
                                                         </td>
 
                                                         <% if (allOrders[i].paymentStatus==='RECEIVED') { %>
@@ -92,41 +94,60 @@
                     
                                                             </td>
                                                         <% } %>
-                                                        <% if (allOrders[i].paymentStatus==='CANCELLED') { %>
-                                                            <td style="padding-left: 90px;">
-                                                                    <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
-                                                            </td>
-                                                        <% } %>
 
 
 
 
 
 
-                                                        <% if (allOrders[i].orderStatus==='SUCCESS') { %>
+                                                        <% if (allOrders[i].orderStatus==='PENDING' ) { %>
                                                             <td style="padding-left: 90px;">
                                                                 <a href="/admin/change-status/<%= allOrders[i]._id %>">
-                                                                    <button  type="button" class="btn btn-outline-primary">Success</button>
+                                                                    <button type="button" class="btn btn-outline-danger btn">Pending</button>
+                                                        
+                                                                </a>
+                                                            </td>
+                                                            <% } %>
+                                                        <% if (allOrders[i].orderStatus==='PLACED') { %>
+                                                            <td style="padding-left: 90px;">
+                                                                <a href="/admin/change-status/<%= allOrders[i]._id %>">
+                                                                    <button  type="button" class="btn btn-outline-primary">Placed</button>
                         
                                                                 </a>
                                                             </td>
                                                         <% } %>
-                                                        <% if (allOrders[i].orderStatus==='PENDING') { %>
+                                                        <% if (allOrders[i].orderStatus==='SHIPPED' ) { %>
                                                             <td style="padding-left: 90px;">
                                                                 <a href="/admin/change-status/<%= allOrders[i]._id %>">
-                                                                    <button  type="button" class="btn btn-outline-danger btn">Pending</button>
+                                                                    <button type="button" class="btn btn-outline-success">Shipped</button>
+                                                        
+                                                                </a>
+                                                            </td>
+                                                            <% } %>
+                                                        <% if (allOrders[i].orderStatus==='OUT OF DELIVERY' ) { %>
+                                                            <td style="padding-left: 90px;">
+                                                                <a href="/admin/change-status/<%= allOrders[i]._id %>">
+                                                                    <button type="button" class="btn btn-outline-dark">Out of Delivery</button>
+                                                        
+                                                                </a>
+                                                            </td>
+                                                            <% } %>
+                                                        <% if (allOrders[i].orderStatus==='DELIVERED') { %>
+                                                            <td style="padding-left: 90px;">
+                                                                <a href="/admin/change-status/<%= allOrders[i]._id %>">
+                                                                    <button  type="button" class="btn btn-outline-primary">Delivered</button>
                         
                                                                 </a>
                                                             </td>
                                                         <% } %>
-                                                        <% if (allOrders[i].orderStatus==='CANCELLED') { %>
+                                                        <% if (allOrders[i].orderStatus==='CANCELLED' ) { %>
                                                             <td style="padding-left: 90px;">
                                                                 <a href="/admin/change-status/<%= allOrders[i]._id %>">
-                                                                    <button  type="button" class="btn btn-outline-secondary">Cancelled</button>
-                        
+                                                                    <button type="button" class="btn btn-outline-secondary">Cancelled</button>
+                                                        
                                                                 </a>
                                                             </td>
-                                                        <% } %>
+                                                            <% } %>
                                                         
 
                                                         <td>₹<%= allOrders[i].totalAmount %> </td>
@@ -134,10 +155,20 @@
                                                         <td>
                                                             <ul>
                                                                 <li>
-                                                                    <a class="align-items-center btn-sm btn-secondary d-flex " data-bs-toggle="modal"
-                                                                                        data-bs-target="#exampleModalToggle<%= allOrders[i]._id %>" href="javascript:void(0)">
-                                                                        Cancel
-                                                                    </a>
+                                                                    <% if (allOrders[i].orderStatus==='CANCELLED' ) { %>
+                                                                        <button disabled class="align-items-center btn-sm btn-white d-flex " >
+                                                                            Cancel
+                                                                        </button>
+
+                                                                    <% } else { %>
+                                                                        <a class="align-items-center btn-sm btn-secondary d-flex " data-bs-toggle="modal"
+                                                                            data-bs-target="#exampleModalToggle<%= allOrders[i]._id %>" href="javascript:void(0)">
+                                                                            Cancel
+                                                                        </a>
+
+                                                                    <% } %>
+
+
                                                                 </li>
                                                             </ul>
                                                         </td>

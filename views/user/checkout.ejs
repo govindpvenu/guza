@@ -3,8 +3,9 @@
       <div class="container"> 
         <div class="breadcrumbs"> 
           <ul> 
-            <li> <a href="#">Home </a></li>
-            <li> <a href="#">Checkout</a></li>
+            <li> <a href="/package.json">Home </a></li>
+            <li> <a href="/cart">Cart </a></li>
+            <li> <a href="/checkout">Checkout</a></li>
           </ul>
         </div>
       </div>
@@ -13,8 +14,6 @@
     <section class="section block-cart">
       <div class="container mb-100 mt-60">
         <form class= "payment-form" action="/place-order" method="post">
-
-
           <div class="row mt-20"> 
             <div class="col-lg-6">
               <div class="col-md-12">
@@ -135,12 +134,32 @@
                           Cash on delivery
                         </label>
                       </div>
+
                       <div class="item-radio">
                         <label>
                           <input class="form-check-input" required="" type="radio" name="payment_option" value="razorpay" id="exampleRadios3" checked="">
                           Razorpay
                         </label>
                       </div>
+
+                      <% if (user.wallet < sum || !user.wallet) { %>
+                          <div class="item-radio">
+                            <label>
+                              <input disabled class="form-check-input" required="" type="radio" name="payment_option" value="wallet" id="exampleRadios3"
+                                checked="">
+                              Wallet
+                            </label>
+                          </div>
+                      <% } else { %>
+                            <div class="item-radio">
+                              <label>
+                                <input class="form-check-input" required="" type="radio" name="payment_option" value="wallet" id="exampleRadios3"
+                                  checked="">
+                                Wallet
+                              </label>
+                            </div>
+                      <% } %>
+
                     </div>
                   </div>
                   <% if (!user.address.length) { %>
@@ -204,12 +223,12 @@
                         
                         var razorpayObj = new Razorpay(options);
                         razorpayObj.on('payment.failed', function(response){
-                            alert("payment")
+                          
                         })
                         razorpayObj.open();
                     
                     }
-                    else if(res.status === "COD"){
+                    else if(res.status === "COD" || "wallet"){
                       window.location.href = "/success-page"
                     }
                     else{

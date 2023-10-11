@@ -1,0 +1,187 @@
+<link rel="stylesheet" href="/assets3/css/maind134.css?v=3.4">
+
+<main class="main">
+    <div class="section block-breadcrumb">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li> <a href="/">Home </a></li>
+                    <li> <a href="/account">Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="dashboard-menu">
+                                <ul class="nav flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="dashboard-tab" href="/account" role="tab"
+                                            aria-controls="dashboard" aria-selected="false"><i
+                                                class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="wallet-tab" href="/account/wallet" role="tab"
+                                            aria-controls="walley" aria-selected="false"><i
+                                                class="fi-rs-settings-sliders mr-10"></i>Wallet</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="account-detail-tab" href="/account/account-details"
+                                            role="tab" aria-controls="account-detail" aria-selected="true"><i
+                                                class="fi-rs-user mr-10"></i>Account details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="track-orders-tab" href="/account/add-address" role="tab"
+                                            aria-controls="track-orders" aria-selected="false"><i
+                                                class="fi-rs-shopping-cart-check mr-10"></i>Add Address</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="address-tab" href="/account/manage-address" role="tab"
+                                            aria-controls="address" aria-selected="true"><i
+                                                class="fi-rs-marker mr-10"></i>Manage Address</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="orders-tab" href="/account/orders" role="tab"
+                                            aria-controls="orders" aria-selected="false"><i
+                                                class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                    </li>
+
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="page-login-register.html"><i
+                                                class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content dashboard-content">
+
+                                <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
+                                    aria-labelledby="dashboard-tab">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Wallet</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>From here you manange your wallet.In the of cancelling an order or  payment payment failure the amount will be credited back to your wallet. You can also add money and use it in the next shopping also.</p>
+                                        </div>
+                                    
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <img src="/assets2/Images/wallet.png" alt="Admin" width="110" />
+                                                </div>
+                                        
+                                        
+                                                <div class="inputDiv text-center">
+                                                    <h1>&#8377;<%=user.wallet%>
+                                                    </h1>
+                                                </div>
+
+            
+                                                <form  class= "payment-form" action="/add-to-wallet" method="post">
+                                                <div class="border py-1 px-1 d-flex" style="margin-inline: 180px;">
+                                                    <input required type="text" name="money" class="border-0" id="" placeholder="Enter amount to add.." value="">
+                                                    <div class="mt-1 justify-content-center">
+                                                        <button type="submit" class="btn btn-border">Add</button>
+                                                    </div>
+                                                </div>
+                                                </form>
+
+                                                
+                                            </div>
+                                        </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <main>
+        <!-- razorpay integration -->
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.payment-form').submit(function (e) {
+                    e.preventDefault()
+                    var formData = $(this).serialize();
+                    console.log("-----formData-----");
+                    console.log(formData);
+                    $.ajax({
+                        url: "/add-to-wallet",
+                        method: "post",
+                        data: formData,
+                        success: function (res) {
+                            if (res.status === "razorpay") {
+                                var options = {
+                                    "key": "" + res.key_id + "",
+                                    "amount": "" + res.amount + "",
+                                    "currency": "INR",
+                                    "order_id": "" + res.order_id + "",
+                                    "receipt": "" + res.receipt + "",
+
+                                    "handler": function (response) {
+                                        // alert(response.razorpay_payment_id);
+                                        // alert(response.razorpay_order_id);
+                                        // alert(response.razorpay_signature)
+                                        // alert(res.reciept)
+                                        // alert("payment success")
+                                        verifyPayment(response, res.order_id, res.reciept, res.amount)
+
+                                    },
+                                    "prefill": {
+                                        "contact": "" + res.contact + "",
+                                        "name": "" + res.name + "",
+                                        "email": "" + res.email + ""
+                                    },
+                                    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8IYtSChmAt0TZX1lgMV8tm4b-BFRjYDjSmA&usqp=CAU",
+                                    "theme": {
+                                        "color": "#000000"
+                                    }
+                                }
+
+                                var razorpayObj = new Razorpay(options);
+                                razorpayObj.on('payment.failed', function (response) {
+                                })
+                                razorpayObj.open();
+
+                            }
+                            else {
+                                console.log("else");
+                                window.location.href = "/account-wallet"
+                            }
+                        }
+                    })
+                })
+            })
+
+            function verifyPayment(payment, order, orderId,amount) {
+                // alert("cal comes")
+                // alert(orderId)
+                // alert(payment)
+                // alert(order)
+                $.ajax({
+                    url: '/verify-wallet-payment',
+                    data: {
+                        payment,
+                        order,
+                        orderId,
+                        amount
+                    },
+                    method: 'post',
+                    success: function () {
+                        console.log("success");
+                        window.location.href = "/account/wallet"
+                    }
+                })
+            }
+        </script>

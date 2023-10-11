@@ -8,6 +8,7 @@ const { products, addProduct, postProduct, deleteProduct, editProduct, updatePro
 const { editCategory, updateCategory, deleteCategory, categories, addCategory, postCategory } = require("../controllers/admin/categoryController")
 const { customers, blockUser, unblockUser } = require("../controllers/admin/customerController")
 const { orders, adminCancelOrder, changeStatus } = require("../controllers/admin/orderController")
+const { coupon, addCoupon } = require("../controllers/admin/couponController")
 
 //Middlewares
 const { isAdmin, isAdminAuth } = require("../middleware/adminAuth")
@@ -48,5 +49,10 @@ router.route("/change-status/:id").get(isAdmin, changeStatus)
 
 //Sales Report
 router.route("/sales-report").get(isAdmin, salesReport)
+
+//Coupon
+router.route("/coupon").get(isAdmin, coupon)
+router.route("/coupon/add-coupon").get(isAdmin, addCoupon)
+    
 
 module.exports = router

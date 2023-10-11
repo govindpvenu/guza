@@ -107,7 +107,12 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="/order-cancel/<%=order._id%>" class="btn "></i>Cancel Order</a>
+                                    <% if (order.orderStatus === "CANCELLED") { %>
+                                    <button disabled class="btn">Cancel Order</button>
+                                        
+                                    <% } else { %>
+                                        <a href="/order-cancel/<%=order._id%>" class="btn ">Cancel Order</a>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

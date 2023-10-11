@@ -64,11 +64,11 @@ const homePage = asyncHandler(async (req, res) => {
 const productDetails = asyncHandler(async (req, res) => {
     const userLoggined = res.locals.user
     var productId = req.params.id
-    console.log(userLoggined);
+    console.log(userLoggined)
     if (userLoggined) {
         const user = await User.findById(res.locals.user._id)
         var itemExists = user.wishlist.find((item) => item.productId.equals(productId))
-        console.log(itemExists);
+        console.log(itemExists)
     }
     const randomProducts = await Product.aggregate([
         {
@@ -79,13 +79,13 @@ const productDetails = asyncHandler(async (req, res) => {
         { $sample: { size: 8 } },
     ])
 
-    const product = await Product.findOne({ _id:productId })
+    const product = await Product.findOne({ _id: productId })
 
     res.render("user/product-details", {
         layout: "layouts/userLayout",
         product,
         randomProducts,
-        itemExists
+        itemExists,
     })
 })
 
@@ -169,8 +169,6 @@ const shopPage = asyncHandler(async (req, res) => {
     })
 })
 
-
-
 //POST
 //@route /add-to-wishlist
 const addToWishList = async (req, res) => {
@@ -179,20 +177,19 @@ const addToWishList = async (req, res) => {
         const productId = req.body.productId
         const user = await User.findById(userId)
 
-        console.log('adding to wishlist');
+        console.log("adding to wishlist")
 
         const existingItem = user.wishlist.find((item) => item.productId.equals(productId))
         if (existingItem) {
             user.wishlist.splice(user.wishlist.indexOf(existingItem.item), 1)
             await user.save()
-            res.status(200).send({ itemExists:true })
+            res.status(200).send({ itemExists: true })
         } else {
             user.wishlist.push({ productId })
             await user.save()
             res.status(200).send({ itemExists: false })
         }
-
-        } catch (error) {
+    } catch (error) {
         console.log(error.message)
     }
 }
@@ -204,29 +201,16 @@ const deleteWishlistItem = async (req, res) => {
         const userId = res.locals.user._id
         const productIdToDelete = req.params.id
         const user = await User.findById(userId)
-        console.log(productIdToDelete);
-        console.log(user.wishlist.length);
+        console.log(productIdToDelete)
+        console.log(user.wishlist.length)
         user.wishlist = user.wishlist.filter((item) => !item.productId.equals(productIdToDelete))
         
         await user.save()
-        res.redirect('/wishlist')
-        // res.status(200).send({ deleted: true })
-        // const existingItem = user.wishlist.find((item) => item.productId.equals(productId))
-        // if (existingItem) {
-        //     user.wishlist.splice(user.wishlist.indexOf(existingItem.item), 1)
-        //     await user.save()
-        //     res.status(200).send({ itemExists: true })
-        // } else {
-        //     user.wishlist.push({ productId })
-        //     await user.save()
-        //     res.status(200).send({ itemExists: false })
-        // }
-
+        res.redirect("/wishlist")
     } catch (error) {
         console.log(error.message)
     }
 }
-
 
 //GET
 //@route /wishlist/
@@ -245,12 +229,12 @@ const wishlistPage = asyncHandler(async (req, res) => {
     }).populate("wishlist.productId")
 
     const wishlist = user.wishlist
-    console.log(wishlist[0]);
+    console.log(wishlist[0])
 
     res.render("user/wishlist", {
         layout: "layouts/userLayout",
         randomProducts,
-        wishlist
+        wishlist,
     })
 })
 
@@ -278,5 +262,5 @@ module.exports = {
     aboutPage,
     contactPage,
     addToWishList,
-    deleteWishlistItem
+    deleteWishlistItem,
 }

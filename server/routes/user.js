@@ -3,7 +3,7 @@ const router = express.Router()
 
 //Controllers
 const { homePage, productDetails, shopPage, wishlistPage, addToWishList, deleteWishlistItem, contactPage, aboutPage } = require("../controllers/user/userController")
-const { accountDetails, updateUser, userDashboard, addAddress, editAddress, manageAddress, orders, postAddress, updateAddress, deleteAddress } = require("../controllers/user/accountController")
+const { accountDetails, updateUser, userDashboard, addAddress, editAddress, manageAddress, orders, postAddress, updateAddress, deleteAddress, wallet, addToWallet, verifyWalletPayment } = require("../controllers/user/accountController")
 const { signupPage, loginPage, registerUser, loginUser, logout, verifyOtp, validateOtp } = require("../controllers/user/authController")
 const { cartPage, checkoutPage, addToCart, changeQuantity, deleteCartItem } = require("../controllers/user/cartController")
 const { placeOrder, orderDetails, cancelOrder, successPage, verifyPayment } = require("../controllers/user/orderController")
@@ -32,7 +32,6 @@ router.route("/wishlist").get(protectedRoute, wishlistPage)
 router.route("/add-to-wishlist").post(protectedRoute, addToWishList)
 router.route("/remove-wishlist/:id").get(protectedRoute, deleteWishlistItem)
 
-
 //Cart
 router.route("/cart").get(protectedRoute, cartPage)
 router.route("/add-to-cart").post(protectedRoute, addToCart)
@@ -47,7 +46,7 @@ router.route("/order-cancel/:id").get(protectedRoute, cancelOrder)
 router.route("/success-page").get(protectedRoute, successPage)
 router.route("/verify-payment").post(protectedRoute, verifyPayment)
 
-//account
+//Account
 router.route("/account").get(protectedRoute, userDashboard)
 router.route("/account/account-details").get(protectedRoute, accountDetails)
 router.route("/account/edit-user").post(protectedRoute, validator.userValidation, updateUser)
@@ -56,5 +55,10 @@ router.route("/account/edit-address/:id").get(protectedRoute, editAddress).post(
 router.route("/account/delete-address/:id").get(protectedRoute, deleteAddress)
 router.route("/account/manage-address").get(protectedRoute, manageAddress)
 router.route("/account/orders").get(protectedRoute, orders)
+router.route("/account/wallet").get(protectedRoute, wallet)
+router.route("/add-to-wallet").post(protectedRoute, addToWallet)
+router.route("/verify-wallet-payment").post(protectedRoute, verifyWalletPayment)
+
+    
 
 module.exports = router

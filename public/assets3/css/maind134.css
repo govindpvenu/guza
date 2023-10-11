@@ -2335,6 +2335,9 @@ label {
 .nav-tabs .nav-link:first-child {
     margin-left: 0 !important;
 }
+.nav-link:hover {
+    color: #896022;
+}
 
 .nav-tabs.no-border {
     border: none;

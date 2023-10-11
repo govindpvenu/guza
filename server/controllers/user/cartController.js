@@ -80,7 +80,7 @@ const deleteCartItem = async (req, res) => {
         const productIdToDelete = req.params.id
         const user = await User.findById(userId)
 
-        console.log(productIdToDelete);
+        console.log(productIdToDelete)
         user.cart = user.cart.filter((item) => !item.productId.equals(productIdToDelete))
 
         await user.save()
