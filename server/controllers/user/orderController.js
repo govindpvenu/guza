@@ -56,7 +56,6 @@ const placeOrder = async (req, res) => {
                 await Order.updateOne({ _id: orderId }, { $set: { paymentStatus: "PENDING", orderStatus: "PLACED" } }).lean()
 
                 res.status(200).send({ status: "COD" })
-
             } else if (req.body.payment_option === "razorpay") {
                 console.log("razorpay")
                 const total = req.body.total
@@ -93,8 +92,8 @@ const placeOrder = async (req, res) => {
                 await User.updateOne({ _id: userId }, { $unset: { cart: 1 } })
 
                 const orderAmount = req.body.total * -1
-                console.log({ orderAmount });
-                await User.findByIdAndUpdate(res.locals.user._id, { $inc: { 'wallet': orderAmount } })
+                console.log({ orderAmount })
+                await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: orderAmount } })
 
                 //change status
                 await Order.updateOne({ _id: orderId }, { $set: { paymentStatus: "RECEIVED", orderStatus: "PLACED" } }).lean()
@@ -122,7 +121,7 @@ const verifyPayment = async (req, res) => {
             .then(async () => {
                 const userId = res.locals.user._id
                 const user = await User.findById(userId)
-                
+
                 console.log("Payment SUCCESSFUL")
 
                 //Decrease product quantity
@@ -143,8 +142,6 @@ const verifyPayment = async (req, res) => {
 
                 //change status
                 await Order.updateOne({ _id: req.body.orderId }, { $set: { paymentStatus: "RECEIVED", orderStatus: "PLACED" } }).lean()
-
-    
 
                 res.status(200).json({ status: "success", msg: "Payment verified" })
             })
@@ -174,10 +171,10 @@ const orderDetails = asyncHandler(async (req, res) => {
 //GET
 //@route/order-cancel/:id
 const cancelOrder = asyncHandler(async (req, res) => {
-    const order = await Order.findByIdAndUpdate(req.params.id, { orderStatus: "CANCELLED",})
+    const order = await Order.findByIdAndUpdate(req.params.id, { orderStatus: "CANCELLED" })
     const orderAmount = order.totalAmount
-    console.log({orderAmount});
-    const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { 'wallet': orderAmount } })
+    console.log({ orderAmount })
+    const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: orderAmount } })
     res.redirect("/account/orders")
 })
 

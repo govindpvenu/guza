@@ -9,11 +9,16 @@ let maxAge = 3 * 24 * 60 * 60
 //GET
 //@route /signup
 const signupPage = asyncHandler(async (req, res) => {
+    const referalCode = req.query.code
+    req.session.referalCode = referalCode
+    console.log(req.session)
+
     ;(emailErr = false), (phoneErr = false)
     res.render("user/signup", {
         layout: "layouts/authLayout",
         emailErr,
         phoneErr,
+        referalCode,
     })
 })
 
@@ -40,6 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
     } else {
         try {
             req.session.userData = { name, email, phone, password }
+            console.log(req.session.referalCode)
             const generatedOTP = generateOTP()
             req.session.generatedOTP = generatedOTP
             console.log(generatedOTP)
@@ -75,6 +81,25 @@ const validateOtp = asyncHandler(async (req, res) => {
             phone,
             password: hashedPassword,
         })
+        console.log(req.session)
+        if (req.session.referalCode) {
+            try {
+                const referalCode = req.session.referalCode
+                const referingUser = await User.findOne({ referalCode })
+                console.log(referingUser)
+                if (referingUser) {
+                    await User.findByIdAndUpdate(req.session.referalCode, { $inc: { wallet: 200 } })
+                    await User.findByIdAndUpdate(user._id, { $inc: { wallet: 50 } })
+                    await req.flash("success", "₹50 credited to your wallet.Check wallet in account section for more details.")
+                } else {
+                    console.log("Invalid referal link")
+                    await req.flash("success", "Invalid referal link.")
+                }
+            } catch (error) {
+                console.log(error)
+                await req.flash("info", "Invalid referal link.")
+            }
+        }
         const payload = {
             user: {
                 _id: user._id,
@@ -93,7 +118,7 @@ const validateOtp = asyncHandler(async (req, res) => {
 //GET
 //@route /login
 const loginPage = asyncHandler(async (req, res) => {
-    (emailErr = false), (passErr = false), (blockErr = false)
+    ;(emailErr = false), (passErr = false), (blockErr = false)
     res.render("user/login", {
         layout: "layouts/authLayout",
         passErr,

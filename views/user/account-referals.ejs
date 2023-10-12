@@ -1,0 +1,161 @@
+<link rel="stylesheet" href="/assets3/css/maind134.css?v=3.4">
+
+<main class="main">
+    <div class="section block-breadcrumb">
+      <div class="container"> 
+        <div class="breadcrumbs"> 
+          <ul> 
+            <li> <a href="/">Home </a></li>
+            <li> <a href="/account">Account</a></li>
+                        <li> <a href="/account/referrals">Referrals</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section class="pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 m-auto">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="dashboard-menu">
+                                <ul class="nav flex-column" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="account-detail-tab" href="/account" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account Information</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="track-orders-tab" href="/account/add-address" role="tab" aria-controls="track-orders" aria-selected="false"><i class="fi-rs-shopping-cart-check mr-10"></i>Add Address</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="address-tab"  href="/account/manage-address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>Manage Address</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="orders-tab" href="/account/orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                    </li>
+
+                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="wallet-tab" href="/account/wallet" role="tab" aria-controls="walley"
+                                            aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Wallet</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="dashboard-tab" href="/account/referrals" role="tab" aria-controls="dashboard"
+                                            aria-selected="false"><i class="fi fi-rs-share mr-10"></i>Referrals</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content dashboard-content">
+
+                           <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Refer & Earn! </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>Guza Invite Friends Program is an opportunity for you to share your love for shopping on Guza with your family and
+                                            friends. Guess what!! We reward both you and your friends every time you invite.</p>
+
+                                            <!-- You just need to get this field. -->
+                                            <script src="https://kit.fontawesome.com/d97b87339f.js" crossorigin="anonymous"></script>
+                                            <div class="clipboard">
+                                                <input onclick="copy()" class="copy-input" value="http://localhost:3000/signup?code=<%=locals.user._id %>" id="copyClipboard" readonly>
+                                                <button class="copy-btn" id="copyButton" onclick="copy()"><i class="far fa-copy"></i></button>
+                                            </div>
+                                            <div id="copied-success" class="copied">
+                                                <span>Copied!</span>
+                                            </div>
+                        
+
+                                            <p>If someone sign up using your referral link they will get ₹50 and you will get ₹200 credited to your wallet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<main>
+
+    <style>
+/* You just need to get this field */
+.copy-input {
+  max-width: 275px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #eaeaeb;
+  border:none;
+  color:#6c6c6c;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 15px 45px 15px 15px;
+  font-family: 'Montserrat', sans-serif;
+}
+.copy-input:focus {
+  outline:none;
+}
+
+.copy-btn {
+  width:40px;
+  background-color: #eaeaeb;
+  font-size: 18px;
+  padding: 6px 9px;
+  border-radius: 5px;
+  border:none;
+  color:#6c6c6c;
+  margin-left:-50px;
+  transition: all .4s;
+}
+.copy-btn:hover {
+  transform: scale(1.3);
+  color:#1a1a1a;
+  cursor:pointer;
+}
+
+.copy-btn:focus {
+  outline:none;
+}
+
+.copied {
+  font-family: 'Montserrat', sans-serif;
+  width: 100px;
+  opacity:0;
+  position:fixed;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+	margin: auto;
+  color:#000;
+  padding: 15px 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  transition: .4s opacity;
+}
+/* You just need to get this field */
+
+
+    </style>
+    <script>
+    function copy() {
+        let copyText = document.getElementById("copyClipboard");
+        let copySuccess = document.getElementById("copied-success");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+
+        copySuccess.style.opacity = "1";
+        setTimeout(function () { copySuccess.style.opacity = "0" }, 500);
+    }
+    </script>

@@ -999,7 +999,7 @@ button[type="submit"] {
 
 button.submit:hover,
 button[type="submit"]:hover {
-    background-color: #046963 !important;
+    background-color: #000000 !important;
 }
 
 .btn-brand:hover {

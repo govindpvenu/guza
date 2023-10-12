@@ -9,13 +9,6 @@ const { default: mongoose } = require("mongoose")
 
 //GET
 //@route /account/
-const userDashboard = asyncHandler(async (req, res) => {
-    const user = res.locals.user
-    res.render("user/account-dashboard", { layout: "layouts/userLayout", user })
-})
-
-//GET
-//@route /account/account-details
 const accountDetails = asyncHandler(async (req, res) => {
     const user = res.locals.user
     const messages = await req.consumeFlash("success")
@@ -207,7 +200,6 @@ const orders = asyncHandler(async (req, res) => {
 const wallet = asyncHandler(async (req, res) => {
     const user = res.locals.user
 
-    
     res.render("user/account-wallet", {
         layout: "layouts/userLayout",
         user,
@@ -222,7 +214,7 @@ const addToWallet = async (req, res) => {
         const orderId = "" + Date.now()
         const generatedOrder = await generateOrderRazorpay(orderId, money)
         // Send Razorpay response to the client
-        console.log("Send Razorpay response to the client");
+        console.log("Send Razorpay response to the client")
         res.status(200).send({
             status: "razorpay",
             success: true,
@@ -237,22 +229,21 @@ const addToWallet = async (req, res) => {
         })
     } catch (error) {
         console.error("Razorpay order creation failed:", error)
-        res.status(400).send({success: false, msg: "Something went wrong!",})
+        res.status(400).send({ success: false, msg: "Something went wrong!" })
     }
 }
 
 //POST
 //@route/verify-wallet-payment
 const verifyWalletPayment = async (req, res) => {
-    console.log(req.body.amount);
+    console.log(req.body.amount)
     try {
         verifyOrderPayment(req.body)
             .then(async () => {
-
                 console.log("Payment SUCCESSFUL")
-                const amount = req.body.amount/100
-                console.log({amount});
-                const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { 'wallet': amount } })
+                const amount = req.body.amount / 100
+                console.log({ amount })
+                const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: amount } })
                 res.status(200).json({ status: "success", msg: "Payment verified" })
             })
             .catch((err) => {
@@ -268,10 +259,14 @@ const verifyWalletPayment = async (req, res) => {
     }
 }
 
-
+//GET
+//@route /account/referals
+const referrals = asyncHandler(async (req, res) => {
+    const user = res.locals.user
+    res.render("user/account-referals", { layout: "layouts/userLayout", user })
+})
 
 module.exports = {
-    userDashboard,
     accountDetails,
     updateUser,
 
@@ -289,6 +284,7 @@ module.exports = {
 
     wallet,
     addToWallet,
-    verifyWalletPayment
+    verifyWalletPayment,
 
+    referrals,
 }

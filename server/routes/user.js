@@ -3,7 +3,7 @@ const router = express.Router()
 
 //Controllers
 const { homePage, productDetails, shopPage, wishlistPage, addToWishList, deleteWishlistItem, contactPage, aboutPage } = require("../controllers/user/userController")
-const { accountDetails, updateUser, userDashboard, addAddress, editAddress, manageAddress, orders, postAddress, updateAddress, deleteAddress, wallet, addToWallet, verifyWalletPayment } = require("../controllers/user/accountController")
+const { accountDetails, updateUser, userDashboard, addAddress, editAddress, manageAddress, orders, postAddress, updateAddress, deleteAddress, wallet, addToWallet, verifyWalletPayment, referrals } = require("../controllers/user/accountController")
 const { signupPage, loginPage, registerUser, loginUser, logout, verifyOtp, validateOtp } = require("../controllers/user/authController")
 const { cartPage, checkoutPage, addToCart, changeQuantity, deleteCartItem } = require("../controllers/user/cartController")
 const { placeOrder, orderDetails, cancelOrder, successPage, verifyPayment } = require("../controllers/user/orderController")
@@ -47,8 +47,7 @@ router.route("/success-page").get(protectedRoute, successPage)
 router.route("/verify-payment").post(protectedRoute, verifyPayment)
 
 //Account
-router.route("/account").get(protectedRoute, userDashboard)
-router.route("/account/account-details").get(protectedRoute, accountDetails)
+router.route("/account/").get(protectedRoute, accountDetails)
 router.route("/account/edit-user").post(protectedRoute, validator.userValidation, updateUser)
 router.route("/account/add-address").get(protectedRoute, addAddress).post(protectedRoute, validator.addressValidator, postAddress)
 router.route("/account/edit-address/:id").get(protectedRoute, editAddress).post(protectedRoute, validator.addressValidator, updateAddress)
@@ -58,7 +57,6 @@ router.route("/account/orders").get(protectedRoute, orders)
 router.route("/account/wallet").get(protectedRoute, wallet)
 router.route("/add-to-wallet").post(protectedRoute, addToWallet)
 router.route("/verify-wallet-payment").post(protectedRoute, verifyWalletPayment)
-
-    
+router.route("/account/referrals").get(protectedRoute, referrals)
 
 module.exports = router

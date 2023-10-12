@@ -5,7 +5,7 @@ const User = require("../../models/User")
 //@route /admin/coupon
 const coupon = asyncHandler(async (req, res) => {
     const a = 32
-    console.count(a);
+    console.count(a)
     res.render("admin/coupon", {
         layout: "layouts/adminLayout",
         title: "Coupon Manangement",
@@ -21,9 +21,7 @@ const addCoupon = asyncHandler(async (req, res) => {
     })
 })
 
-
-
 module.exports = {
     coupon,
-    addCoupon
+    addCoupon,
 }

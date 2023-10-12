@@ -17,7 +17,7 @@ const orders = asyncHandler(async (req, res) => {
         case "COD":
             filter.push({ paymentDetails: "COD" })
             break
-        case "wallet":
+        case "Wallet":
             filter.push({ paymentDetails: "wallet" })
             break
         default:
@@ -50,8 +50,8 @@ const adminCancelOrder = async (req, res) => {
         const order = await Order.findByIdAndUpdate(id, { orderStatus: "CANCELLED" })
         const orderAmount = order.totalAmount
         const userId = order.customerId
-        console.log({ orderAmount });
-        const user = await User.findByIdAndUpdate(userId, { $inc: { 'wallet': orderAmount } })
+        console.log({ orderAmount })
+        const user = await User.findByIdAndUpdate(userId, { $inc: { wallet: orderAmount } })
 
         res.redirect("/admin/orders")
     } catch (error) {
@@ -75,7 +75,7 @@ const changeStatus = async (req, res) => {
             case "PLACED":
                 update = { orderStatus: "SHIPPED" }
                 break
-            
+
             case "SHIPPED":
                 update = { orderStatus: "OUT OF DELIVERY" }
                 break
@@ -88,11 +88,10 @@ const changeStatus = async (req, res) => {
                 update = { orderStatus: "PENDING" }
                 break
 
-
             case "CANCELLED":
                 update = { orderStatus: "PENDING" }
                 break
-                
+
             default:
                 console.log("default")
                 break

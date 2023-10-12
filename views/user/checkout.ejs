@@ -137,7 +137,7 @@
 
                       <div class="item-radio">
                         <label>
-                          <input class="form-check-input" required="" type="radio" name="payment_option" value="razorpay" id="exampleRadios3" checked="">
+                          <input class="form-check-input" required="" type="radio" name="payment_option" value="razorpay" id="exampleRadios3">
                           Razorpay
                         </label>
                       </div>
@@ -146,17 +146,21 @@
                           <div class="item-radio">
                             <label>
                               <input disabled class="form-check-input" required="" type="radio" name="payment_option" value="wallet" id="exampleRadios3"
-                                checked="">
+                                >
                               Wallet
                             </label>
+                            <p class="body-p1 neutral-medium-dark">Wallet balance: ₹<%= user.wallet %>
+                            </p>
+                            <p class="color-9">insufficient amount</p>
                           </div>
                       <% } else { %>
                             <div class="item-radio">
                               <label>
                                 <input class="form-check-input" required="" type="radio" name="payment_option" value="wallet" id="exampleRadios3"
-                                  checked="">
+                                  >
                                 Wallet
                               </label>
+                              <p class="body-p1 neutral-medium-dark">Wallet balance: ₹<%= user.wallet %></p>
                             </div>
                       <% } %>
 

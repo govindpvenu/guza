@@ -2,12 +2,26 @@
   <main class="main">
     <!-- banner -->
     <section class="section block-banner-home26">
+            
+
       <div class="box-swiper">
+        
         <div class="swiper-container swiper-banner pb-0">
+          
           <div class="swiper-wrapper">
+            
             <div class="swiper-slide">
+              
               <div class="box-banner-cover">
+                
                 <div class="container">
+                  <!-- flash message -->
+                  <% messages.forEach(element=> { %>
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                      <%= element %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% }) %>
                   <div class="box-banner-cover-inner">
                     <div class="row align-items-center">
                       <div class="col-lg-5">
@@ -61,7 +75,9 @@
     </section>
     <!-- banner end -->
     <!-- Varieties -->
+                                               
     <section class="section block-categories-home26">
+
       <div class="container"> 
         <div class="row"> 
           <div class="col-7 mb-40">

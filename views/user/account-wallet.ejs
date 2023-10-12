@@ -7,6 +7,8 @@
                 <ul>
                     <li> <a href="/">Home </a></li>
                     <li> <a href="/account">Account</a></li>
+                        <li> <a href="/account/wallet">Wallet</a></li>
+
                 </ul>
             </div>
         </div>
@@ -20,20 +22,12 @@
                         <div class="col-md-4">
                             <div class="dashboard-menu">
                                 <ul class="nav flex-column" role="tablist">
+                                    
+                                    
                                     <li class="nav-item">
-                                        <a class="nav-link " id="dashboard-tab" href="/account" role="tab"
-                                            aria-controls="dashboard" aria-selected="false"><i
-                                                class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="wallet-tab" href="/account/wallet" role="tab"
-                                            aria-controls="walley" aria-selected="false"><i
-                                                class="fi-rs-settings-sliders mr-10"></i>Wallet</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="account-detail-tab" href="/account/account-details"
+                                        <a class="nav-link" id="account-detail-tab" href="/account"
                                             role="tab" aria-controls="account-detail" aria-selected="true"><i
-                                                class="fi-rs-user mr-10"></i>Account details</a>
+                                                class="fi-rs-user mr-10"></i>Account Information</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="track-orders-tab" href="/account/add-address" role="tab"
@@ -51,8 +45,14 @@
                                             aria-controls="orders" aria-selected="false"><i
                                                 class="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                     </li>
-
-
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="wallet-tab" href="/account/wallet" role="tab" aria-controls="walley"
+                                            aria-selected="false"><i class="fi-rs-settings-sliders mr-10"></i>Wallet</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="dashboard-tab" href="/account/referrals" role="tab" aria-controls="dashboard"
+                                            aria-selected="false"><i class="fi fi-rs-share mr-10"></i>Referrals</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="page-login-register.html"><i
                                                 class="fi-rs-sign-out mr-10"></i>Logout</a>
@@ -72,7 +72,7 @@
                                         <div class="card-body">
                                             <p>From here you manange your wallet.In the of cancelling an order or  payment payment failure the amount will be credited back to your wallet. You can also add money and use it in the next shopping also.</p>
                                         </div>
-                                    
+                                            <div style="padding: 150px 0px;">
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <img src="/assets2/Images/wallet.png" alt="Admin" width="110" />
                                                 </div>
@@ -84,13 +84,14 @@
                                                 </div>
 
             
-                                                <form  class= "payment-form" action="/add-to-wallet" method="post">
-                                                <div class="border py-1 px-1 d-flex" style="margin-inline: 180px;">
-                                                    <input required type="text" name="money" class="border-0" id="" placeholder="Enter amount to add.." value="">
-                                                    <div class="mt-1 justify-content-center">
-                                                        <button type="submit" class="btn btn-border">Add</button>
+                                                <form  class= "payment-form" action="/add-to-wallet" method="post" style="margin-inline: 180px;">
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control" required type="text" name="money" class="border-0" id="" placeholder="Enter amount to add.."
+                                                            value="">
+                                                        <div class="input-group-append">
+                                                                <button type="submit" class="btn btn-border">Add</button>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 </form>
 
                                                 

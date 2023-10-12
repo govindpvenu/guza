@@ -59,7 +59,7 @@ const userSchema = mongoose.Schema(
         ],
         wallet: {
             type: Number,
-            default: 0
+            default: 0,
         },
     },
 

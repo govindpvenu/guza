@@ -53,6 +53,5 @@ router.route("/sales-report").get(isAdmin, salesReport)
 //Coupon
 router.route("/coupon").get(isAdmin, coupon)
 router.route("/coupon/add-coupon").get(isAdmin, addCoupon)
-    
 
 module.exports = router

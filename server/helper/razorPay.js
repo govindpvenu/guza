@@ -3,14 +3,14 @@ const Razorpay = require("razorpay")
 const instance = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET })
 
 exports.generateOrderRazorpay = (orderId, total) => {
-    console.log("generateOrderRazorpay");
+    console.log("generateOrderRazorpay")
     return new Promise((resolve, reject) => {
         const options = {
             amount: total * 100, // amount in the smallest currency unit
             currency: "INR",
             receipt: orderId,
         }
-        
+
         instance.orders.create(options, function (err, order) {
             if (err) {
                 console.log(err)
@@ -24,7 +24,7 @@ exports.generateOrderRazorpay = (orderId, total) => {
 }
 
 exports.verifyOrderPayment = (details) => {
-    console.log("verifyOrderPayment:");
+    console.log("verifyOrderPayment:")
     console.log("DETAILS : " + JSON.stringify(details))
     return new Promise((resolve, reject) => {
         const crypto = require("crypto")

@@ -22,14 +22,22 @@
                                                     <%if(paymentMethod=='Razorpay'){%>
                                                         <option >All</option>
                                                         <option selected>Razorpay</option>
+                                                        <option>Wallet</option>
                                                         <option>COD</option>
                                                     <%}else if(paymentMethod=='COD' ){%>
                                                         <option>All</option>
                                                         <option>Razorpay</option>
+                                                        <option>Wallet</option>
                                                         <option selected>COD</option>
+                                                    <%}else if(paymentMethod=='Wallet' ){%>
+                                                        <option>All</option>
+                                                        <option>Razorpay</option>
+                                                        <option selected>Wallet</option>
+                                                        <option>COD</option>
                                                     <%}else{%>
                                                         <option selected>All</option>
                                                         <option>Razorpay</option>
+                                                        <option >Wallet</option>
                                                         <option>COD</option>
                                                     <%}%>
                                                 </select>

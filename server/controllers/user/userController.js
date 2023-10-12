@@ -7,6 +7,8 @@ const User = require("../../models/User")
 //GET
 //@route/
 const homePage = asyncHandler(async (req, res) => {
+    const messages = await req.consumeFlash("success")
+
     const allProducts = await Product.find({
         $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
     })
@@ -27,6 +29,7 @@ const homePage = asyncHandler(async (req, res) => {
         },
         { $project: { _id: 0, brand: "$_id", firstImage: 1, productCount: 1 } },
     ])
+
     const product_type = await Product.aggregate([
         {
             $match: {
@@ -56,6 +59,7 @@ const homePage = asyncHandler(async (req, res) => {
         allProducts,
         brands,
         product_type,
+        messages,
     })
 })
 
@@ -204,7 +208,7 @@ const deleteWishlistItem = async (req, res) => {
         console.log(productIdToDelete)
         console.log(user.wishlist.length)
         user.wishlist = user.wishlist.filter((item) => !item.productId.equals(productIdToDelete))
-        
+
         await user.save()
         res.redirect("/wishlist")
     } catch (error) {
