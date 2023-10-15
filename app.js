@@ -8,8 +8,8 @@ const methodOverride = require("method-override")
 const { flash } = require("express-flash-message")
 const Swal = require("sweetalert2")
 const morgan = require("morgan")
-
 const jwt = require("jsonwebtoken")
+
 //routers
 const userRouter = require("./server/routes/user")
 const adminRouter = require("./server/routes/admin")
@@ -41,7 +41,9 @@ app.set("layout", "./layouts/authLayout", "./layouts/adminLayout", "./layouts/us
 app.set("view engine", "ejs")
 
 //bodyparser
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 //Database connection
 const connectDB = require("./server/config/mongodb")

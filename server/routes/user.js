@@ -7,10 +7,11 @@ const { accountDetails, updateUser, userDashboard, addAddress, editAddress, mana
 const { signupPage, loginPage, registerUser, loginUser, logout, verifyOtp, validateOtp } = require("../controllers/user/authController")
 const { cartPage, checkoutPage, addToCart, changeQuantity, deleteCartItem } = require("../controllers/user/cartController")
 const { placeOrder, orderDetails, cancelOrder, successPage, verifyPayment } = require("../controllers/user/orderController")
+  const {applyCoupon} = require("../controllers/admin/couponController")
 
 //Middlewares
 const { protectedRoute, notProtectedRoute, isUserAuth } = require("../middleware/userAuth")
-const validator = require("../middleware/express-validator")
+const validator = require("../utils/express-validator")
 
 //--------Routes-------
 
@@ -45,6 +46,8 @@ router.route("/order-details/:id").get(protectedRoute, orderDetails)
 router.route("/order-cancel/:id").get(protectedRoute, cancelOrder)
 router.route("/success-page").get(protectedRoute, successPage)
 router.route("/verify-payment").post(protectedRoute, verifyPayment)
+router.route("/apply-coupon").post(protectedRoute, applyCoupon)
+
 
 //Account
 router.route("/account/").get(protectedRoute, accountDetails)

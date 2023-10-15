@@ -3,11 +3,14 @@ const Product = require("../../models/Product")
 const Category = require("../../models/Category")
 const Order = require("../../models/Order")
 const User = require("../../models/User")
+const Banner = require("../../models/Banner")
+
 
 //GET
 //@route/
 const homePage = asyncHandler(async (req, res) => {
     const messages = await req.consumeFlash("success")
+    const allBanner = await Banner.find({$and: [{ is_Deleted: false },{status:"enabled"}]})
 
     const allProducts = await Product.find({
         $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
@@ -60,6 +63,7 @@ const homePage = asyncHandler(async (req, res) => {
         brands,
         product_type,
         messages,
+        allBanner
     })
 })
 
@@ -96,6 +100,8 @@ const productDetails = asyncHandler(async (req, res) => {
 //GET
 //@route /shop/
 const shopPage = asyncHandler(async (req, res) => {
+
+
     //Sort
     var sort = req.query.sort || "stock_status"
     var order = req.query.order || 1
@@ -170,6 +176,7 @@ const shopPage = asyncHandler(async (req, res) => {
         sort,
         order,
         search,
+        
     })
 })
 

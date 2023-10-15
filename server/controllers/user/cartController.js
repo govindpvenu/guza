@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 
 const User = require("../../models/User")
 const Product = require("../../models/Product")
+const Coupon = require("../../models/Coupon")
 
 //GET
 //@route /cart
@@ -96,16 +97,34 @@ const checkoutPage = async (req, res) => {
     try {
         res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
         const user = await User.findById(res.locals.user._id)
+
+        
         const userCart = await User.findOne({
             _id: res.locals.user._id,
         }).populate("cart.productId")
+
+        let grandTotal = 0
+        for (let i = 0; i < userCart.cart.length; i++) {
+            grandTotal = grandTotal + parseInt(userCart.cart[i].productId.sales_price) * parseInt(userCart.cart[i].quantity)
+        }
+
         if (!userCart.cart.length) {
             res.redirect("/cart")
         } else {
+
+            let coupons = await Coupon.find({
+                minPrice: { $lte: grandTotal },
+                isDeleted: false,
+                status: "enabled",
+                user: { $nin: [res.locals.user._id] }
+            });
+
+
             res.render("user/checkout", {
                 layout: "layouts/userLayout",
                 user,
                 userCart: userCart,
+                coupons
             })
         }
     } catch (error) {

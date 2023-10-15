@@ -16,41 +16,11 @@
       <section class="section block-content-shop">
         <div class="container">
           <div class="row">
+
             <div class="col-lg-3">
               <div class="wrapper-overlay"></div>
               <div class="box-filters-sidebar"> 
                 <h5 class="title-filter">Filter</h5>
-
-                <!-- Price -->
-                <!-- <div class="block-filter"> 
-                  <h6 class="item-collapse">Price </h6>
-                  <div class="box-collapse scrollFilter">
-                    <ul class="list-filter-checkbox"> 
-                      <li> 
-                        <label class="cb-container">
-                          <input type="checkbox"><span class="text-small">$10.00 - $49.00</span><span class="checkmark"></span>
-                        </label>
-                      </li>
-                      <li> 
-                        <label class="cb-container">
-                          <input type="checkbox"><span class="text-small">$50.00 - $99.00</span><span class="checkmark"></span>
-                        </label>
-                      </li>
-                      <li> 
-                        <label class="cb-container">
-                          <input type="checkbox"><span class="text-small">$100.00 - $199.00</span><span class="checkmark"></span>
-                        </label>
-                      </li>
-                      <li> 
-                        <label class="cb-container">
-                          <input type="checkbox"><span class="text-small">$200.00 +</span><span class="checkmark"></span>
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
-                </div> -->
-                <!-- Price -->
-
                 <!-- Categories -->
                 <div class="block-filter"> 
                   <h6 class="item-collapse">Categories</h6>
@@ -272,6 +242,23 @@
         </nav>
         </div>
       </section>
+                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <% allBanner.forEach(banner=> { %>
+                  
+                        <div class="carousel-item active">
+                          <img class="d-block w-100"  style="height: 500px; width: 100px;" src="/images/<%= banner.image %>" alt="First slide">
+                        </div>
+                        <% }) %>
+                          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                    </div>
     </main>
     <footer class="footer">
       <div class="container">

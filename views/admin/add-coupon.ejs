@@ -10,53 +10,34 @@
         <%- include('../partials/header') %>
 
 
-        <!-- Page Body Start-->
-        <div class="page-body-wrapper">
-        <%- include('../partials/sidebar') %>
+            <!-- Page Body Start-->
+            <div class="page-body-wrapper">
+                <%- include('../partials/sidebar') %>
 
-            <!-- Create Coupon Table start -->
-            <div class="page-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
+                    <!-- Create Coupon Table start -->
+                    <div class="page-body">
+                        <div class="container-fluid">
                             <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="title-header option-title">
-                                                <h5>Create Coupon</h5>
-                                            </div>
-                                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="pills-home-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#pills-home"
-                                                        type="button">General</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="pills-profile-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#pills-profile"
-                                                        type="button">Restriction</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="pills-usage-tab" data-bs-toggle="pill"
-                                                        data-bs-target="#pills-usage" type="button">Usage</button>
-                                                </li>
-                                            </ul>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="title-header option-title">
+                                                        <h5>Coupon Details</h5>
+                                                    </div>
 
-                                            <div class="tab-content" id="pills-tabContent">
-                                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
-                                                    <form class="theme-form theme-form-2 mega-form">
-                                                        <div class="card-header-1">
-                                                            <h5>General</h5>
-                                                        </div>
+                                                    <form action="/admin/coupon/add-coupon"
+                                                         method="post"
+                                                        class="theme-form theme-form-2 mega-form">
 
-                                                        <div class="row">
                                                             <div class="mb-4 row align-items-center">
                                                                 <label
                                                                     class="form-label-title col-lg-2 col-md-3 mb-0">Coupon
                                                                     Title</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="text">
+                                                                    <input required name="title"
+                                                                        class="form-control" type="text">
                                                                 </div>
                                                             </div>
 
@@ -65,7 +46,8 @@
                                                                     class="col-lg-2 col-md-3 col-form-label form-label-title">Coupon
                                                                     Code</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="number">
+                                                                    <input required name="couponCode"
+                                                                        class="form-control" type="text">
                                                                 </div>
                                                             </div>
 
@@ -74,7 +56,8 @@
                                                                     class="col-lg-2 col-md-3 col-form-label form-label-title">Start
                                                                     Date</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="date">
+                                                                    <input required name="startDate"
+                                                                        class="form-control" type="date">
                                                                 </div>
                                                             </div>
 
@@ -83,143 +66,49 @@
                                                                     class="col-lg-2 col-md-3 col-form-label form-label-title">End
                                                                     Date</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="date">
+                                                                    <input required name="endDate"
+                                                                        class="form-control" type="date">
                                                                 </div>
                                                             </div>
 
                                                             <div class="mb-4 row align-items-center">
                                                                 <label
-                                                                    class="form-label-title col-lg-2 col-md-3 mb-0">Free
-                                                                    Shipping</label>
-                                                                <div class="col-md-9">
-                                                                    <div class="form-check user-checkbox ps-0">
-                                                                        <input class="checkbox_animated check-it"
-                                                                            type="checkbox" value=""
-                                                                            id="flexCheckDefault">
-                                                                        <label
-                                                                            class="form-label-title col-md-2 mb-0">Allow
-                                                                            Free Shipping</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-4 row align-items-center">
-                                                                <label
-                                                                    class="col-lg-2 col-md-3 col-form-label form-label-title">Quantity</label>
+                                                                    class="col-lg-2 col-md-3 col-form-label form-label-title">Discount</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="number">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-4 row align-items-center">
-                                                                <label
-                                                                    class="col-sm-2 col-form-label form-label-title">Discount
-                                                                    Type</label>
-                                                                <div class="col-sm-10">
-                                                                    <select class="js-example-basic-single"
-                                                                        name="state">
-                                                                        <option disabled>--Select--</option>
-                                                                        <option>Percent</option>
-                                                                        <option>Fixed</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row align-items-center">
-                                                                <label
-                                                                    class="form-label-title col-lg-2 col-md-3 mb-0">Status</label>
-                                                                <div class="col-md-9">
-                                                                    <div class="form-check user-checkbox ps-0">
-                                                                        <input class="checkbox_animated check-it"
-                                                                            type="checkbox" value=""
-                                                                            id="flexCheckDefault1">
-                                                                        <label class="form-label-title col-md-2 mb-0">
-                                                                            Enable the Coupon</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-
-                                                <div class="tab-pane fade" id="pills-profile" role="tabpanel">
-                                                    <form class="theme-form theme-form-2 mega-form">
-                                                        <div class="card-header-1">
-                                                            <h5>Restriction</h5>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="mb-4 row align-items-center">
-                                                                <label
-                                                                    class="form-label-title col-lg-2 col-md-3 mb-0">Products</label>
-                                                                <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="text">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="mb-4 row align-items-center">
-                                                                <label
-                                                                    class="col-sm-2 col-form-label form-label-title">Category</label>
-                                                                <div class="col-sm-10">
-                                                                    <select class="js-example-basic-single"
-                                                                        name="state">
-                                                                        <option disabled>--Select--</option>
-                                                                        <option>Electronics</option>
-                                                                        <option>Clothes</option>
-                                                                        <option>Shoes</option>
-                                                                        <option>Digital</option>
-                                                                    </select>
+                                                                    <input required name="discount"
+                                                                        class="form-control" type="number">
                                                                 </div>
                                                             </div>
 
                                                             <div class="mb-4 row align-items-center">
                                                                 <label
                                                                     class="col-lg-2 col-md-3 col-form-label form-label-title">Minimum
-                                                                    Spend</label>
+                                                                    price</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="number">
+                                                                    <input required name="minPrice"
+                                                                        class="form-control" type="number">
                                                                 </div>
                                                             </div>
 
-                                                            <div class="row align-items-center">
-                                                                <label
-                                                                    class="col-lg-2 col-md-3 col-form-label form-label-title">Maximum
-                                                                    Spend</label>
-                                                                <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="number">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-
-                                                <div class="tab-pane fade" id="pills-usage" role="tabpanel">
-                                                    <form class="theme-form theme-form-2 mega-form">
-                                                        <div class="card-header-1">
-                                                            <h5>Usage Limits</h5>
-                                                        </div>
-
-                                                        <div class="row">
                                                             <div class="mb-4 row align-items-center">
                                                                 <label
-                                                                    class="form-label-title col-lg-2 col-md-3 mb-0">Per
-                                                                    Limited</label>
+                                                                    class="col-lg-2 col-md-3 col-form-label form-label-title">Status</label>
                                                                 <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="number">
+                                                                    <input type="radio" id="html" name="status"
+                                                                        value="enabled" checked="checked">
+                                                                    <label for="html">Enable</label>
+                                                                    <input type="radio" id="css" name="status"
+                                                                        value="disabled">
+                                                                    <label for="css">Disable</label>
                                                                 </div>
                                                             </div>
-
-                                                            <div class="row align-items-center">
-                                                                <label
-                                                                    class="form-label-title col-lg-2 col-md-3 mb-0">Per
-                                                                    Customer</label>
-                                                                <div class="col-md-9 col-lg-10">
-                                                                    <input class="form-control" type="number">
-                                                                </div>
-                                                            </div>
+                                                        <div class="col-xxl-4">
+                                                            <button type="submit"
+                                                                class="btn text-white theme-bg-color">Add
+                                                                Coupon</button>
                                                         </div>
                                                     </form>
-                                                </div>
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>
@@ -227,11 +116,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Create Coupon Table End -->
 
-        </div>
+                    <!-- Create Coupon Table End -->
+
+            </div>
     </div>
     <!-- page-wrapper end-->
 

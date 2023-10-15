@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator")
 const bcrypt = require("bcrypt")
-const user = require("./userAuth")
+const user = require("../middleware/userAuth")
 const User = require("../models/User")
 
 const userValidation = [
