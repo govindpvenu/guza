@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler")
-const User = require("../../models/User")
 const Coupon = require("../../models/Coupon")
 
 //GET
@@ -24,11 +23,10 @@ const addCoupon = asyncHandler(async (req, res) => {
     })
 })
 
-
 //POST
 //@route /admin/coupon/add-coupon
 const postCoupon = asyncHandler(async (req, res) => {
-    const { title, couponCode, startDate, endDate, discount, minPrice, status, } = req.body
+    const { title, couponCode, startDate, endDate, discount, minPrice, status } = req.body
 
     const coupon = await Coupon.create({
         title,
@@ -44,7 +42,6 @@ const postCoupon = asyncHandler(async (req, res) => {
     res.redirect("/admin/coupon")
 })
 
-
 //GET
 //@route /admin/coupon/edit-coupon/:id
 const editCoupon = asyncHandler(async (req, res) => {
@@ -54,16 +51,15 @@ const editCoupon = asyncHandler(async (req, res) => {
     res.render("admin/edit-coupon.ejs", {
         layout: "layouts/adminLayout",
         title: "Edit Coupon",
-        coupon
+        coupon,
     })
 })
-
 
 //POST
 //@route /admin/coupon/edit-coupon/:id
 const updateCoupon = asyncHandler(async (req, res) => {
     let coupon_id = req.params.id
-    const { title, couponCode, startDate, endDate, discount, minPrice, status, } = req.body
+    const { title, couponCode, startDate, endDate, discount, minPrice, status } = req.body
     const update = {
         title,
         couponCode,
@@ -91,10 +87,6 @@ const deleteCoupon = asyncHandler(async (req, res) => {
     await req.flash("info", "Coupon deleted")
     res.redirect("/admin/coupon")
 })
-
-
-
-
 
 module.exports = {
     coupon,

@@ -24,10 +24,8 @@ const sendEmail = async (email, generatedOTP) => {
         }
 
         await transporter.sendMail(mailOptions)
-        console.log("email sent sucessfully")
     } catch (error) {
-        console.log("email not sent")
-        console.log(error)
+        console.error(error)
     }
 }
 

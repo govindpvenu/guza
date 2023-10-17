@@ -12,7 +12,7 @@ module.exports = {
         } else {
             jwt.verify(token, process.env.jwtSecretKey, async (err, payload) => {
                 if (err) {
-                    console.log(err.message)
+                    console.error(err.message)
                     res.locals.user = null
                     next() //this will reload the login/signup page
                 } else {
@@ -31,7 +31,7 @@ module.exports = {
         } else {
             jwt.verify(token, process.env.jwtSecretKey, async (err, payload) => {
                 if (err) {
-                    console.log(err.message)
+                    console.error(err.message)
                     res.locals.user = null
                     res.redirect("/login")
                 } else {
@@ -55,7 +55,7 @@ module.exports = {
         } else {
             jwt.verify(token, process.env.jwtSecretKey, async (err, payload) => {
                 if (err) {
-                    console.log(err.message)
+                    console.error(err.message)
                     res.locals.user = null
                     res.redirect("/login")
                 } else {

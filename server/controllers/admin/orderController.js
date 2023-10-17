@@ -50,12 +50,11 @@ const adminCancelOrder = async (req, res) => {
         const order = await Order.findByIdAndUpdate(id, { orderStatus: "CANCELLED" })
         const orderAmount = order.totalAmount
         const userId = order.customerId
-        console.log({ orderAmount })
         const user = await User.findByIdAndUpdate(userId, { $inc: { wallet: orderAmount } })
 
         res.redirect("/admin/orders")
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
     }
 }
 
@@ -64,9 +63,7 @@ const adminCancelOrder = async (req, res) => {
 const changeStatus = async (req, res) => {
     try {
         const id = req.params.id
-        console.log(id)
         const order = await Order.findOne({ _id: id })
-        console.log("current status:" + order.orderStatus)
         switch (order.orderStatus) {
             case "PENDING":
                 update = { orderStatus: "PLACED" }
@@ -93,13 +90,13 @@ const changeStatus = async (req, res) => {
                 break
 
             default:
-                console.log("default")
+                update = { orderStatus: "PENDING" }
                 break
         }
         const orderUpdate = await Order.findByIdAndUpdate(id, update)
         res.redirect("/admin/orders")
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
     }
 }
 

@@ -46,7 +46,6 @@ router.route("/order-cancel/:id").get(protectedRoute, cancelOrder)
 router.route("/verify-payment").post(protectedRoute, verifyPayment)
 router.route("/apply-coupon").post(protectedRoute, applyCoupon)
 
-
 //Account
 router.route("/account/").get(protectedRoute, accountDetails)
 router.route("/account/edit-user").post(protectedRoute, validator.userValidation, updateUser)

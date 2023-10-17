@@ -12,12 +12,14 @@ const signupPage = async (req, res) => {
     const referalCode = req.query.code
     req.session.referalCode = referalCode
     try {
-        const referingUser = await User.findOne({ _id: referalCode })
-        if (referingUser) {
-            await req.flash("success", `You were invited by ${referingUser.name}.`)
-            await req.flash("success", "Signup to get ₹50.")
-        } else {
-            await req.flash("success", "Invalid referal link.")
+        if (referalCode) {
+            const referingUser = await User.findOne({ _id: referalCode })
+            if (referingUser) {
+                await req.flash("success", `You were invited by ${referingUser.name}.`)
+                await req.flash("success", "Signup to get ₹50.")
+            } else {
+                await req.flash("success", "Invalid referal link.")
+            }
         }
     } catch (error) {
         await req.flash("success", "Invalid referal link.")
@@ -29,7 +31,7 @@ const signupPage = async (req, res) => {
         emailErr,
         phoneErr,
         referalCode,
-        messages
+        messages,
     })
 }
 
@@ -56,16 +58,16 @@ const registerUser = asyncHandler(async (req, res) => {
     } else {
         try {
             req.session.userData = { name, email, phone, password }
-            console.log(req.session.referalCode)
             const generatedOTP = generateOTP()
             req.session.generatedOTP = generatedOTP
+            console.log("Received otp:")
             console.log(generatedOTP)
 
             await sendEmail(email, generatedOTP)
 
             res.redirect("/verify")
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 })
@@ -92,19 +94,15 @@ const validateOtp = asyncHandler(async (req, res) => {
             phone,
             password: hashedPassword,
         })
-        console.log(req.session)
         if (req.session.referalCode) {
             try {
                 const referalCode = req.session.referalCode
-                const referingUser = await User.findOne({ _id:referalCode })
-                console.log("referingUser")
-                console.log(referingUser)
+                const referingUser = await User.findOne({ _id: referalCode })
                 if (referingUser) {
                     await User.findByIdAndUpdate(req.session.referalCode, { $inc: { wallet: 200 } })
                     await User.findByIdAndUpdate(user._id, { $inc: { wallet: 50 } })
                     await req.flash("success", "₹50 credited to your wallet.Check wallet in account section for more details.")
                 } else {
-                    console.log("Invalid referal link")
                     await req.flash("success", "Invalid referal link.")
                 }
             } catch (error) {

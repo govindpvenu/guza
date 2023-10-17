@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler")
 const bcrypt = require("bcrypt")
-const { check, validationResult } = require("express-validator")
 const User = require("../../models/User")
 const Order = require("../../models/Order")
+const { check, validationResult } = require("express-validator")
 const { generateOrderRazorpay, verifyOrderPayment } = require("../../helper/razorPay")
 
 const { default: mongoose } = require("mongoose")
@@ -36,7 +36,6 @@ const updateUser = asyncHandler(async (req, res) => {
     } else {
         const { name, email, phone, password, npassword } = req.body
         const userUpdate = await User.findOneAndUpdate({ _id: user._id }, { name, email, phone })
-        console.log(changePassword)
         if (changePassword) {
             const hashedPassword = await bcrypt.hash(npassword, 10)
             const userUpdate = await User.findOneAndUpdate({ _id: user._id }, { password: hashedPassword })
@@ -62,7 +61,6 @@ const addAddress = asyncHandler(async (req, res) => {
 //@route /account/add-address
 const postAddress = asyncHandler(async (req, res) => {
     const user = res.locals.user
-    console.log(req.body)
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         const alert = errors.array()
@@ -214,7 +212,6 @@ const addToWallet = async (req, res) => {
         const orderId = "" + Date.now()
         const generatedOrder = await generateOrderRazorpay(orderId, money)
         // Send Razorpay response to the client
-        console.log("Send Razorpay response to the client")
         res.status(200).send({
             status: "razorpay",
             success: true,
@@ -236,13 +233,10 @@ const addToWallet = async (req, res) => {
 //POST
 //@route/verify-wallet-payment
 const verifyWalletPayment = async (req, res) => {
-    console.log(req.body.amount)
     try {
         verifyOrderPayment(req.body)
             .then(async () => {
-                console.log("Payment SUCCESSFUL")
                 const amount = req.body.amount / 100
-                console.log({ amount })
                 const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: amount } })
                 res.status(200).json({ status: "success", msg: "Payment verified" })
             })
@@ -251,7 +245,6 @@ const verifyWalletPayment = async (req, res) => {
                 res.json({ status: false, errMsg: "Payment failed!" })
             })
     } catch (err) {
-        console.log("3g")
         res.status(400).json({
             status: "error",
             msg: "Payment verification failed",

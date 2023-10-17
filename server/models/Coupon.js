@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose")
 
 let couponModel = new mongoose.Schema({
     title: {
@@ -8,36 +7,35 @@ let couponModel = new mongoose.Schema({
     },
     couponCode: {
         type: String,
-        required: true
+        required: true,
     },
     startDate: {
         type: Date,
-        required: true
+        required: true,
     },
     endDate: {
         type: Date,
-        required: true
+        required: true,
     },
     discount: {
         type: Number,
-        required: true
+        required: true,
     },
-    minPrice:{
+    minPrice: {
         type: Number,
-        required: true
+        required: true,
     },
     status: {
         type: String,
-        required: true
+        required: true,
     },
-    isDeleted:{
-        type:Boolean,
+    isDeleted: {
+        type: Boolean,
         default: false,
     },
     user: {
         type: Array,
-    }
-});
+    },
+})
 
-module.exports = mongoose.model('coupon', couponModel)
-
+module.exports = mongoose.model("coupon", couponModel)

@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler")
-const Razorpay = require("razorpay")
 
 const User = require("../../models/User")
 const Product = require("../../models/Product")
@@ -7,7 +6,6 @@ const Order = require("../../models/Order")
 const Coupon = require("../../models/Coupon")
 
 const { generateOrderRazorpay, verifyOrderPayment } = require("../../helper/razorPay")
-const { products } = require("../admin/productController")
 
 //POST
 //@route/place-order
@@ -20,7 +18,6 @@ const placeOrder = async (req, res) => {
             res.redirect("/cart")
             return
         }
-        console.log(user.cart.length)
 
         const order = new Order({
             customerId: userId,
@@ -37,7 +34,6 @@ const placeOrder = async (req, res) => {
 
         if (orderSuccess) {
             if (order.paymentDetails === "COD") {
-                console.log("COD")
                 //Decrease product quantity
                 for (const cartItem of user.cart) {
                     var product = await Product.findById(cartItem.productId)
@@ -59,7 +55,6 @@ const placeOrder = async (req, res) => {
 
                 res.status(200).send({ status: "COD", orderId: orderId })
             } else if (req.body.payment_option === "razorpay") {
-                console.log("razorpay")
                 const total = req.body.total
                 const generatedOrder = await generateOrderRazorpay(orderId, total)
                 // Send Razorpay response to the client
@@ -76,7 +71,6 @@ const placeOrder = async (req, res) => {
                     email: "admin@gmail.com",
                 })
             } else if (req.body.payment_option === "wallet") {
-                console.log("wallet")
                 //Decrease product quantity
                 for (const cartItem of user.cart) {
                     var product = await Product.findById(cartItem.productId)
@@ -94,7 +88,6 @@ const placeOrder = async (req, res) => {
                 await User.updateOne({ _id: userId }, { $unset: { cart: 1 } })
 
                 const orderAmount = req.body.total * -1
-                console.log({ orderAmount })
                 await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: orderAmount } })
 
                 //change status
@@ -125,8 +118,6 @@ const verifyPayment = async (req, res) => {
                 const orderId = req.body.orderId
                 const user = await User.findById(userId)
 
-                console.log("Payment SUCCESSFUL")
-
                 //Decrease product quantity
                 for (const cartItem of user.cart) {
                     var product = await Product.findById(cartItem.productId)
@@ -146,14 +137,14 @@ const verifyPayment = async (req, res) => {
                 //change status
                 await Order.updateOne({ _id: req.body.orderId }, { $set: { paymentStatus: "RECEIVED", orderStatus: "PLACED" } }).lean()
 
-                res.status(200).json({ status: "success", orderId:orderId,msg: "Payment verified" })
+                res.status(200).json({ status: "success", orderId: orderId, msg: "Payment verified" })
             })
             .catch((err) => {
-                console.log(err)
+                console.error(err)
                 res.json({ status: false, errMsg: "Payment failed!" })
             })
     } catch (err) {
-        console.log("3g")
+        console.error(err)
         res.status(400).json({
             status: "error",
             msg: "Payment verification failed",
@@ -178,40 +169,38 @@ const cancelOrder = asyncHandler(async (req, res) => {
     const orderAmount = order.totalAmount
 
     for (const product of order.products) {
-        await Product.findByIdAndUpdate(product.productId, { $inc: { quantity: product.quantity } });
+        await Product.findByIdAndUpdate(product.productId, { $inc: { quantity: product.quantity } })
     }
-    console.log({ orderAmount })
     const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: orderAmount } })
     res.redirect("/account/orders")
 })
 
 const applyCoupon = async (req, res) => {
     try {
-        const { GrandTotal, couponCode } = req.body;
-        const currentDate = new Date();
-        const coupon = await Coupon.findOne({ couponCode });
+        const { GrandTotal, couponCode } = req.body
+        const currentDate = new Date()
+        const coupon = await Coupon.findOne({ couponCode })
 
         //Checking wether the coupon is expired and eligible for the order
         if (!coupon || coupon.minPrice > GrandTotal || currentDate < coupon.startDate || currentDate > coupon.endDate) {
-            return res.json({ status: false });
+            return res.json({ status: false })
         }
 
         //Adding the coupon claimed user in to an array
         await Coupon.findByIdAndUpdate({ _id: coupon._id }, { $push: { user: res.locals.user._id } })
-        
-        const finalAmount = parseInt(GrandTotal) - parseInt(coupon.discount);
-        return res.json({ status: true, GrandTotal: finalAmount, offer: coupon.discount });
-    } catch (error) {
-        console.error("Error in applying coupon:", error);
-        res.status(500).json({ status: false, message: "Internal Server Error" });
-    }
-};
 
+        const finalAmount = parseInt(GrandTotal) - parseInt(coupon.discount)
+        return res.json({ status: true, GrandTotal: finalAmount, offer: coupon.discount })
+    } catch (error) {
+        console.error("Error in applying coupon:", error)
+        res.status(500).json({ status: false, message: "Internal Server Error" })
+    }
+}
 
 module.exports = {
     placeOrder,
     orderDetails,
     cancelOrder,
     verifyPayment,
-    applyCoupon
+    applyCoupon,
 }

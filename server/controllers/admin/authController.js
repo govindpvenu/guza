@@ -6,18 +6,18 @@ let maxAge = 3 * 24 * 60 * 60
 
 //GET
 //@route /admin/login
-const adminLogin = (req, res) => {
+const adminLogin = asyncHandler((req, res) => {
     ;(emailErr = false), (passErr = false)
     res.render("admin/login-admin", {
         layout: "layouts/authLayout",
         passErr,
         emailErr,
     })
-}
+})
 
 //POST
 //@route /admin/login
-const adminVerify = async (req, res) => {
+const adminVerify = asyncHandler(async (req, res) => {
     const { email, password } = req.body
     const admin = await Admin.findOne({ email })
     if (admin) {
@@ -46,14 +46,14 @@ const adminVerify = async (req, res) => {
             emailErr,
         })
     }
-}
+})
 
 //GET
 //@route /logout
-const adminLogout = (req, res) => {
+const adminLogout = asyncHandler((req, res) => {
     res.clearCookie("admin_access")
     res.redirect("/admin/login")
-}
+})
 module.exports = {
     adminLogin,
     adminVerify,

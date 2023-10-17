@@ -1,13 +1,13 @@
 const express = require("express")
 const router = express.Router()
 const upload = require("../utils/multer")
+
 //Controllers
 const { dashboard, salesReport, monthlyreport } = require("../controllers/admin/adminContoller")
 const { adminLogin, adminVerify, adminLogout } = require("../controllers/admin/authController")
 const { products, addProduct, postProduct, deleteProduct, editProduct, updateProduct, deleteImage } = require("../controllers/admin/productController")
 const { editCategory, updateCategory, deleteCategory, categories, addCategory, postCategory } = require("../controllers/admin/categoryController")
 const { editBanner, updateBanner, deleteBanner, banner, addBanner, postBanner } = require("../controllers/admin/bannerController")
-
 const { customers, blockUser, unblockUser } = require("../controllers/admin/customerController")
 const { orders, adminCancelOrder, changeStatus } = require("../controllers/admin/orderController")
 const { coupon, addCoupon, postCoupon, editCoupon, updateCoupon, deleteCoupon } = require("../controllers/admin/couponController")
@@ -15,9 +15,12 @@ const { coupon, addCoupon, postCoupon, editCoupon, updateCoupon, deleteCoupon } 
 //Middlewares
 const { isAdmin, isAdminAuth } = require("../middleware/adminAuth")
 const { resizeImages } = require("../utils/sharp")
+
+//Helpers
 const { getProductCount, getUserCount, getOrderCount, getTotalRevenue, recentOrders, recentProducts, newUsers } = require("../helper/retrieveData")
 
 //--------Routes--------
+
 //Admin Auth
 router.route("/").get(isAdmin, getProductCount, getUserCount, getOrderCount, getTotalRevenue, recentOrders, recentProducts, newUsers, dashboard)
 router.route("/monthly-report").get(monthlyreport)
@@ -55,7 +58,6 @@ router.route("/banner/add-banner").get(isAdmin, addBanner).post(isAdmin, upload.
 router.route("/banner/edit/:id").get(isAdmin, editBanner).post(isAdmin, upload.single("image"), updateBanner)
 router.route("/banner/delete/:id").get(isAdmin, deleteBanner)
 
-
 //Sales Report
 router.route("/sales-report").get(isAdmin, salesReport)
 
@@ -64,9 +66,5 @@ router.route("/coupon").get(isAdmin, coupon)
 router.route("/coupon/add-coupon").get(isAdmin, addCoupon).post(isAdmin, postCoupon)
 router.route("/coupon/edit-coupon/:id").get(isAdmin, editCoupon).post(isAdmin, updateCoupon)
 router.route("/coupon/delete/:id").get(isAdmin, deleteCoupon)
-
-
-
-
 
 module.exports = router

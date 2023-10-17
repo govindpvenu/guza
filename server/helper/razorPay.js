@@ -24,13 +24,8 @@ exports.generateOrderRazorpay = (orderId, total) => {
 }
 
 exports.verifyOrderPayment = (details) => {
-    console.log("verifyOrderPayment:")
-    console.log("DETAILS : " + JSON.stringify(details))
-    console.log("details:");
-    console.log(details);
     return new Promise((resolve, reject) => {
         const crypto = require("crypto")
-        
         let hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
         hmac.update(details.payment.razorpay_order_id + "|" + details.payment.razorpay_payment_id)
         hmac = hmac.digest("hex")

@@ -13,6 +13,7 @@ const banner = asyncHandler(async (req, res) => {
         allbanner,
     })
 })
+
 //GET
 //@route /admin/banner/add-banner
 const addBanner = asyncHandler(async (req, res) => {
@@ -27,7 +28,7 @@ const addBanner = asyncHandler(async (req, res) => {
 //POST
 //@route /admin/banner/add-banner
 const postBanner = async (req, res) => {
-    const { name,status } = req.body
+    const { name, status } = req.body
     const image = req.file.filename
     try {
         const banner = await Banner.create({
@@ -38,12 +39,11 @@ const postBanner = async (req, res) => {
         await req.flash("info", "Banner added")
         res.redirect("/admin/banner")
     } catch (err) {
-    
         if (err.code === 11000) {
             await req.flash("info", "Banner Already Exists")
             res.redirect("/admin/banner/add-Banner")
         }
-        console.log(err);
+        console.error(err)
     }
 }
 

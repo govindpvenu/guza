@@ -1,16 +1,14 @@
 const asyncHandler = require("express-async-handler")
 const Product = require("../../models/Product")
 const Category = require("../../models/Category")
-const Order = require("../../models/Order")
 const User = require("../../models/User")
 const Banner = require("../../models/Banner")
-
 
 //GET
 //@route/
 const homePage = asyncHandler(async (req, res) => {
     const messages = await req.consumeFlash("success")
-    const allBanner = await Banner.find({$and: [{ is_Deleted: false },{status:"enabled"}]})
+    const allBanner = await Banner.find({ $and: [{ is_Deleted: false }, { status: "enabled" }] })
 
     const allProducts = await Product.find({
         $and: [{ stock_status: "Available" }, { is_Listed: true }, { "category.is_Listed": true }],
@@ -63,7 +61,7 @@ const homePage = asyncHandler(async (req, res) => {
         brands,
         product_type,
         messages,
-        allBanner
+        allBanner,
     })
 })
 
@@ -72,11 +70,9 @@ const homePage = asyncHandler(async (req, res) => {
 const productDetails = asyncHandler(async (req, res) => {
     const userLoggined = res.locals.user
     var productId = req.params.id
-    console.log(userLoggined)
     if (userLoggined) {
         const user = await User.findById(res.locals.user._id)
         var itemExists = user.wishlist.find((item) => item.productId.equals(productId))
-        console.log(itemExists)
     }
     const randomProducts = await Product.aggregate([
         {
@@ -100,8 +96,6 @@ const productDetails = asyncHandler(async (req, res) => {
 //GET
 //@route /shop/
 const shopPage = asyncHandler(async (req, res) => {
-
-
     //Sort
     var sort = req.query.sort || "stock_status"
     var order = req.query.order || 1
@@ -176,7 +170,6 @@ const shopPage = asyncHandler(async (req, res) => {
         sort,
         order,
         search,
-        
     })
 })
 
@@ -187,8 +180,6 @@ const addToWishList = async (req, res) => {
         const userId = res.locals.user._id
         const productId = req.body.productId
         const user = await User.findById(userId)
-
-        console.log("adding to wishlist")
 
         const existingItem = user.wishlist.find((item) => item.productId.equals(productId))
         if (existingItem) {
@@ -201,7 +192,7 @@ const addToWishList = async (req, res) => {
             res.status(200).send({ itemExists: false })
         }
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
     }
 }
 
@@ -212,14 +203,12 @@ const deleteWishlistItem = async (req, res) => {
         const userId = res.locals.user._id
         const productIdToDelete = req.params.id
         const user = await User.findById(userId)
-        console.log(productIdToDelete)
-        console.log(user.wishlist.length)
         user.wishlist = user.wishlist.filter((item) => !item.productId.equals(productIdToDelete))
 
         await user.save()
         res.redirect("/wishlist")
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
     }
 }
 
@@ -240,7 +229,6 @@ const wishlistPage = asyncHandler(async (req, res) => {
     }).populate("wishlist.productId")
 
     const wishlist = user.wishlist
-    console.log(wishlist[0])
 
     res.render("user/wishlist", {
         layout: "layouts/userLayout",

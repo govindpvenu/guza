@@ -14,7 +14,7 @@ const bannerSchema = mongoose.Schema(
         },
         status: {
             type: String,
-            required: true
+            required: true,
         },
         is_Deleted: {
             type: Boolean,

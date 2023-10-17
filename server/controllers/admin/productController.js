@@ -102,9 +102,9 @@ const updateProduct = asyncHandler(async (req, res) => {
     const { title, description, brand, category, regular_price, sales_price, quantity, product_type, size, stock_status } = req.body
     const category_id = await Category.findOne({ name: category }, {})
     const fileNames = req.body.images
-    if (req.body.imageImport){
+    if (req.body.imageImport) {
         var imgImp = req.body.imageImport.split(",")
-    }else{
+    } else {
         var imgImp = []
     }
     const imgArr = [...fileNames, ...imgImp]
@@ -165,7 +165,6 @@ const deleteImage = async (req, res) => {
         const updatedDocument = await Product.findOneAndUpdate({ _id: id }, { $pull: { images: img } })
 
         if (!updatedDocument) {
-            console.log("Document not found")
             return res.status(404).json({ message: "Document not found" })
         }
         res.redirect("/admin/products/edit/" + id)

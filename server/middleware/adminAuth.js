@@ -10,7 +10,7 @@ module.exports = {
         } else {
             jwt.verify(token, process.env.jwtSecretKey, (err, payload) => {
                 if (err) {
-                    console.log(err.message)
+                    console.error(err.message)
                     next() //this will reload the login page
                 } else {
                     res.redirect("/admin")
@@ -26,7 +26,7 @@ module.exports = {
         } else {
             jwt.verify(token, process.env.jwtSecretKey, (err, payload) => {
                 if (err) {
-                    console.log(err.message)
+                    console.error(err.message)
                     res.redirect("/admin/login")
                 } else {
                     // req.user = {

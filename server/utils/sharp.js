@@ -14,7 +14,7 @@ module.exports = {
                 req.body.images.push(newFilename)
             })
         )
-        console.log("Passing images to next middleware")
+        //Passing images to next middleware
         next()
     },
 }

@@ -1,11 +1,10 @@
-const User = require("../../models/User")
-const Product = require("../../models/Product")
+const asyncHandler = require("express-async-handler")
 const Order = require("../../models/Order")
 const moment = require("moment")
 
 //GET
 //@route /admin/
-const dashboard = async (req, res) => {
+const dashboard = asyncHandler(async (req, res) => {
     res.render("admin/dashboard", {
         title: "Dashboard",
         productCount: res.locals.productCount,
@@ -14,16 +13,15 @@ const dashboard = async (req, res) => {
         totalRevenue: res.locals.totalRevenue,
         layout: "layouts/adminLayout",
     })
-}
+})
 
 //GET
 //@route /admin/sales-report
-const salesReport = async (req, res) => {
+const salesReport = asyncHandler(async (req, res) => {
     //PAGINATION
     const page = req.query.page * 1 || 1
     const limit = req.query.limit * 1 || 7
     const skip = (page - 1) * limit
-    console.log(limit)
     //REPORT
     const reportOrder = req.query.report
     const today = new Date()
@@ -64,7 +62,7 @@ const salesReport = async (req, res) => {
         title: "Sales report",
         layout: "layouts/adminLayout",
     })
-}
+})
 
 const monthlyreport = async (req, res) => {
     try {

@@ -1,5 +1,3 @@
-const asyncHandler = require("express-async-handler")
-
 const User = require("../../models/User")
 const Product = require("../../models/Product")
 const Coupon = require("../../models/Coupon")
@@ -31,7 +29,7 @@ const cartPage = async (req, res) => {
             randomProducts,
         })
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
     }
 }
 
@@ -57,7 +55,7 @@ const addToCart = async (req, res) => {
         await user.save()
         res.redirect("/cart")
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
     }
 }
 
@@ -98,7 +96,6 @@ const checkoutPage = async (req, res) => {
         res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, private")
         const user = await User.findById(res.locals.user._id)
 
-        
         const userCart = await User.findOne({
             _id: res.locals.user._id,
         }).populate("cart.productId")
@@ -117,16 +114,15 @@ const checkoutPage = async (req, res) => {
                 isDeleted: false,
                 status: "enabled",
                 user: { $nin: [res.locals.user._id] },
-                'startDate': { '$lte': currentDate },
-                'endDate': { '$gte': currentDate }
-            });
-
+                startDate: { $lte: currentDate },
+                endDate: { $gte: currentDate },
+            })
 
             res.render("user/checkout", {
                 layout: "layouts/userLayout",
                 user,
                 userCart: userCart,
-                coupons
+                coupons,
             })
         }
     } catch (error) {

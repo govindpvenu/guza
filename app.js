@@ -41,9 +41,11 @@ app.set("layout", "./layouts/authLayout", "./layouts/adminLayout", "./layouts/us
 app.set("view engine", "ejs")
 
 //bodyparser
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+)
 
 //Database connection
 const connectDB = require("./server/config/mongodb")

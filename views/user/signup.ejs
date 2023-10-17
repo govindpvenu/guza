@@ -289,7 +289,7 @@
     }
 
     function checkPhone(input) {
-        const re = /^\d{9,15}$/;
+        const re = /^\d{10}$/;
         if (re.test(input.value)) {
             showSuccess(input);
         } else {
