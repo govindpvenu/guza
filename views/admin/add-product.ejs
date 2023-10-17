@@ -141,7 +141,7 @@
                                                             <div class="col-sm-9">
                                                                 <div class="field" >
                                                                 <h3>Upload your images</h3>
-                                                                <input type="file" id="files" name="image" multiple />
+                                                                <input required type="file" id="files" name="image" multiple />
                                                                 </div>
                                                                 <!-- <input required name="image"
                                                                     class="form-control form-choose" type="file"
@@ -209,18 +209,7 @@
   display: inline-block;
   margin: 10px 10px 0 0;
 }
-.remove {
-  display: block;
-  background: #444;
-  border: 1px solid black;
-  color: white;
-  text-align: center;
-  cursor: pointer;
-}
-.remove:hover {
-  background: white;
-  color: black;
-}
+
 </style>
 <script>
     $(document).ready(function() {
@@ -235,7 +224,6 @@
           var file = e.target;
           $("<span class=\"pip\">" +
             "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + file.name + "\"/>" +
-            "<br/><span class=\"remove\">Remove image</span>" +
             "</span>").insertAfter("#files");
           $(".remove").click(function(){
             $(this).parent(".pip").remove();

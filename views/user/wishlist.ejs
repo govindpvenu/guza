@@ -24,24 +24,48 @@
           <% } else { %>
             <% wishlist.forEach(product=> { %>
               <div class="list-items-cart">
+                
                 <div class="item-cart">
                   <div class="item-cart-image"><img src="images/<%= product.productId.images[0] %>" alt="Guza"></div>
+                  
                   <div class="item-cart-info">
+                    
                     <div class="item-cart-info-1"><a class="text-16-medium" href="/product/<%= product.productId._id %>">
                         <%= product.productId.title %>
                       </a>
+                      
                       <div class="box-info-size-color-product">
+                        
                         <p class="box-color"><span class="body-p2 neutral-medium-dark">Type:</span><span
                             class="body-p2 neutral-dark"><%= product.productId.product_type %></span></p>
                         <p class="box-size"><span class="body-p2 neutral-medium-dark">Size:</span><span
                             class="body-p2 neutral-dark"><%= product.productId.size %></span></p>
+                                                <div class="box-form-cart text-center">
+                                                                <form action="/add-to-cart" method="post">
+                                                  <div class="form-cart detail-qty">
+                                                    <div class="form-cart detail-qty">
+                                                      <span class="minus"></span>
+                                                      <input class="qty-val form-control" type="text" name="quantity" value="1" min="1" max="<%= product.productId.quantity%>" />
+                                                      <span class="plus"></span>
+                                                    </div>
+                                                  <input type="hidden" name="productId" value="<%=product.productId._id%>">
+                                                  </div>
+                                                  
+                                                </div>
+                                                
                       </div>
+                                    
                     </div>
+                    <button type="submit" style=" width: 155px;" class="btn btn-black">Add to Cart</button>
+                    </form>
                     <div class="item-cart-info-2">
+                    
                       <p class="body-p2"> ₹<%= product.productId.sales_price %></p>
                       <a class="btn-remove-cart" href="/remove-wishlist/<%= product.productId._id %>"></a>
                     </div>
+                    
                   </div>
+                  
                 </div>
               </div>
               <% }) %>

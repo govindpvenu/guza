@@ -3,11 +3,10 @@ const router = express.Router()
 
 //Controllers
 const { homePage, productDetails, shopPage, wishlistPage, addToWishList, deleteWishlistItem, contactPage, aboutPage } = require("../controllers/user/userController")
-const { accountDetails, updateUser, userDashboard, addAddress, editAddress, manageAddress, orders, postAddress, updateAddress, deleteAddress, wallet, addToWallet, verifyWalletPayment, referrals } = require("../controllers/user/accountController")
+const { accountDetails, updateUser, addAddress, editAddress, manageAddress, orders, postAddress, updateAddress, deleteAddress, wallet, addToWallet, verifyWalletPayment, referrals } = require("../controllers/user/accountController")
 const { signupPage, loginPage, registerUser, loginUser, logout, verifyOtp, validateOtp } = require("../controllers/user/authController")
 const { cartPage, checkoutPage, addToCart, changeQuantity, deleteCartItem } = require("../controllers/user/cartController")
-const { placeOrder, orderDetails, cancelOrder, successPage, verifyPayment } = require("../controllers/user/orderController")
-  const {applyCoupon} = require("../controllers/admin/couponController")
+const { placeOrder, orderDetails, cancelOrder, verifyPayment, applyCoupon } = require("../controllers/user/orderController")
 
 //Middlewares
 const { protectedRoute, notProtectedRoute, isUserAuth } = require("../middleware/userAuth")
@@ -44,7 +43,6 @@ router.route("/checkout").get(protectedRoute, checkoutPage)
 router.route("/place-order").post(protectedRoute, placeOrder)
 router.route("/order-details/:id").get(protectedRoute, orderDetails)
 router.route("/order-cancel/:id").get(protectedRoute, cancelOrder)
-router.route("/success-page").get(protectedRoute, successPage)
 router.route("/verify-payment").post(protectedRoute, verifyPayment)
 router.route("/apply-coupon").post(protectedRoute, applyCoupon)
 

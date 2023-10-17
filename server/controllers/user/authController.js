@@ -8,19 +8,30 @@ let maxAge = 3 * 24 * 60 * 60
 
 //GET
 //@route /signup
-const signupPage = asyncHandler(async (req, res) => {
+const signupPage = async (req, res) => {
     const referalCode = req.query.code
     req.session.referalCode = referalCode
-    console.log(req.session)
-
+    try {
+        const referingUser = await User.findOne({ _id: referalCode })
+        if (referingUser) {
+            await req.flash("success", `You were invited by ${referingUser.name}.`)
+            await req.flash("success", "Signup to get ₹50.")
+        } else {
+            await req.flash("success", "Invalid referal link.")
+        }
+    } catch (error) {
+        await req.flash("success", "Invalid referal link.")
+    }
+    const messages = await req.consumeFlash("success")
     ;(emailErr = false), (phoneErr = false)
     res.render("user/signup", {
         layout: "layouts/authLayout",
         emailErr,
         phoneErr,
         referalCode,
+        messages
     })
-})
+}
 
 //POST
 // @route /signup
@@ -85,7 +96,8 @@ const validateOtp = asyncHandler(async (req, res) => {
         if (req.session.referalCode) {
             try {
                 const referalCode = req.session.referalCode
-                const referingUser = await User.findOne({ referalCode })
+                const referingUser = await User.findOne({ _id:referalCode })
+                console.log("referingUser")
                 console.log(referingUser)
                 if (referingUser) {
                     await User.findByIdAndUpdate(req.session.referalCode, { $inc: { wallet: 200 } })

@@ -1,431 +1,496 @@
 <main class="main">
-    <div class="section block-breadcrumb">
-      <div class="container"> 
-        <div class="breadcrumbs"> 
-          <ul> 
-            <li> <a href="/package.json">Home </a></li>
-            <li> <a href="/cart">Cart </a></li>
-            <li> <a href="/checkout">Checkout</a></li>
-          </ul>
-        </div>
+  <div class="section block-breadcrumb">
+    <div class="container">
+      <div class="breadcrumbs">
+        <ul>
+          <li> <a href="/package.json">Home </a></li>
+          <li> <a href="/cart">Cart </a></li>
+          <li> <a href="/checkout">Checkout</a></li>
+        </ul>
       </div>
     </div>
+  </div>
 
-    <section class="section block-cart">
-      <div class="container mb-100 mt-60">
-        <form class= "payment-form" action="/place-order" method="post">
-          <div class="row mt-20"> 
-            <div class="col-lg-6">
-              <div class="col-md-12">
-                <div class="mb-25">
-                    <h4>Shipping Address</h4>
-                </div>
-                <div class="row mt-20">
-                  <h6>Pick an address:</h6>
-                  <% if (!user.address.length) { %>
-                    <div class="col-md-12">
-                      <div class="card mb-3">
-                          <div class="card-header">
-                              <label class="form-check-label">
-                                <a href="/account/add-address">
-                                  <h6 class="mb-0">Add address here </h6>
-                                </a>
-                              </label>
-                          </div>
+  <section class="section block-cart">
+    <div class="container mb-100 mt-60">
+      <form class="payment-form" action="/place-order" method="post">
+        <div class="row mt-20">
+          <div class="col-lg-6">
+            <div class="col-md-12">
+              <div class="mb-25">
+                <h4>Shipping Address</h4>
+              </div>
+              <div class="row mt-20">
+                <div class="box-customer-login" style="display: flex;">
+                  Change address? <a href="/account/manage-address"><p>Click here to manage your address.</p></a></div>
+                <h6>Pick an address:</h6>
+                <% if (!user.address.length) { %>
+                  <div class="col-md-12">
+                    <div class="card mb-3">
+                      <div class="card-header">
+                        <label class="form-check-label">
+                          <a href="/account/add-address">
+                            <h6 class="mb-0">Add address here </h6>
+                          </a>
+                        </label>
                       </div>
+                    </div>
                   </div>
                   <% } %>
-                  <% for (let i = 0; i < user.address.length; i++) { %>
-                  <div class="col-md-12">
-                      <div class="card mb-3">
+                    <% for (let i=0; i < user.address.length; i++) { %>
+                      <div class="col-md-12">
+                        <div class="card mb-3">
                           <div class="card-header">
-                              <input class="form-check-input" value="<%= user.address[i]._id %>" type="radio" name="address" id="address<%= i %>" <% if (i==0) { %>  checked="" <% } %>>
+                            <input class="form-check-input" value="<%= user.address[i]._id %>" type="radio"
+                              name="address" id="address<%= i %>" <% if (i==0) { %> checked="" <% } %>>
                               <label class="form-check-label" for="address<%= i %>">
-                                  <h5 class="mb-0">Address <%= i + 1 %></h5>
+                                <h5 class="text-17-medium text">Address <%= i + 1 %>
+                                </h5>
                               </label>
                           </div>
                           <div class="card-body">
-                              <address>
-                                
-                                <p class="text-17-medium">
-                                  Name:
-                                  <%= user.address[i].name %><br>
-                                </p>
-                                <p class="text-17-medium">
-                                  Phone number:
-                                  <%= user.address[i].mobile %><br>
-                                </p>
-                                <p class="text-17-medium">
-                                  State:
-                                  <%= user.address[i].state %><br>
-                                </p>
-                                <p class="text-17-medium">
-                                  District:
-                                  <%= user.address[i].district %><br>
-                                </p>
-                                <p class="text-17-medium">
-                                  City:
-                                  <%= user.address[i].city %><br>
-                                </p>
-                                <p class="text-17-medium">
-                                  PIN:
-                                  <%= user.address[i].pin %><br>
-                                </p>
-                                <p class="text-17-medium">
-                                  Address:
-                                  <%= user.address[i].address %>
-                                </p>
-                              </address>
-                          </div>
-                      </div>
-                  </div>
-                  <% } %>
+                            <address>
 
-              </div>
-              
-            </div>
-             
-            </div>
-            <div class="col-lg-6">
-              <div class="box-detail-cart">
-                <h4 class="mb-25">Your Order</h4>
-                <div class="box-info-cart"> 
-                  <p class="text-17-medium text-uppercase">Products</p>
-                  <div class="box-info-checkout-inner">
-                    <% i=0 %>
-                    <%var sum=0%>
-                    <% userCart.cart.forEach(product => { %>
-                      <div class="list-items-cart"> 
-                        <div class="item-cart"> 
-                          <div class="item-cart-image"> <img src="/images/<%= userCart.cart[i].productId.images[0] %>" alt="Guza"></div>
-                          <div class="item-cart-info">
-                            <div class="item-cart-info-1">
-                               <a class="text-17-medium" href="#"><%= product.productId.title %></a>
-                              <p class="box-color"><span class="body-p2 neutral-medium-dark">Quantity: </span><span class="body-p2 neutral-dark"><%= product.quantity %> </span></p>
-                            </div>
-                            <div class="item-cart-info-2"> 
-                              <p class="body-p2">Subtotal:</p>
-                              <p class="body-p2">₹<%= product.productId.sales_price* product.quantity  %></p>
-                              <%sum += userCart.cart[i].productId.sales_price * userCart.cart[i].quantity%>
-                              <input type="hidden" name="productId" value="<%=userCart.cart[i].productId._id%>">
-                              <input type="hidden" name="salePrice" value="<%=userCart.cart[i].productId.sales_price%>">
-                              <input type="hidden" name="quantity" value="<%=userCart.cart[i].quantity%>">
-                            </div>
+                              <p class="body-p2 neutral-medium-dark">
+                                Name:
+                                <%= user.address[i].name %><br>
+                              </p>
+                              <p class="body-p2 neutral-medium-dark">
+                                Phone number:
+                                <%= user.address[i].mobile %><br>
+                              </p>
+                              <p class="body-p2 neutral-medium-dark">
+                                State:
+                                <%= user.address[i].state %><br>
+                              </p>
+                              <p class="body-p2 neutral-medium-dark">
+                                District:
+                                <%= user.address[i].district %><br>
+                              </p>
+                              <p class="body-p2 neutral-medium-dark">
+                                City:
+                                <%= user.address[i].city %><br>
+                              </p>
+                              <p class="body-p2 neutral-medium-dark">
+                                PIN:
+                                <%= user.address[i].pin %><br>
+                              </p>
+                              <p class="body-p2 neutral-medium-dark">
+                                Address:
+                                <%= user.address[i].address %>
+                              </p>
+                            </address>
                           </div>
                         </div>
+                        
                       </div>
-                      <% i++ %>
-                    <% }) %>
-
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between box-border-bottom">
-                  <div class="item-radio">
-                    <label>
-                      <h6 class="neutral-medium-dark">Coupon Discounts:</h6>
-                    </label>
-                    <span id="Discount" class="price-ship">0</span>
-                  </div>
-                  </div>
-
-                  <div class="d-flex align-items-center justify-content-between box-border-bottom">
-                    <h5 class="neutral-medium-dark">Total</h5>
-                    <h5 id="TotalPrice" class="color-9"><%=sum%></h5>
-                    <input id="inputTotalPrice"  type="hidden" name="total" value="<%=sum%> ">
-                  </div>
-                  
-                  <div class="box-payment-method"> 
-                    <p class="text-17-medium text-uppercase mb-15 neutral-medium-dark">Shipping</p>
-                    <div class="list-radio"> 
-
-                      <div class="item-radio">
-                        <label>
-                          <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios4" value="COD" checked="">
-                          Cash on delivery
-                        </label>
-                      </div>
-
-                      <div class="item-radio">
-                        <label>
-                          <input class="form-check-input" required="" type="radio" name="payment_option" value="razorpay" id="exampleRadios3">
-                          Razorpay
-                        </label>
-                      </div>
-
-                      <% if (user.wallet < sum || !user.wallet) { %>
-                          <div class="item-radio">
-                            <label>
-                              <input disabled class="form-check-input" required="" type="radio" name="payment_option" value="wallet" id="exampleRadios3"
-                                >
-                              Wallet
-                            </label>
-                            <p class="body-p1 neutral-medium-dark">Wallet balance: ₹<%= user.wallet %>
-                            </p>
-                            <p class="color-9">insufficient amount</p>
-                          </div>
-                      <% } else { %>
-                            <div class="item-radio">
-                              <label>
-                                <input class="form-check-input" required="" type="radio" name="payment_option" value="wallet" id="exampleRadios3"
-                                  >
-                                Wallet
-                              </label>
-                              <p class="body-p1 neutral-medium-dark">Wallet balance: ₹<%= user.wallet %></p>
-                            </div>
                       <% } %>
+                      <a href="/account/add-address">
+                        <div
+                          style="display: flex; flex-direction: row; justify-content: center; align-items: center; text-align: center; border: 1px solid #b6b6b6; padding: 10px">
+                          <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512">
+                            <style>
+                              svg {
+                                margin-right: 10px;
+                                fill: #000000
+                              }
+                            </style>
+                            <path
+                              d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                          </svg>
+                          <p>ADD A NEW ADDRESS</p>
+                        </div>
+                      </a>
 
+              </div>
+
+            </div>
+            <div class="box-gift-coupon" style="display: flex;">
+              Have a coupon? <a href="#"> <p>Enter your code here for discount.</p></a></div>
+            <div class="box-coupon">
+              <div class="coupon-left">
+                <input id="couponCode" class="form-control input-coupon" type="text" placeholder="Coupon code">
+                <button
+                 id="apply" onclick="applyCoupon()" class="btn btn-border">Apply</button>
+              </div>
+              <div class="coupon-right">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-border" data-toggle="modal"
+                  data-target="#exampleModalCenter">Available coupons
+                </button>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Coupons available.</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <% if (!coupons.length) { %>
+                        <h5 style="padding: 80px 0px;">No available coupons found :(</h5>
+                        <% } else { %>
+
+                          <% for (let i=0; i < coupons.length; i++) { %>
+                            <p><%= coupons[i].title %>:</p>
+                            <div class="coupon-copy-box">
+                              <input type="text" value="<%= coupons[i].couponCode %>" id="myInput<%= i %>">
+                              <a class="copy-button" onclick="copyToClipboard('myInput<%= i %>', 'popup<%= i %>')">
+                                <i class="fas fa-copy copy-icon"></i>
+                              </a>
+                              <div style="margin-top: 100px;" class="popup" id="popup<%= i %>">Copied!</div>
+                            </div>
+                            <% } %>
+                            
+                            
+                              <% } %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-border" data-dismiss="modal">Close</button>
                     </div>
                   </div>
-                  <% if (!user.address.length) { %>
-                    <button class="btn btn-black" id="place-order-button" type="submit" disabled > Place Order</button></div>
-                  <% } else if (!userCart.cart.length) { %>
-                    <button class="btn btn-black" id="place-order-button" type="submit" disabled > Place Order</button></div>
-                  <% } else { %>
-                      <button class="btn btn-black" id="place-order-button" type="submit" > Place Order</button></div>
-                  <% } %>
-
                 </div>
               </div>
             </div>
-          </form>
-                            <div class="box-coupon">
-                              <div class="coupon-left">
-                                <input id="couponCode" class="form-control input-coupon" type="text" placeholder="Coupon code">
-                                <button id="apply" onclick="applyCoupon()" class="btn btn-border">Apply</button>
+          </div>
+          <div class="col-lg-6">
+            <div class="box-detail-cart">
+              <h4 class="mb-25">Your Order</h4>
+              <div class="box-info-cart">
+                <p class="text-17-medium text-uppercase">Products</p>
+                <div class="box-info-checkout-inner">
+                  <% i=0 %>
+                    <%var sum=0%>
+                      <% userCart.cart.forEach(product=> { %>
+                        <div class="list-items-cart">
+                          <div class="item-cart">
+                            <div class="item-cart-image"> <img src="/images/<%= userCart.cart[i].productId.images[0] %>"
+                                alt="Guza"></div>
+                            <div class="item-cart-info">
+                              <div class="item-cart-info-1">
+                                <a class="text-17-medium" href="#">
+                                  <%= product.productId.title %>
+                                </a>
+                                <p class="box-color"><span class="body-p2 neutral-medium-dark">Quantity: </span><span
+                                    class="body-p2 neutral-dark">
+                                    <%= product.quantity %>
+                                  </span></p>
                               </div>
-                              <div class="coupon-right">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-border" data-toggle="modal" data-target="#exampleModalCenter">Available coupons
-                                </button>
-                              </div>
-                            
-                              <!-- Modal -->
-                              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                                aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle">Coupon Available</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <% coupons.forEach(coupon=> { %>
-                                        <div class="clipboard">
-                                          <p><%= coupon.title %></p>
-                                          <input onclick="copy()" class="copy-input" value="<%= coupon.couponCode %>" id="copyClipboard" readonly>
-                                          <button class="copy-btn" id="copyButton" onclick="copy()"><i class="far fa-copy"></i></button>
-                                        </div>
-                                        <% }) %>
-                            
-                                          <div id="copied-success" class="copied">
-                                            <span>Copied!</span>
-                                          </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-border" data-dismiss="modal">Close</button>
-                                    </div>
-                                  </div>
-                                </div>
+                              <div class="item-cart-info-2">
+                                <p class="body-p2">Subtotal:</p>
+                                <p class="body-p2">₹<%= product.productId.sales_price* product.quantity %>
+                                </p>
+                                <%sum +=userCart.cart[i].productId.sales_price * userCart.cart[i].quantity%>
+                                  <input type="hidden" name="productId" value="<%=userCart.cart[i].productId._id%>">
+                                  <input type="hidden" name="salePrice"
+                                    value="<%=userCart.cart[i].productId.sales_price%>">
+                                  <input type="hidden" name="quantity" value="<%=userCart.cart[i].quantity%>">
                               </div>
                             </div>
+                          </div>
+                        </div>
+                        <% i++ %>
+                          <% }) %>
+
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between box-border-bottom">
+                  <h6 class="neutral-medium-dark">Coupon Discount:</h6>
+                  <h6 style="padding-left: 275px;" id="" class="price-ship">₹</h6>
+                  <h6 id="Discount" class="price-ship">0</h6>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between box-border-bottom">
+                  <h5 class="neutral-medium-dark">Total</h5>
+                  <h5 style="padding-left: 350px;" id="Discount" class="color-9">₹</h5>
+                  <h5 id="TotalPrice" class="color-9">
+                    <%=sum%>
+                  </h5>
+                  <input id="inputTotalPrice" type="hidden" name="total" value="<%=sum%> ">
+                </div>
+
+                <div class="box-payment-method">
+                  <p class="text-17-medium text-uppercase mb-15 neutral-medium-dark">Payment Options</p>
+                  <div class="list-radio">
+                    <% if (user.wallet < sum || !user.wallet) { %>
+                      <div class="item-radio">
+                        <label>
+                          <input disabled class="form-check-input" required="" type="radio" name="payment_option"
+                            value="wallet" id="exampleRadios3">
+                          Wallet
+                        </label>
+                        <p class="body-p1 neutral-medium-dark">Not enough money.
+                        </p>
+
+                        <p class="body-p1 neutral-medium-dark color-9">Wallet balance: ₹<%= user.wallet %>
+                        </p>
+                        <p class="body-p1 neutral-medium-dark"><a style="font-weight: 500;" href="/account/wallet">Click
+                            here</a> to add money to the wallet.
+                        </p>
+                      </div>
+                      <% } else { %>
+                        <div class="item-radio">
+                          <label>
+                            <input class="form-check-input" required="" type="radio" name="payment_option"
+                              value="wallet" id="exampleRadios3" checked="">
+                            Wallet
+                          </label>
+                          <p class="body-p2 neutral-medium-dark extra-info active">You can use your wallet money for the
+                            payment.</p>
+                          <p class="body-p2 neutral-medium-dark  extra-info active"">Wallet balance: ₹<%= user.wallet %>
+                              </p>
+                            </div>
+                            <% } %>
+                      <div class=" item-radio">
+                            <label>
+                              <input class="form-check-input" required="" type="radio" name="payment_option"
+                                id="exampleRadios4" value="COD">
+                              Cash on delivery
+                            </label>
+                        </div>
+
+                        <div class="item-radio">
+                          <label>
+                            <input class="form-check-input" required="" type="radio" name="payment_option"
+                              value="razorpay" id="exampleRadios3">
+                            Razorpay
+                          </label>
+                        </div>
+
+                  </div>
+                </div>
+                <% if (!user.address.length) { %>
+                  <button class="btn btn-black" id="place-order-button" type="submit" disabled> Place Order</button>
+              </div>
+              <% } else if (!userCart.cart.length) { %>
+                <button class="btn btn-black" id="place-order-button" type="submit" disabled> Place Order</button>
+            </div>
+            <% } else { %>
+              <button class="btn btn-black" id="place-order-button" type="submit"> Place Order</button>
           </div>
-        
-      </div>
-      
-    </section>
+          <% } %>
 
-  </main>
-      <script script src="https://kit.fontawesome.com/d97b87339f.js" crossorigin="anonymous"></script>
+        </div>
+    </div>
+    </div>
+    </form>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
- <!-- razorpay integration -->
- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <style>
-      /* You just need to get this field */
-      .copy-input {
-        max-width: 275px;
-        width: 100%;
-        cursor: pointer;
-        background-color: #eaeaeb;
-        border: none;
-        color: #6c6c6c;
-        font-size: 14px;
-        border-radius: 5px;
-        padding: 15px 45px 15px 15px;
-        font-family: 'Montserrat', sans-serif;
-      }
-    
-      .copy-input:focus {
-        outline: none;
-      }
-    
-      .copy-btn {
-        width: 40px;
-        background-color: #eaeaeb;
-        font-size: 18px;
-        padding: 6px 9px;
-        border-radius: 5px;
-        border: none;
-        color: #6c6c6c;
-        margin-left: -50px;
-        transition: all .4s;
-      }
-    
-      .copy-btn:hover {
-        transform: scale(1.3);
-        color: #1a1a1a;
-        cursor: pointer;
-      }
-    
-      .copy-btn:focus {
-        outline: none;
-      }
-    
-      .copied {
-        font-family: 'Montserrat', sans-serif;
-        width: 100px;
-        opacity: 0;
-        position: fixed;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        margin: auto;
-        color: #000;
-        padding: 15px 15px;
-        background-color: #fff;
-        border-radius: 5px;
-        transition: .4s opacity;
-      }
-    
-      /* You just need to get this field */
-    </style>
-    <script>
-      function copy() {
-        let copyText = document.getElementById("copyClipboard");
-        let copySuccess = document.getElementById("copied-success");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(copyText.value);
+    </div>
 
-        copySuccess.style.opacity = "1";
-        setTimeout(function () { copySuccess.style.opacity = "0" }, 500);
-      }
-    </script>
- <script>
-    $(document).ready(function(){
-        $('.payment-form').submit(function(e){
-            e.preventDefault()
-            var formData = $(this).serialize();
-            console.log("-----formData-----");
-            console.log(formData);
-            $.ajax({
-                url : "/place-order",
-                method : "post",
-                data : formData,
-                success : function(res) {
-                    if(res.status === "razorpay"){
-                        var options = {
-                            "key":""+res.key_id+"",
-                            "amount" : ""+res.amount+"",
-                            "currency" : "INR",
-                            "order_id" : ""+res.order_id+"",
-                            "receipt" : ""+res.receipt+"",
-                            
-                            "handler":function(response){
-                              // alert(response.razorpay_payment_id);
-                              // alert(response.razorpay_order_id);
-                              // alert(response.razorpay_signature)
-                                // alert(res.reciept)
-                                // alert("payment success")
-                                verifyPayment(response, res.order_id ,res.reciept)
+    </div>
 
-                            },
-                            "prefill" : {
-                                "contact" : ""+res.contact+"",
-                                "name" : ""+res.name+"",
-                                "email" : ""+res.email+""
-                            },
-                            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8IYtSChmAt0TZX1lgMV8tm4b-BFRjYDjSmA&usqp=CAU",
-                            "theme" : {
-                                "color" : "#000000"
-                            }
-                        }
-                        
-                        var razorpayObj = new Razorpay(options);
-                        razorpayObj.on('payment.failed', function(response){
-                          
-                        })
-                        razorpayObj.open();
-                    
-                    }
-                    else if(res.status === "COD" || "wallet"){
-                      window.location.href = "/success-page"
-                    }
-                    else{
-                      window.location.href = "/cart"
-                    }
-                }
-            })
-        })
-    })
+  </section>
 
-    function verifyPayment(payment, order, orderId) {
-            // alert("cal comes")
-            // alert(orderId)
-            // alert(payment)
-            // alert(order)
-            $.ajax({
-                url: '/verify-payment',
-                data: {
-                    payment,
-                    order,
-                    orderId
-                },
-                method: 'post',
-                success: function () {
-                 window.location.href = "/success-page"
-                }
-            })
-        }
-  </script>
-  <script>
-    function applyCoupon() {
-        let couponCode = document.getElementById('couponCode').value
-        const inputTotalPrice = document.getElementById('inputTotalPrice');
-        let GrandTotal = document.getElementById('TotalPrice').innerText
-        console.log({couponCode});
-      console.log({ GrandTotal });
-        $.ajax({
-          url: '/apply-coupon',
-          method: 'post',
-          data: {
-            couponCode: couponCode,
-            GrandTotal: GrandTotal
-          }, success: (response) => {
-            if (response.status) {
-              let discount = parseInt(document.getElementById('Discount').innerText)
-              document.getElementById('TotalPrice').innerText = response.GrandTotal
-              document.getElementById('Discount').innerText = discount + response.offer
-              document.getElementById('inputTotalPrice').value =  response.GrandTotal
-              let couponCode = document.getElementById('couponCode')
-              couponCode.readOnly = true
-              let apply = document.getElementById('apply').disabled = true
+</main>
+<script script src="https://kit.fontawesome.com/d97b87339f.js" crossorigin="anonymous"></script>
 
-            } else {
-              Swal.fire({
-                title: 'Wrong CouponCode',
-                text: "There is no existing coupon",
-                icon: 'fail',
-                timer: 5000
-              })
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+<!-- razorpay integration -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+  .coupon-copy-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
 
+  .coupon-copy-box input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .copy-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .copy-icon {
+    color: #555;
+  }
+
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 3px;
+    display: none;
+    font-size: 14px;
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    $('.payment-form').submit(function (e) {
+      e.preventDefault()
+      var formData = $(this).serialize();
+      console.log("-----formData-----");
+      console.log(formData);
+      $.ajax({
+        url: "/place-order",
+        method: "post",
+        data: formData,
+        success: function (res) {
+          if (res.status === "razorpay") {
+            var options = {
+              "key": "" + res.key_id + "",
+              "amount": "" + res.amount + "",
+              "currency": "INR",
+              "order_id": "" + res.order_id + "",
+              "receipt": "" + res.receipt + "",
+
+              "handler": function (response) {
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
+                // alert(res.reciept)
+                // alert("payment success")
+                verifyPayment(response, res.order_id, res.reciept)
+
+              },
+              "prefill": {
+                "contact": "" + res.contact + "",
+                "name": "" + res.name + "",
+                "email": "" + res.email + ""
+              },
+              "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8IYtSChmAt0TZX1lgMV8tm4b-BFRjYDjSmA&usqp=CAU",
+              "theme": {
+                "color": "#000000"
+              }
             }
 
-          }
-        })
-      }
-  </script>
+            var razorpayObj = new Razorpay(options);
+            razorpayObj.on('payment.failed', function (response) {
 
+            })
+            razorpayObj.open();
+
+          }
+          else if (res.status === "COD" || res.status ==="wallet") {
+            Swal.fire({
+              text: 'Order has been placed successfully.',
+              icon: 'success',
+              showCancelButton: true,
+              confirmButtonColor: '#808080',
+              cancelButtonColor: '#000000',
+              cancelButtonText: 'Continue Shoping',
+              confirmButtonText: 'View Order'
+            }).then(function (result) {
+              if (result.isConfirmed) {
+                location.assign("/order-details/" + "" + res.orderId + "")
+              } else {
+                location.assign("/shop")
+              }
+            });
+          }
+          else {
+            window.location.href = "/cart"
+          }
+        }
+      })
+    })
+  })
+
+  function verifyPayment(payment, order, orderId) {
+    // alert("cal comes")
+    // alert(orderId)
+    // alert(payment)
+    // alert(order)
+    $.ajax({
+      url: '/verify-payment',
+      data: {
+        payment,
+        order,
+        orderId
+      },
+      method: 'post',
+      success: function () {
+        Swal.fire({
+          text: 'Order has been placed successfully.',
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonColor: '#808080',
+          cancelButtonColor: '#000000',
+          cancelButtonText: 'Continue Shoping',
+          confirmButtonText: 'View Order'
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            location.assign("/order-details/" + "" + orderId + "")
+          } else {
+            location.assign("/shop")
+          }
+        });
+      }
+    })
+  }
+</script>
+<script>
+  function applyCoupon() {
+        event.preventDefault(); // Prevent the form from being submitted
+    let couponCode = document.getElementById('couponCode').value
+    const inputTotalPrice = document.getElementById('inputTotalPrice');
+    let GrandTotal = document.getElementById('TotalPrice').innerText
+    console.log({ couponCode });
+    console.log({ GrandTotal });
+    $.ajax({
+      url: '/apply-coupon',
+      method: 'post',
+      data: {
+        couponCode: couponCode,
+        GrandTotal: GrandTotal
+      }, success: (response) => {
+        if (response.status) {
+          let discount = parseInt(document.getElementById('Discount').innerText)
+          document.getElementById('TotalPrice').innerText = response.GrandTotal
+          document.getElementById('Discount').innerText = discount + response.offer
+          document.getElementById('inputTotalPrice').value = response.GrandTotal
+          let couponCode = document.getElementById('couponCode')
+          couponCode.readOnly = true
+          let apply = document.getElementById('apply').disabled = true
+
+        } else {
+          Swal.fire({
+            text: "Enter a valid coupon code.",
+            confirmButtonColor: '#000000',
+            icon: 'error',
+            timer: 5000
+          })
+
+        }
+
+      }
+    })
+  }
+</script>
+<script>
+  function copyToClipboard(inputId, popupId) {
+    var copyText = document.getElementById(inputId);
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+    document.execCommand("copy");
+    var popup = document.getElementById(popupId);
+    popup.style.display = "block";
+    setTimeout(function () {
+      popup.style.display = "none";
+    }, 1000);
+  }
+</script>

@@ -57,7 +57,7 @@ module.exports = {
                 if (err) {
                     console.log(err.message)
                     res.locals.user = null
-                    res.next()
+                    res.redirect("/login")
                 } else {
                     // req.user = {
                     //     id: payload.id

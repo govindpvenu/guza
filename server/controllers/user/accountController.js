@@ -247,7 +247,7 @@ const verifyWalletPayment = async (req, res) => {
                 res.status(200).json({ status: "success", msg: "Payment verified" })
             })
             .catch((err) => {
-                console.log(err)
+                console.error(err)
                 res.json({ status: false, errMsg: "Payment failed!" })
             })
     } catch (err) {

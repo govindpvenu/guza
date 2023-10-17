@@ -17,7 +17,7 @@ const { isAdmin, isAdminAuth } = require("../middleware/adminAuth")
 const { resizeImages } = require("../utils/sharp")
 const { getProductCount, getUserCount, getOrderCount, getTotalRevenue, recentOrders, recentProducts, newUsers } = require("../helper/retrieveData")
 
-//--------Routes-------
+//--------Routes--------
 //Admin Auth
 router.route("/").get(isAdmin, getProductCount, getUserCount, getOrderCount, getTotalRevenue, recentOrders, recentProducts, newUsers, dashboard)
 router.route("/monthly-report").get(monthlyreport)

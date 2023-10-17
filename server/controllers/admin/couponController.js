@@ -6,7 +6,6 @@ const Coupon = require("../../models/Coupon")
 //@route /admin/coupon
 const coupon = asyncHandler(async (req, res) => {
     const coupons = await Coupon.find({ isDeleted: false })
-    console.log(coupons);
     const messages = await req.consumeFlash("info")
     res.render("admin/coupon", {
         layout: "layouts/adminLayout",
@@ -93,19 +92,7 @@ const deleteCoupon = asyncHandler(async (req, res) => {
     res.redirect("/admin/coupon")
 })
 
-const applyCoupon =  async (req, res) => {
-    console.log(req.body);
-    let coupon = await Coupon.findOne({ couponCode: req.body.couponCode })
 
-    if (coupon) {
-        let GrandTotal = parseInt(req.body.GrandTotal) - parseInt(coupon.discount)
-        console.log(GrandTotal, 'kkkkkkkkkk');
-        await Coupon.findByIdAndUpdate({ _id: coupon._id }, { $push: { user: res.locals.user._id} })
-        res.json({ status: true, GrandTotal: GrandTotal, offer: coupon.discount })
-    } else {
-        res.json({ status: false })
-    }
-}
 
 
 
@@ -116,5 +103,4 @@ module.exports = {
     editCoupon,
     updateCoupon,
     deleteCoupon,
-    applyCoupon
 }

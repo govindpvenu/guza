@@ -4,8 +4,10 @@ const Razorpay = require("razorpay")
 const User = require("../../models/User")
 const Product = require("../../models/Product")
 const Order = require("../../models/Order")
+const Coupon = require("../../models/Coupon")
 
 const { generateOrderRazorpay, verifyOrderPayment } = require("../../helper/razorPay")
+const { products } = require("../admin/productController")
 
 //POST
 //@route/place-order
@@ -55,7 +57,7 @@ const placeOrder = async (req, res) => {
                 //change status
                 await Order.updateOne({ _id: orderId }, { $set: { paymentStatus: "PENDING", orderStatus: "PLACED" } }).lean()
 
-                res.status(200).send({ status: "COD" })
+                res.status(200).send({ status: "COD", orderId: orderId })
             } else if (req.body.payment_option === "razorpay") {
                 console.log("razorpay")
                 const total = req.body.total
@@ -98,7 +100,7 @@ const placeOrder = async (req, res) => {
                 //change status
                 await Order.updateOne({ _id: orderId }, { $set: { paymentStatus: "RECEIVED", orderStatus: "PLACED" } }).lean()
 
-                res.status(200).send({ status: "COD" })
+                res.status(200).send({ status: "wallet", orderId: orderId })
             } else {
                 console.error("Razorpay order creation failed:", err)
                 res.status(400).send({
@@ -120,6 +122,7 @@ const verifyPayment = async (req, res) => {
         verifyOrderPayment(req.body)
             .then(async () => {
                 const userId = res.locals.user._id
+                const orderId = req.body.orderId
                 const user = await User.findById(userId)
 
                 console.log("Payment SUCCESSFUL")
@@ -143,7 +146,7 @@ const verifyPayment = async (req, res) => {
                 //change status
                 await Order.updateOne({ _id: req.body.orderId }, { $set: { paymentStatus: "RECEIVED", orderStatus: "PLACED" } }).lean()
 
-                res.status(200).json({ status: "success", msg: "Payment verified" })
+                res.status(200).json({ status: "success", orderId:orderId,msg: "Payment verified" })
             })
             .catch((err) => {
                 console.log(err)
@@ -173,21 +176,42 @@ const orderDetails = asyncHandler(async (req, res) => {
 const cancelOrder = asyncHandler(async (req, res) => {
     const order = await Order.findByIdAndUpdate(req.params.id, { orderStatus: "CANCELLED" })
     const orderAmount = order.totalAmount
+
+    for (const product of order.products) {
+        await Product.findByIdAndUpdate(product.productId, { $inc: { quantity: product.quantity } });
+    }
     console.log({ orderAmount })
     const user = await User.findByIdAndUpdate(res.locals.user._id, { $inc: { wallet: orderAmount } })
     res.redirect("/account/orders")
 })
 
-//GET
-//@route/order-cancel/:id
-const successPage = asyncHandler(async (req, res) => {
-    res.render("user/success-page")
-})
+const applyCoupon = async (req, res) => {
+    try {
+        const { GrandTotal, couponCode } = req.body;
+        const currentDate = new Date();
+        const coupon = await Coupon.findOne({ couponCode });
+
+        //Checking wether the coupon is expired and eligible for the order
+        if (!coupon || coupon.minPrice > GrandTotal || currentDate < coupon.startDate || currentDate > coupon.endDate) {
+            return res.json({ status: false });
+        }
+
+        //Adding the coupon claimed user in to an array
+        await Coupon.findByIdAndUpdate({ _id: coupon._id }, { $push: { user: res.locals.user._id } })
+        
+        const finalAmount = parseInt(GrandTotal) - parseInt(coupon.discount);
+        return res.json({ status: true, GrandTotal: finalAmount, offer: coupon.discount });
+    } catch (error) {
+        console.error("Error in applying coupon:", error);
+        res.status(500).json({ status: false, message: "Internal Server Error" });
+    }
+};
+
 
 module.exports = {
     placeOrder,
     orderDetails,
     cancelOrder,
-    successPage,
     verifyPayment,
+    applyCoupon
 }

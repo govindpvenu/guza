@@ -1,19 +1,21 @@
 <body>
+
   <main class="main">
     <!-- banner -->
+
     <section class="section block-banner-home26">
-            
+
 
       <div class="box-swiper">
-        
+
         <div class="swiper-container swiper-banner pb-0">
-          
+
           <div class="swiper-wrapper">
-            
+
             <div class="swiper-slide">
-              
+
               <div class="box-banner-cover">
-                
+
                 <div class="container">
                   <!-- flash message -->
                   <% messages.forEach(element=> { %>
@@ -22,15 +24,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <% }) %>
-                  <div class="box-banner-cover-inner">
-                    <div class="row align-items-center">
-                      <div class="col-lg-5">
-                        <p class="text-17-medium mb-10">Sneaker Collection</p>
-                        <h1 class="mb-30 font-jost font-bold">Good shoes take you good places</h1><a
-                          class="btn btn-border" href="/shop">Shop Now</a>
+                      <div class="box-banner-cover-inner">
+
+                        <div class="row align-items-center">
+
+
+                          <div class="col-lg-5">
+
+                            <p class="text-17-medium mb-10">Sneaker Collection</p>
+                            <h1 class="mb-30 font-jost font-bold">Good shoes take you good places</h1><a
+                              class="btn btn-border" href="/shop">Shop Now</a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -64,7 +70,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
           <div class="box-pagination-button">
             <div class="swiper-pagination swiper-pagination-banner"></div>
@@ -76,47 +82,65 @@
     </section>
     <!-- banner end -->
     <!-- Varieties -->
-                                               
+
     <section class="section block-categories-home26">
 
-      <div class="container"> 
-        <div class="row"> 
+      <div class="container">
+        <div class="row">
           <div class="col-7 mb-40">
             <h3>Varieties</h3>
           </div>
           <div class="col-5 mb-40">
             <div class="position-relative box-button-top-0">
               <div class="box-page-swiper">
-                <div class="swiper-button-prev swiper-button-prev-popular-product btn-prev-style-1" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-223ddb2a8dd45926" aria-disabled="false"></div>
-                <div class="swiper-button-next swiper-button-next-popular-product btn-next-style-1 swiper-button-disabled" tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-223ddb2a8dd45926" aria-disabled="true"></div>
+                <div class="swiper-button-prev swiper-button-prev-popular-product btn-prev-style-1" tabindex="0"
+                  role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-223ddb2a8dd45926"
+                  aria-disabled="false"></div>
+                <div
+                  class="swiper-button-next swiper-button-next-popular-product btn-next-style-1 swiper-button-disabled"
+                  tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-223ddb2a8dd45926"
+                  aria-disabled="true"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container-slider-padding" style="padding-left: 381.5px;">   
+      <div class="container-slider-padding" style="padding-left: 381.5px;">
         <div class="box-swiper">
-          <div class="swiper-container swiper-scrollbar-4-items swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-            <div class="swiper-wrapper" style="transform: translate3d(-388px, 0px, 0px); transition-duration: 0ms;" id="swiper-wrapper-223ddb2a8dd45926" aria-live="polite">
-              <% product_type.forEach(type => { %>
-                <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group" aria-label="1 / 5">
-                  <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                    <div class="cardImage"><a href="/shop?type=<%= type.product_type %>"><img class="imageMain" style="height:410px; width: 420px;" src="/images/<%= type.firstImage %>" alt="guza"></a></div>
+          <div
+            class="swiper-container swiper-scrollbar-4-items swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+            <div class="swiper-wrapper" style="transform: translate3d(-388px, 0px, 0px); transition-duration: 0ms;"
+              id="swiper-wrapper-223ddb2a8dd45926" aria-live="polite">
+              <% product_type.forEach(type=> { %>
+                <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group"
+                  aria-label="1 / 5">
+                  <div class="cardProductCategory02 wow fadeInUp"
+                    style="visibility: visible; animation-name: fadeInUp;">
+                    <div class="cardImage"><a href="/shop?type=<%= type.product_type %>"><img class="imageMain"
+                          style="height:410px; width: 420px;" src="/images/<%= type.firstImage %>" alt="guza"></a></div>
                     <div class="cardInfo">
-                      <h5 class="text-24-medium"><%= type.product_type %></h5>
-                      <p class="text-17-medium cardDesc"><%= type.productCount %> items</p>
+                      <h5 class="text-24-medium">
+                        <%= type.product_type %>
+                      </h5>
+                      <p class="text-17-medium cardDesc">
+                        <%= type.productCount %> items
+                      </p>
                     </div>
                   </div>
                 </div>
                 <% }) %>
 
             </div>
-          <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+          </div>
         </div>
       </div>
       <div class="container swiper-full-scroll">
-        <div class="swiper-pagination swiper-pagination-popular-product"><div class="swiper-scrollbar-drag" style="transform: translate3d(232.082px, 0px, 0px); transition-duration: 0ms; width: 913.2px;"></div></div>
+        <div class="swiper-pagination swiper-pagination-popular-product">
+          <div class="swiper-scrollbar-drag"
+            style="transform: translate3d(232.082px, 0px, 0px); transition-duration: 0ms; width: 913.2px;"></div>
+        </div>
       </div>
     </section>
     <!-- Varieties End -->
@@ -143,79 +167,81 @@
           </div>
         </div>
         <div class="tab-content">
-      <!-- Categories head End-->
+          <!-- Categories head End-->
 
           <!-- Men -->
           <div class="tab-pane fade show active" id="bestsellers" role="tabpanel" aria-labelledby="bestsellers-tab">
             <div class="row">
 
               <!--Product -->
-              <% i = 0 %>
-              <% allProducts.forEach(product=> { %>
-                <% if (product.category.name === "Men" && i<8) { %>
-                  <% i++ %>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
-                    <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
-                          style="height:269px; width: auto;" src="/images/<%= product.images[0] %>" alt="guza"><img
-                          class="imageHover" src="/images/<%= product.images[1] %>" alt="guza"></a>
-                          <form action="/add-to-cart" method="post">
-                            <input type="hidden" name="productId" value="<%=product._id%>">
-                            <input type="hidden" name="quantity" value="1">
-                            <button  class="btn btn-black button-select"  type="submit">Add to Cart</button>
-                          </form>                      <div class="box-quick-button"><a class="btn" href="#">
-                          <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
-                            viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_116_452)">
-                              <path
-                                d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z"
-                                fill=""></path>
-                            </g>
-                            <defs>
-                              <clippath id="clip0_116_452">
-                                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
-                              </clippath>
-                            </defs>
-                          </svg></a><a class="btn" href="#">
-                          <svg class="d-inline-flex align-items-center justify-content-center" width="24" height="24"
-                            viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_200_1102)">
-                              <path
-                                d="M15.375 12.0416L19.5 16.1666L15.375 20.2916L14.1967 19.1133L16.31 16.9991L5.33333 17V15.3333H16.31L14.1967 13.22L15.375 12.0416ZM8.625 3.70831L9.80333 4.88665L7.69 6.99998H18.6667V8.66665H7.69L9.80333 10.78L8.625 11.9583L4.5 7.83331L8.625 3.70831Z"
-                                fill=""></path>
-                            </g>
-                            <defs>
-                              <clippath id="clip0_200_1102">
-                                <rect width="20" height="20" fill="white" transform="translate(2 2)"></rect>
-                              </clippath>
-                            </defs>
-                          </svg></a><a class="btn preview-product" href="#">
-                          <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
-                            viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_91_73)">
-                              <path
-                                d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"
-                                fill=""></path>
-                            </g>
-                            <defs>
-                              <clippath id="clip0_91_73">
-                                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
-                              </clippath>
-                            </defs>
-                          </svg></a></div>
-                    </div>
-                    <div class="cardInfo">
-                      <h6 class="text-16-medium">
-                        <%= product.title %>
-                      </h6>
-                      <p class="body-p2 cardDesc">₹<%= product.sales_price %>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <% } %>
-                <% }) %>
-              <!--End-product -->
+              <% i=0 %>
+                <% allProducts.forEach(product=> { %>
+                  <% if (product.category.name==="Men" && i<8) { %>
+                    <% i++ %>
+                      <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
+                          <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
+                                style="height:269px; width: auto;" src="/images/<%= product.images[0] %>"
+                                alt="guza"><img class="imageHover" src="/images/<%= product.images[1] %>"
+                                alt="guza"></a>
+                            <form action="/add-to-cart" method="post">
+                              <input type="hidden" name="productId" value="<%=product._id%>">
+                              <input type="hidden" name="quantity" value="1">
+                              <button class="btn btn-black button-select" type="submit">Add to Cart</button>
+                            </form>
+                            <div class="box-quick-button"><a class="btn" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="28"
+                                  height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_116_452)">
+                                    <path
+                                      d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_116_452">
+                                      <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a><a class="btn" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="24"
+                                  height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_200_1102)">
+                                    <path
+                                      d="M15.375 12.0416L19.5 16.1666L15.375 20.2916L14.1967 19.1133L16.31 16.9991L5.33333 17V15.3333H16.31L14.1967 13.22L15.375 12.0416ZM8.625 3.70831L9.80333 4.88665L7.69 6.99998H18.6667V8.66665H7.69L9.80333 10.78L8.625 11.9583L4.5 7.83331L8.625 3.70831Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_200_1102">
+                                      <rect width="20" height="20" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a><a class="btn preview-product" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="28"
+                                  height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_91_73)">
+                                    <path
+                                      d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_91_73">
+                                      <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a></div>
+                          </div>
+                          <div class="cardInfo">
+                            <h6 class="text-16-medium">
+                              <%= product.title %>
+                            </h6>
+                            <p class="body-p2 cardDesc">₹<%= product.sales_price %>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <% } %>
+                        <% }) %>
+                          <!--End-product -->
 
             </div>
 
@@ -224,70 +250,71 @@
           <!--Women -->
           <div class="tab-pane fade" id="newproducts" role="tabpanel" aria-labelledby="newproducts-tab">
             <div class="row">
-                            <!--Product -->
-                            <% i = 0 %>
-                            <% allProducts.forEach(product=> { %>
-                              <% if (product.category.name === "Women" && i<8) { %>
-                                <% i++ %>
-                              <div class="col-lg-3 col-md-4 col-sm-6">
-                                <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
-                                  <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
-                                        style="height:269px; width: auto;" src="/images/<%= product.images[0] %>" alt="guza"><img
-                                        class="imageHover" src="/images/<%= product.images[1] %>" alt="guza"></a>
-                                    <div class="button-select"><a href="#">Add to cart</a></div>
-                                    <div class="box-quick-button"><a class="btn" href="#">
-                                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
-                                          viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-                                          <g clip-path="url(#clip0_116_452)">
-                                            <path
-                                              d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z"
-                                              fill=""></path>
-                                          </g>
-                                          <defs>
-                                            <clippath id="clip0_116_452">
-                                              <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
-                                            </clippath>
-                                          </defs>
-                                        </svg></a><a class="btn" href="#">
-                                        <svg class="d-inline-flex align-items-center justify-content-center" width="24" height="24"
-                                          viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <g clip-path="url(#clip0_200_1102)">
-                                            <path
-                                              d="M15.375 12.0416L19.5 16.1666L15.375 20.2916L14.1967 19.1133L16.31 16.9991L5.33333 17V15.3333H16.31L14.1967 13.22L15.375 12.0416ZM8.625 3.70831L9.80333 4.88665L7.69 6.99998H18.6667V8.66665H7.69L9.80333 10.78L8.625 11.9583L4.5 7.83331L8.625 3.70831Z"
-                                              fill=""></path>
-                                          </g>
-                                          <defs>
-                                            <clippath id="clip0_200_1102">
-                                              <rect width="20" height="20" fill="white" transform="translate(2 2)"></rect>
-                                            </clippath>
-                                          </defs>
-                                        </svg></a><a class="btn preview-product" href="#">
-                                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
-                                          viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
-                                          <g clip-path="url(#clip0_91_73)">
-                                            <path
-                                              d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"
-                                              fill=""></path>
-                                          </g>
-                                          <defs>
-                                            <clippath id="clip0_91_73">
-                                              <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
-                                            </clippath>
-                                          </defs>
-                                        </svg></a></div>
-                                  </div>
-                                  <div class="cardInfo">
-                                    <h6 class="text-16-medium">
-                                      <%= product.title %>
-                                    </h6>
-                                    <p class="body-p2 cardDesc">₹<%= product.sales_price %>
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <% } %>
-                              <% }) %>
-                            <!--End-product -->
+              <!--Product -->
+              <% i=0 %>
+                <% allProducts.forEach(product=> { %>
+                  <% if (product.category.name==="Women" && i<8) { %>
+                    <% i++ %>
+                      <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
+                          <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
+                                style="height:269px; width: auto;" src="/images/<%= product.images[0] %>"
+                                alt="guza"><img class="imageHover" src="/images/<%= product.images[1] %>"
+                                alt="guza"></a>
+                            <div class="button-select"><a href="#">Add to cart</a></div>
+                            <div class="box-quick-button"><a class="btn" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="28"
+                                  height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_116_452)">
+                                    <path
+                                      d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_116_452">
+                                      <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a><a class="btn" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="24"
+                                  height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_200_1102)">
+                                    <path
+                                      d="M15.375 12.0416L19.5 16.1666L15.375 20.2916L14.1967 19.1133L16.31 16.9991L5.33333 17V15.3333H16.31L14.1967 13.22L15.375 12.0416ZM8.625 3.70831L9.80333 4.88665L7.69 6.99998H18.6667V8.66665H7.69L9.80333 10.78L8.625 11.9583L4.5 7.83331L8.625 3.70831Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_200_1102">
+                                      <rect width="20" height="20" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a><a class="btn preview-product" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="28"
+                                  height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_91_73)">
+                                    <path
+                                      d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_91_73">
+                                      <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a></div>
+                          </div>
+                          <div class="cardInfo">
+                            <h6 class="text-16-medium">
+                              <%= product.title %>
+                            </h6>
+                            <p class="body-p2 cardDesc">₹<%= product.sales_price %>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <% } %>
+                        <% }) %>
+                          <!--End-product -->
             </div>
           </div>
 
@@ -295,72 +322,73 @@
           <div class="tab-pane fade" id="featureproducts" role="tabpanel" aria-labelledby="featureproducts-tab">
             <div class="row">
               <!--Product -->
-              <% i = 0 %>
-              <% allProducts.forEach(product=> { %>
-                <% if ((product.category.name === "Girls" || product.category.name === "Boys") && i<8) { %>
-                  <% i++ %>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                  <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
-                    <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
-                          style="height:269px; width: auto;" src="/images/<%= product.images[0] %>" alt="guza"><img
-                          class="imageHover" src="/images/<%= product.images[1] %>" alt="guza"></a>
-                      <div class="button-select"><a href="#">Add to cart</a></div>
-                      <div class="box-quick-button"><a class="btn" href="#">
-                          <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
-                            viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_116_452)">
-                              <path
-                                d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z"
-                                fill=""></path>
-                            </g>
-                            <defs>
-                              <clippath id="clip0_116_452">
-                                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
-                              </clippath>
-                            </defs>
-                          </svg></a><a class="btn" href="#">
-                          <svg class="d-inline-flex align-items-center justify-content-center" width="24" height="24"
-                            viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_200_1102)">
-                              <path
-                                d="M15.375 12.0416L19.5 16.1666L15.375 20.2916L14.1967 19.1133L16.31 16.9991L5.33333 17V15.3333H16.31L14.1967 13.22L15.375 12.0416ZM8.625 3.70831L9.80333 4.88665L7.69 6.99998H18.6667V8.66665H7.69L9.80333 10.78L8.625 11.9583L4.5 7.83331L8.625 3.70831Z"
-                                fill=""></path>
-                            </g>
-                            <defs>
-                              <clippath id="clip0_200_1102">
-                                <rect width="20" height="20" fill="white" transform="translate(2 2)"></rect>
-                              </clippath>
-                            </defs>
-                          </svg></a><a class="btn preview-product" href="#">
-                          <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28"
-                            viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_91_73)">
-                              <path
-                                d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"
-                                fill=""></path>
-                            </g>
-                            <defs>
-                              <clippath id="clip0_91_73">
-                                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
-                              </clippath>
-                            </defs>
-                          </svg></a></div>
-                    </div>
-                    <div class="cardInfo">
-                      <h6 class="text-16-medium">
-                        <%= product.title %>
-                      </h6>
-                      <p class="body-p2 cardDesc">₹<%= product.sales_price %>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <% } %>
-                <% }) %>
-              <!--End-product -->
-</div>
+              <% i=0 %>
+                <% allProducts.forEach(product=> { %>
+                  <% if ((product.category.name==="Girls" || product.category.name==="Boys" ) && i<8) { %>
+                    <% i++ %>
+                      <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="cardProductStyle3 cardProductType03 cardProductType02 wow fadeInUp">
+                          <div class="cardImage"><a href="/product/<%= product._id%>"><img class="imageMain"
+                                style="height:269px; width: auto;" src="/images/<%= product.images[0] %>"
+                                alt="guza"><img class="imageHover" src="/images/<%= product.images[1] %>"
+                                alt="guza"></a>
+                            <div class="button-select"><a href="#">Add to cart</a></div>
+                            <div class="box-quick-button"><a class="btn" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="28"
+                                  height="28" viewbox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_116_452)">
+                                    <path
+                                      d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_116_452">
+                                      <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a><a class="btn" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="24"
+                                  height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_200_1102)">
+                                    <path
+                                      d="M15.375 12.0416L19.5 16.1666L15.375 20.2916L14.1967 19.1133L16.31 16.9991L5.33333 17V15.3333H16.31L14.1967 13.22L15.375 12.0416ZM8.625 3.70831L9.80333 4.88665L7.69 6.99998H18.6667V8.66665H7.69L9.80333 10.78L8.625 11.9583L4.5 7.83331L8.625 3.70831Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_200_1102">
+                                      <rect width="20" height="20" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a><a class="btn preview-product" href="#">
+                                <svg class="d-inline-flex align-items-center justify-content-center" width="28"
+                                  height="28" viewbox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_91_73)">
+                                    <path
+                                      d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z"
+                                      fill=""></path>
+                                  </g>
+                                  <defs>
+                                    <clippath id="clip0_91_73">
+                                      <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                    </clippath>
+                                  </defs>
+                                </svg></a></div>
+                          </div>
+                          <div class="cardInfo">
+                            <h6 class="text-16-medium">
+                              <%= product.title %>
+                            </h6>
+                            <p class="body-p2 cardDesc">₹<%= product.sales_price %>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <% } %>
+                        <% }) %>
+                          <!--End-product -->
+            </div>
           </div>
-          
+
         </div>
       </div>
     </section>
@@ -399,104 +427,126 @@
     </section>
     <!-- Trusted partners End-->
 
-        <!-- Banner start -->
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Banner start -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-        <section class="section block-icon-box-type3 pb-80">
-          <div class="container">
-            <div class="row" style="padding: 50px 0px;">
-              <div class="bd-example">
-                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                       <% i=0 %>
-                      <% allBanner.forEach(banner=> { %>
-                        <li data-target="#carouselExampleCaptions" data-slide-to="<% i %>" <% if (i==0) { %>class="active"<% } %> ></li>
-                        <% i++ %>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <section class="section block-icon-box-type3 pb-80">
+      <div class="container">
+        <div class="row" style="padding: 50px 0px;">
+          <div class="bd-example">
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <% i=0 %>
+                  <% allBanner.forEach(banner=> { %>
+                    <li data-target="#carouselExampleCaptions" data-slide-to="<% i %>" <% if (i==0) { %>class="active"<%
+                        } %> ></li>
+                    <% i++ %>
                       <% }) %>
 
-                  </ol>
-                  <div class="carousel-inner">
-                  <% i=0 %>
+              </ol>
+              <div class="carousel-inner">
+                <% i=0 %>
                   <% allBanner.forEach(banner=> { %>
                     <% i++ %>
-                    <div class="carousel-item <% if (i==1) { %>active<% } %>">
-                      <img src="/images/<%=banner.image%>" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5><%= banner.name %></h5>
+                      <div class="carousel-item <% if (i==1) { %>active<% } %>">
+                        <img src="/images/<%=banner.image%>" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h5>
+                            <%= banner.name %>
+                          </h5>
+                        </div>
                       </div>
-                    </div>
-                  <% }) %>
+                      <% }) %>
 
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
               </div>
-
+              <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
             </div>
           </div>
-        </section>
-        <!-- Banner end -->
+
+        </div>
+      </div>
+    </section>
+    <!-- Banner end -->
     <!-- Brand -->
     <section class="section block-categories-home26">
-      <div class="container"> 
-        <div class="row"> 
+      <div class="container">
+        <div class="row">
           <div class="col-7 mb-40">
             <h3>Brands</h3>
           </div>
           <div class="col-5 mb-40">
             <div class="position-relative box-button-top-0">
               <div class="box-page-swiper">
-                <div class="swiper-button-prev swiper-button-prev-popular-product btn-prev-style-1" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-223ddb2a8dd45926" aria-disabled="false"></div>
-                <div class="swiper-button-next swiper-button-next-popular-product btn-next-style-1 swiper-button-disabled" tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-223ddb2a8dd45926" aria-disabled="true"></div>
+                <div class="swiper-button-prev swiper-button-prev-popular-product btn-prev-style-1" tabindex="0"
+                  role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-223ddb2a8dd45926"
+                  aria-disabled="false"></div>
+                <div
+                  class="swiper-button-next swiper-button-next-popular-product btn-next-style-1 swiper-button-disabled"
+                  tabindex="-1" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-223ddb2a8dd45926"
+                  aria-disabled="true"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- brand -->
-      <div class="container-slider-padding" style="padding-left: 381.5px;">   
+      <div class="container-slider-padding" style="padding-left: 381.5px;">
         <div class="box-swiper">
-          <div class="swiper-container swiper-scrollbar-4-items swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-            <div class="swiper-wrapper" style="transform: translate3d(-388px, 0px, 0px); transition-duration: 0ms;" id="swiper-wrapper-223ddb2a8dd45926" aria-live="polite">
-              <% brands.forEach(brand => { %>
-              <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group" aria-label="1 / 5">
-                <div class="cardProductCategory02 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-                  <div class="cardImage"><a href="/shop?brand=<%= brand.brand %>"><img class="imageMain" style="height:400px; width: 420px;" src="/images/<%= brand.firstImage %>" alt="guza"></a></div>
-                  <div class="cardInfo">
-                    <h5 class="text-24-medium"><%= brand.brand %></h5>
-                    <p class="text-17-medium cardDesc"><%= brand.productCount %> items</p>
+          <div
+            class="swiper-container swiper-scrollbar-4-items swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
+            <div class="swiper-wrapper" style="transform: translate3d(-388px, 0px, 0px); transition-duration: 0ms;"
+              id="swiper-wrapper-223ddb2a8dd45926" aria-live="polite">
+              <% brands.forEach(brand=> { %>
+                <div class="swiper-slide swiper-slide-prev" style="width: 358px ; margin-right: 30px;" role="group"
+                  aria-label="1 / 5">
+                  <div class="cardProductCategory02 wow fadeInUp"
+                    style="visibility: visible; animation-name: fadeInUp;">
+                    <div class="cardImage"><a href="/shop?brand=<%= brand.brand %>"><img class="imageMain"
+                          style="height:400px; width: 420px;" src="/images/<%= brand.firstImage %>" alt="guza"></a>
+                    </div>
+                    <div class="cardInfo">
+                      <h5 class="text-24-medium">
+                        <%= brand.brand %>
+                      </h5>
+                      <p class="text-17-medium cardDesc">
+                        <%= brand.productCount %> items
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <% }) %>
+                <% }) %>
 
             </div>
-          <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+          </div>
         </div>
       </div>
 
       <!-- brand end-->
       <div class="container swiper-full-scroll">
-        <div class="swiper-pagination swiper-pagination-popular-product"><div class="swiper-scrollbar-drag" style="transform: translate3d(232.082px, 0px, 0px); transition-duration: 0ms; width: 913.2px;"></div></div>
+        <div class="swiper-pagination swiper-pagination-popular-product">
+          <div class="swiper-scrollbar-drag"
+            style="transform: translate3d(232.082px, 0px, 0px); transition-duration: 0ms; width: 913.2px;"></div>
+        </div>
       </div>
     </section>
     <!-- Brand End -->
     <!-- Video -->
     <section class="section block-moving-forward-home26">
-      
+
       <div class="container">
         <div class="text-center">
           <h3 class="text-34-bold mb-40">MOVING FORWARD<br class="d-none d-lg-block">WITH NIKE SHOES</h3>
@@ -510,7 +560,7 @@
 
 
     <!-- Features -->
-    <section class="section block-icon-box-type3 pb-80" >
+    <section class="section block-icon-box-type3 pb-80">
       <div class="container">
         <div class="row" style="padding: 100px 0px;">
           <div class="col-md-3 col-sm-6">
@@ -553,19 +603,23 @@
       </div>
     </section>
     <!-- Features End -->
-    
+
     <!-- Event -->
-    <section class="section block-sale-event" style="padding-bottom: 150px;"> 
-      <div class="container"> 
+    <section class="section block-sale-event" style="padding-bottom: 150px;">
+      <div class="container">
         <div class="box-sale-event">
-          <div class="row align-items-center"> 
+          <div class="row align-items-center">
             <div class="col-lg-6">
-              <div class="image-sale-event wow" style="visibility: visible; "> <img src="https://i.shgcdn.com/cdbaa606-f120-4c6e-a452-8729387f07aa/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Guza"></div>
+              <div class="image-sale-event wow" style="visibility: visible; "> <img
+                  src="https://i.shgcdn.com/cdbaa606-f120-4c6e-a452-8729387f07aa/-/format/auto/-/preview/3000x3000/-/quality/lighter/"
+                  alt="Guza"></div>
             </div>
             <div class="col-lg-6">
-              <div class="box-padding wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;"><span class="text-17-medium neutral-dark text-uppercase">Sale Event</span>
+              <div class="box-padding wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;"><span
+                  class="text-17-medium neutral-dark text-uppercase">Sale Event</span>
                 <h3 class="neutral-dark mb-5 mt-10">Summer Shoe <br class="d-none d-lg-block">Limited Offer – ₹200</h3>
-                <p class="body-p2 neutral-dark mb-30">Until 12/27/23. Use code SUMMER43 at checkout</p><a class="btn btn-black" href="/shop">Shop Now</a>
+                <p class="body-p2 neutral-dark mb-30">Until 12/27/23. Use code SUMMER43 at checkout</p><a
+                  class="btn btn-black" href="/shop">Shop Now</a>
               </div>
             </div>
           </div>
@@ -581,17 +635,22 @@
     <div class="container">
       <div class="footer-bottom">
         <div class="row align-items-center">
-          <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img class="mr-25 d-inline-block align-middle logo-footer-img" src="assets2/imgs/template/logo-light.svg" alt="Guza"><span class="body-p1 color-white d-inline-block align-middle">© 2023 Guza.Co. All rights reserved</span></div>
+          <div class="col-lg-6 col-md-12 text-center text-lg-start mb-20"><img
+              class="mr-25 d-inline-block align-middle logo-footer-img" src="assets2/imgs/template/logo-light.svg"
+              alt="Guza"><span class="body-p1 color-white d-inline-block align-middle">© 2023 Guza.Co. All rights
+              reserved</span></div>
           <div class="col-lg-6 col-md-12 text-center text-lg-end mb-20">
             <div class="d-flex justify-content-center justify-content-lg-end align-items-center box-all-payments">
               <div class="dropdown mr-20">
-                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button" data-bs-toggle="dropdown" aria-expanded="false">EN</button>
+                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownLang" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">EN</button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownLang">
                   <li><a class="dropdown-item" href="#">EN</a></li>
                 </ul>
               </div>
               <div class="dropdown">
-                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownCurrency" type="button" data-bs-toggle="dropdown" aria-expanded="false">IND</button>
+                <button class="btn btn-line-bottom dropdown-toggle" id="dropdownCurrency" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">IND</button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownCurrency">
                   <li><a class="dropdown-item" href="#">IND</a></li>
                 </ul>

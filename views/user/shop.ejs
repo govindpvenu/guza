@@ -1,7 +1,7 @@
   <body>
     <main class="main">
       <!-- breadcrumbs -->
-      <section class="section block-banner-shop"> 
+      <section class="section block-banner-shop" style="background-image: url(/assets2/Images/shop-banner.jpg);"> 
         <div class="container"> 
           <h1 class="text-56-medium">Shop</h1>
           <div class="breadcrumbs"> 
@@ -242,23 +242,6 @@
         </nav>
         </div>
       </section>
-                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                      <% allBanner.forEach(banner=> { %>
-                  
-                        <div class="carousel-item active">
-                          <img class="d-block w-100"  style="height: 500px; width: 100px;" src="/images/<%= banner.image %>" alt="First slide">
-                        </div>
-                        <% }) %>
-                          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                    </div>
     </main>
     <footer class="footer">
       <div class="container">

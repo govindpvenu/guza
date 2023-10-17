@@ -158,11 +158,12 @@
                                                     </thead>
 
                                                     <tbody>
-                                                        <% a=1 %>
+                                                        <% userNo=-7+page*7 %>
                                                             <% allCustomers.forEach(customer=> { %>
+                                                                        <% userNo++%>
                                                                 <tr>
                                                                     <td style="padding-left: 115px;">
-                                                                        <%= a++%>
+                                                                        <%= userNo%>
                                                                     </td>
                                                                     <td>
                                                                         <div class="user-name">

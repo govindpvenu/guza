@@ -111,12 +111,14 @@ const checkoutPage = async (req, res) => {
         if (!userCart.cart.length) {
             res.redirect("/cart")
         } else {
-
+            const currentDate = new Date()
             let coupons = await Coupon.find({
                 minPrice: { $lte: grandTotal },
                 isDeleted: false,
                 status: "enabled",
-                user: { $nin: [res.locals.user._id] }
+                user: { $nin: [res.locals.user._id] },
+                'startDate': { '$lte': currentDate },
+                'endDate': { '$gte': currentDate }
             });
 
 

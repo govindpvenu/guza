@@ -101,15 +101,13 @@ const updateProduct = asyncHandler(async (req, res) => {
     let product_id = req.params.id
     const { title, description, brand, category, regular_price, sales_price, quantity, product_type, size, stock_status } = req.body
     const category_id = await Category.findOne({ name: category }, {})
-    // const fileNames = req.files.map(file => file.filename);
     const fileNames = req.body.images
-    const imgImp = req.body.imageImport.split(",")
-    console.log("fileNamesU:" + fileNames)
-    console.log("imgImp:" + imgImp)
-
+    if (req.body.imageImport){
+        var imgImp = req.body.imageImport.split(",")
+    }else{
+        var imgImp = []
+    }
     const imgArr = [...fileNames, ...imgImp]
-
-    console.log("imgArr:" + imgArr)
     if (req.files.length) {
         const product = await Product.findByIdAndUpdate(
             { _id: product_id },
@@ -157,7 +155,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
     res.redirect("/admin/products")
 })
 
-//delete product image
+//GET
+//@route /admin/delete-image/:id/:img
 const deleteImage = async (req, res) => {
     const id = req.params.id
     const img = req.params.img
