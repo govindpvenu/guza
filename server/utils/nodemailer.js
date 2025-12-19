@@ -7,17 +7,17 @@ const generateOTP = () => {
 const sendEmail = async (email, generatedOTP) => {
     try {
         const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
-            service: "Gmail",
+            host: process.env.EMAIL_HOST || "smtp.gmail.com",
+            port: parseInt(process.env.EMAIL_PORT) || 465,
+            secure: process.env.EMAIL_SECURE === "false" ? false : true,
+            service: process.env.EMAIL_SERVICE || "Gmail",
             auth: {
-                user: "govindpvenu.txt@gmail.com",
-                pass: "xmmdtviyfcbstqrr",
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
             },
         })
         let mailOptions = {
-            from: "govindpvenu.txt@gmail.com",
+            from: process.env.EMAIL_FROM,
             to: email,
             subject: "Otp for registration is: ",
             html: "<h3>OTP for account verification is </h3>" + "<h1 style='font-weight:bold;'>" + generatedOTP + "</h1>",

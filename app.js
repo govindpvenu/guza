@@ -21,7 +21,7 @@ const port = process.env.PORT || 3000
 app.use(cookieParser())
 app.use(
     session({
-        secret: "some secret",
+        secret: process.env.SESSION_SECRET || "some secret",
         cookie: {
             maxAge: 1000 * 60 * 60 * 24, // 24 hours
         },
