@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const User = require("../../models/User")
-const { sendEmail, generateOTP } = require("../../utils/nodemailer")
+const { sendEmail, generateOTP } = require("../../utils/resend")
 
 let maxAge = 3 * 24 * 60 * 60
 

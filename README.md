@@ -18,7 +18,7 @@ Watch a complete walkthrough of the admin dashboard features:
 
 [![Admin Dashboard Demo](public/guza-admin.png)](https://youtu.be/H5I8_jIdNLY?t=165)
 
-*Click the thumbnail above to watch the full demo video on YouTube*
+_Click the thumbnail above to watch the full demo video on YouTube_
 
 ## 📋 Project Overview
 
@@ -29,141 +29,156 @@ Guza is a comprehensive e-commerce platform that demonstrates proficiency in bui
 ## 🚀 Features
 
 ### User Features
-- **Authentication & Authorization**
-  - User registration with email verification (OTP)
-  - Secure login/logout functionality
-  - Session management with JWT tokens
-  - Password hashing with bcrypt
 
-- **Product Browsing**
-  - Product catalog with detailed views
-  - Advanced search functionality
-  - Category-based filtering
-  - Pagination for better performance
-  - Product image zoom and gallery
+-   **Authentication & Authorization**
 
-- **Shopping Experience**
-  - Shopping cart management
-  - Wishlist functionality
-  - Multiple address management
-  - Order tracking and history
-  - Order cancellation
+    -   User registration with email verification (OTP)
+    -   Secure login/logout functionality
+    -   Session management with JWT tokens
+    -   Password hashing with bcrypt
 
-- **Payment & Checkout**
-  - Razorpay payment integration
-  - Coupon code system
-  - Wallet system for payments
-  - Multiple payment methods
+-   **Product Browsing**
 
-- **User Account**
-  - Profile management
-  - Address management (add, edit, delete)
-  - Order history and details
-  - Referral system
-  - Wallet balance management
+    -   Product catalog with detailed views
+    -   Advanced search functionality
+    -   Category-based filtering
+    -   Pagination for better performance
+    -   Product image zoom and gallery
+
+-   **Shopping Experience**
+
+    -   Shopping cart management
+    -   Wishlist functionality
+    -   Multiple address management
+    -   Order tracking and history
+    -   Order cancellation
+
+-   **Payment & Checkout**
+
+    -   Razorpay payment integration
+    -   Coupon code system
+    -   Wallet system for payments
+    -   Multiple payment methods
+
+-   **User Account**
+    -   Profile management
+    -   Address management (add, edit, delete)
+    -   Order history and details
+    -   Referral system
+    -   Wallet balance management
 
 ### Admin Features
-- **Dashboard**
-  - Sales reports and analytics
-  - Order management
-  - Customer management
 
-- **Product Management**
-  - Create, Read, Update, Delete (CRUD) operations
-  - Product image upload and optimization
-  - Category management
-  - Inventory management
+-   **Dashboard**
 
-- **Content Management**
-  - Banner management
-  - Coupon creation and management
-  - Category management
+    -   Sales reports and analytics
+    -   Order management
+    -   Customer management
+
+-   **Product Management**
+
+    -   Create, Read, Update, Delete (CRUD) operations
+    -   Product image upload and optimization
+    -   Category management
+    -   Inventory management
+
+-   **Content Management**
+    -   Banner management
+    -   Coupon creation and management
+    -   Category management
 
 ## 🛠️ Tech Stack
 
 ### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB with Mongoose ODM
-- **Authentication:** JWT, bcrypt, express-session
-- **File Upload:** Multer with Sharp (image optimization)
-- **Payment Gateway:** Razorpay
-- **Email Service:** Nodemailer
-- **Validation:** Express-validator
+
+-   **Runtime:** Node.js
+-   **Framework:** Express.js
+-   **Database:** MongoDB with Mongoose ODM
+-   **Authentication:** JWT, bcrypt, express-session
+-   **File Upload:** Multer with Sharp (image optimization)
+-   **Payment Gateway:** Razorpay
+-   **Email Service:** Resend
+-   **Validation:** Express-validator
 
 ### Frontend
-- **Template Engine:** EJS (Embedded JavaScript)
-- **Styling:** Custom CSS with Bootstrap components
-- **JavaScript:** Vanilla JS, jQuery
-- **UI Libraries:** SweetAlert2, DataTables, Select2
+
+-   **Template Engine:** EJS (Embedded JavaScript)
+-   **Styling:** Custom CSS with Bootstrap components
+-   **JavaScript:** Vanilla JS, jQuery
+-   **UI Libraries:** SweetAlert2, DataTables, Select2
 
 ### Development Tools
-- **Environment Variables:** dotenv
-- **Development Server:** Nodemon
-- **Code Formatting:** Prettier
+
+-   **Environment Variables:** dotenv
+-   **Development Server:** Nodemon
+-   **Code Formatting:** Prettier
 
 ## 📦 Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd guza
-   ```
+
+    ```bash
+    git clone <repository-url>
+    cd guza
+    ```
 
 2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 3. **Set up environment variables**
    Create a `.env` file in the root directory:
-   ```env
-   PORT=3000
-   MONGODB_URI=your_mongodb_connection_string
-   SESSION_SECRET=your_session_secret
-   JWT_SECRET=your_jwt_secret
-   RAZORPAY_KEY_ID=your_razorpay_key_id
-   RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-   EMAIL_USER=your_email
-   EMAIL_PASS=your_email_password
-   ```
+
+    ```env
+    PORT=3000
+    MONGODB_URI=your_mongodb_connection_string
+    SESSION_SECRET=your_session_secret
+    JWT_SECRET=your_jwt_secret
+    RAZORPAY_KEY_ID=your_razorpay_key_id
+    RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+    EMAIL_USER=your_email
+    EMAIL_PASS=your_email_password
+    ```
 
 4. **Run the application**
-   ```bash
-   # Development mode
-   npm run dev
 
-   # Production mode
-   npm start
-   ```
+    ```bash
+    # Development mode
+    npm run dev
+
+    # Production mode
+    npm start
+    ```
 
 5. **Access the application**
-   - User Interface: `http://localhost:3000`
-   - Admin Panel: `http://localhost:3000/admin`
+    - User Interface: `http://localhost:3000`
+    - Admin Panel: `http://localhost:3000/admin`
 
 ## 🎯 Learning Objectives
 
 This project was built to learn and practice:
 
-- **CRUD Operations:** Full Create, Read, Update, Delete functionality for products, categories, orders, and users
-- **Database Design:** MongoDB schema design and relationships
-- **Authentication & Security:** JWT tokens, password hashing, session management
-- **Search & Filter:** Advanced product search and filtering mechanisms
-- **Pagination:** Efficient data pagination for large datasets
-- **Payment Integration:** Third-party payment gateway (Razorpay) integration
-- **File Upload:** Image upload, processing, and optimization
-- **Email Services:** OTP verification and transactional emails
-- **API Design:** RESTful API structure and routing
-- **Middleware:** Custom middleware for authentication and validation
-- **Error Handling:** Comprehensive error handling and validation
+-   **CRUD Operations:** Full Create, Read, Update, Delete functionality for products, categories, orders, and users
+-   **Database Design:** MongoDB schema design and relationships
+-   **Authentication & Security:** JWT tokens, password hashing, session management
+-   **Search & Filter:** Advanced product search and filtering mechanisms
+-   **Pagination:** Efficient data pagination for large datasets
+-   **Payment Integration:** Third-party payment gateway (Razorpay) integration
+-   **File Upload:** Image upload, processing, and optimization
+-   **Email Services:** OTP verification and transactional emails
+-   **API Design:** RESTful API structure and routing
+-   **Middleware:** Custom middleware for authentication and validation
+-   **Error Handling:** Comprehensive error handling and validation
 
 ## 📁 Project Structure
 
 This project follows the **MVC (Model-View-Controller)** architecture pattern:
 
-- **Models** (`server/models/`): Define data structures and database schemas
-- **Views** (`views/`): Handle presentation layer (EJS templates)
-- **Controllers** (`server/controllers/`): Manage business logic and handle requests
+-   **Models** (`server/models/`): Define data structures and database schemas
+-   **Views** (`views/`): Handle presentation layer (EJS templates)
+-   **Controllers** (`server/controllers/`): Manage business logic and handle requests
 
 ```
 guza/
@@ -174,7 +189,7 @@ guza/
 │   ├── middleware/       # Authentication & validation middleware
 │   ├── models/           # MongoDB schemas - Model layer
 │   ├── routes/           # Route definitions
-│   ├── utils/            # Utility functions (multer, nodemailer, etc.)
+│   ├── utils/            # Utility functions (multer, resend, etc.)
 │   └── helper/           # Helper functions
 ├── views/                # EJS templates - View layer
 │   ├── admin/           # Admin panel views
