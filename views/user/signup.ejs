@@ -3,11 +3,13 @@
         <div class="column1">
             <div>
                 <!-- flash message -->
-                <% messages.forEach(element=> { %>
-                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                        <%= element %>
-                    </div>
+                <% if (messages && messages.length > 0) { %>
+                    <% messages.forEach(element=> { %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <%= element %>
+                        </div>
                     <% }) %>
+                <% } %>
             </div>
         <form action="/signup" method="post" role="form" id="form" class="form">
             <h2>Sign up</h2>

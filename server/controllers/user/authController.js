@@ -63,11 +63,30 @@ const registerUser = asyncHandler(async (req, res) => {
             console.log("Received otp:")
             console.log(generatedOTP)
 
+            // Save session before sending email
+            await new Promise((resolve, reject) => {
+                req.session.save((err) => {
+                    if (err) reject(err)
+                    else resolve()
+                })
+            })
+
             await sendEmail(email, generatedOTP)
 
             res.redirect("/verify")
         } catch (error) {
-            console.error(error)
+            console.error("Signup error:", error)
+            // Render signup page with error message
+            await req.flash("error", "Failed to send verification email. Please try again.")
+            const errorMessages = await req.consumeFlash("error")
+            const successMessages = await req.consumeFlash("success")
+            const messages = [...successMessages, ...errorMessages]
+            res.render("user/signup", {
+                layout: "layouts/authLayout",
+                emailErr: false,
+                phoneErr: false,
+                messages,
+            })
         }
     }
 })
